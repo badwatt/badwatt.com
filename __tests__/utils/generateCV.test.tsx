@@ -1,15 +1,13 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from "vite-plus/test";
 import {
   getBioText,
-  loadImage,
-  loadImageToPng,
-  toCircular,
   generateCV,
   parseDescription,
   drawMarkdown,
   measureMarkdown,
   drawJob,
 } from "src/utils/generateCV";
+import { loadImage, loadImageToPng, toCircular } from "src/infrastructure/pdf/assets";
 import {
   CV_THEMES,
   getThemeById,
