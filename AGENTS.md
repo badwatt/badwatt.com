@@ -67,11 +67,13 @@ Four layers. Dependencies point inward only:
 
 - `domain` holds the rules: the CV data model, date parsing, pagination maths. No React,
   no Astro, no jsPDF, no `import.meta.env`, no `fetch`, no DOM.
-- `application` holds the use cases (`generateCv`, `verifyCapToken`) and declares the
-  ports they need next to them. A port is a small `type` with the two or three members
+- `application` holds the use cases (`requestCv`, `loadSiteContent`, `verifyCapToken`) and
+  declares the ports they need next to them. A port is a small `type` with the two or three members
   the use case actually calls, not a folder of empty interfaces.
 - `infrastructure` holds one adapter per port: `getCollection` for content, jsPDF for the
-  PDF, `fetch` for Cap, EmailJS for mail.
+  PDF, `fetch` for Cap, EmailJS for mail. Inside `infrastructure/pdf`, `canvas` is the
+  drawing port, `markdown` draws blocks, `sections` and `sidebar` draw the page, and
+  `generateCv` owns the assets, the page loop and the jsPDF instance.
 - `ui` orchestrates and renders. It never parses markdown, never touches jsPDF and never
   knows a provider's payload. `src/hooks/**` is UI as well: state and effects shared by
   more than one view (`useCV`, `useZoom`).
