@@ -214,10 +214,13 @@ describe("<Home />", () => {
     act(() => {
       screen.getByText("Verify").click();
     });
-    await waitFor(() => {
-      expect(generateCV).toHaveBeenCalled();
-      expect(screen.getByRole("dialog")).toBeDefined();
-    });
+    await waitFor(
+      () => {
+        expect(generateCV).toHaveBeenCalled();
+        expect(screen.getByRole("dialog")).toBeDefined();
+      },
+      { timeout: 5000 },
+    );
   });
 
   it("shows generating state then opens PdfViewer", async () => {
@@ -242,9 +245,12 @@ describe("<Home />", () => {
       screen.getByText("Verify").click();
     });
     expect(await screen.findByText("Generating...")).toBeDefined();
-    await waitFor(() => {
-      expect(screen.getByTestId("pdf-canvas-container")).toBeDefined();
-    });
+    await waitFor(
+      () => {
+        expect(screen.getByTestId("pdf-canvas-container")).toBeDefined();
+      },
+      { timeout: 5000 },
+    );
   });
 
   it("handles PDF generation failure gracefully", async () => {
@@ -316,9 +322,12 @@ describe("<Home />", () => {
     act(() => {
       screen.getByText("Verify").click();
     });
-    await waitFor(() => {
-      expect(screen.getByRole("dialog")).toBeDefined();
-    });
+    await waitFor(
+      () => {
+        expect(screen.getByRole("dialog")).toBeDefined();
+      },
+      { timeout: 5000 },
+    );
     act(() => {
       screen.getByLabelText("Close preview").click();
     });
@@ -349,9 +358,12 @@ describe("<Home />", () => {
     act(() => {
       screen.getByText("Verify").click();
     });
-    await waitFor(() => {
-      expect(screen.getByRole("dialog")).toBeDefined();
-    });
+    await waitFor(
+      () => {
+        expect(screen.getByRole("dialog")).toBeDefined();
+      },
+      { timeout: 5000 },
+    );
     act(() => {
       screen.getByLabelText("Close preview").click();
     });

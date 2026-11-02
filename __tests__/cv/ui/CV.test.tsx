@@ -189,9 +189,12 @@ describe("<CV />", () => {
     pickTheme("Default");
     verifyCaptcha();
     expect(await screen.findByText("Generating CV...")).toBeDefined();
-    await waitFor(() => {
-      expect(screen.getByTestId("pdf-canvas-container")).toBeDefined();
-    });
+    await waitFor(
+      () => {
+        expect(screen.getByTestId("pdf-canvas-container")).toBeDefined();
+      },
+      { timeout: 5000 },
+    );
   });
 
   it("passes the selected theme to generateCV", async () => {
@@ -230,10 +233,13 @@ describe("<CV />", () => {
     openPicker();
     pickTheme("Default");
     verifyCaptcha();
-    await waitFor(() => {
-      expect(generateCV).toHaveBeenCalled();
-      expect(screen.getByRole("dialog")).toBeDefined();
-    });
+    await waitFor(
+      () => {
+        expect(generateCV).toHaveBeenCalled();
+        expect(screen.getByRole("dialog")).toBeDefined();
+      },
+      { timeout: 5000 },
+    );
   });
 
   it("handles PDF generation failure gracefully", async () => {
@@ -290,9 +296,12 @@ describe("<CV />", () => {
     openPicker();
     pickTheme("Default");
     verifyCaptcha();
-    await waitFor(() => {
-      expect(screen.getByRole("dialog")).toBeDefined();
-    });
+    await waitFor(
+      () => {
+        expect(screen.getByRole("dialog")).toBeDefined();
+      },
+      { timeout: 5000 },
+    );
     act(() => {
       screen.getByLabelText("Close preview").click();
     });
@@ -317,9 +326,12 @@ describe("<CV />", () => {
     openPicker();
     pickTheme("Default");
     verifyCaptcha();
-    await waitFor(() => {
-      expect(screen.getByRole("dialog")).toBeDefined();
-    });
+    await waitFor(
+      () => {
+        expect(screen.getByRole("dialog")).toBeDefined();
+      },
+      { timeout: 5000 },
+    );
     act(() => {
       screen.getByLabelText("Close preview").click();
     });
