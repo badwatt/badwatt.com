@@ -5,14 +5,13 @@ import { parseExperienceSubgroups } from "src/domain/markdown";
 import { PAGE_H, M, chipBodyTopPad, fitSubgroups } from "src/domain/cv/layout";
 import { loadImage, loadImageToPng, toCircular } from "src/infrastructure/pdf/assets";
 import {
-  SIDEBAR_W,
   continuationHeader,
   drawFooter,
   drawHeader,
   drawJobCard,
-  drawSidebar,
   startPage,
 } from "src/infrastructure/pdf/sections";
+import { SIDEBAR_W, drawSidebar } from "src/infrastructure/pdf/sidebar";
 
 export async function generateCV(
   theme: CVTheme,

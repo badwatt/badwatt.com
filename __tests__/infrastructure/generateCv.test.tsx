@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from "vite-plus/test";
 import { generateCV } from "src/infrastructure/pdf/generateCv";
-import { getBioText } from "src/infrastructure/pdf/sections";
+import { getBioText } from "src/infrastructure/pdf/sidebar";
 import { tokenize } from "src/domain/markdown";
 import { drawJob } from "src/infrastructure/pdf/sections";
 import { drawMarkdown } from "src/infrastructure/pdf/markdown";

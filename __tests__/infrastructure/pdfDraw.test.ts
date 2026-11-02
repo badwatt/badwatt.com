@@ -1,7 +1,8 @@
 import { describe, expect, it, vi } from "vite-plus/test";
 import type { PdfCanvas } from "src/infrastructure/pdf/canvas";
 import { drawMarkdown } from "src/infrastructure/pdf/markdown";
-import { drawSidebar, sectionTitle, startPage } from "src/infrastructure/pdf/sections";
+import { sectionTitle, startPage } from "src/infrastructure/pdf/sections";
+import { drawSidebar } from "src/infrastructure/pdf/sidebar";
 import { buildColors, getThemeById } from "src/domain/cv/theme";
 
 const C = buildColors(getThemeById("default").colors);
