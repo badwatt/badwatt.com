@@ -1,6 +1,6 @@
 ---
 title: "badwatt.com"
-image: "../../assets/images/readme/badwatt.png"
+image: "../../assets/portfolio/badwatt/site.png"
 url: "https://github.com/badwatt/badwatt.com"
 ---
 
