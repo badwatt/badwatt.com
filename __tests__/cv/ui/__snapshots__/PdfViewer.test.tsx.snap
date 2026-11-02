@@ -1,7 +1,10 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`PdfViewer > snapshot 1`] = `
-<div>
+<body
+  style="overflow: hidden; touch-action: none;"
+>
+  <div />
   <div
     class="fixed inset-0 z-[70] flex items-center justify-center bg-badwatt-base/80 backdrop-blur-md transition-opacity duration-300"
     data-testid="modal-backdrop"
@@ -123,5 +126,5 @@ exports[`PdfViewer > snapshot 1`] = `
       </div>
     </div>
   </div>
-</div>
+</body>
 `;

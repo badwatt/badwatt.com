@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import type { ReactNode } from "react";
 
 export interface ModalProps {
@@ -51,7 +52,7 @@ export function Modal({ isOpen, onClose, children, className = "", ariaLabel }: 
 
   const stopPropagation = (e: React.MouseEvent) => e.stopPropagation();
 
-  return (
+  return createPortal(
     <div
       data-testid="modal-backdrop"
       onClick={onClose}
@@ -74,6 +75,7 @@ export function Modal({ isOpen, onClose, children, className = "", ariaLabel }: 
       >
         {children}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

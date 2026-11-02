@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, type ReactNode } from "react";
 import { CapWidget } from "src/captcha/ui/CapWidget";
 import { CVThemePicker } from "src/cv/ui/CVThemePicker";
 import { Modal } from "src/cv/ui/Modal";
@@ -12,16 +12,15 @@ interface CvLauncherProps {
   experienceData: ExperienceEntry[];
   aboutData: AboutEntry[];
   skillsData: SkillEntry[];
+  /** What the page shows before the flow starts; `start` opens the palette picker. */
+  idle: (start: () => void) => ReactNode;
 }
 
-const TRIGGER =
-  "px-8 py-3.5 border border-badwatt-border text-badwatt-white font-semibold rounded-xl hover:border-badwatt-primary/50 hover:text-badwatt-primary transition-all duration-300 active:scale-[0.97] cursor-pointer";
-
 /**
- * The whole CV flow as one widget: trigger, palette picker, captcha, generating
- * state and the viewer. A page renders it and knows nothing else about the CV.
+ * The whole CV flow as one widget: palette picker, captcha, generating state and
+ * the viewer. The page only decides how the idle state looks.
  */
-export const CvLauncher = ({ experienceData, aboutData, skillsData }: CvLauncherProps) => {
+export const CvLauncher = ({ experienceData, aboutData, skillsData, idle }: CvLauncherProps) => {
   const cv = useCV({ experienceData, aboutData, skillsData });
 
   return (
@@ -42,9 +41,7 @@ export const CvLauncher = ({ experienceData, aboutData, skillsData }: CvLauncher
           </button>
         </div>
       ) : (
-        <button type="button" onClick={cv.openThemes} className={TRIGGER}>
-          CV
-        </button>
+        idle(cv.openThemes)
       )}
 
       {cv.viewerUrl !== null && (

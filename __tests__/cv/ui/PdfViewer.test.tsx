@@ -145,7 +145,8 @@ describe("PdfViewer", () => {
 
   it("snapshot", () => {
     mockMatchMedia(true);
-    const { container } = render(<PdfViewer src="blob:test" isOpen={true} onClose={vi.fn()} />);
-    expect(container).toMatchSnapshot();
+    render(<PdfViewer src="blob:test" isOpen={true} onClose={vi.fn()} />);
+    // The viewer renders into a portal on document.body, not into the container.
+    expect(document.body).toMatchSnapshot();
   });
 });

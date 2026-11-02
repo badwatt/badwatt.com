@@ -156,6 +156,43 @@ describe("<Home />", () => {
     expect(screen.queryByText("Verify")).toBeNull();
   });
 
+  it("keeps the palette picker out of the hero section", () => {
+    const { container } = render(
+      <Home
+        experienceData={testExperienceData}
+        aboutData={testAboutData}
+        skillsData={testSkillsData}
+      />,
+    );
+    act(() => {
+      screen.getByText("CV").click();
+    });
+
+    // The hero wraps its content in a transformed element, which would become the
+    // containing block of a fixed overlay and push it off centre.
+    expect(container.contains(screen.getByTestId("modal-panel"))).toBe(false);
+    expect(document.body.contains(screen.getByTestId("modal-panel"))).toBe(true);
+  });
+
+  it("replaces the call to action with the captcha while the flow runs", () => {
+    render(
+      <Home
+        experienceData={testExperienceData}
+        aboutData={testAboutData}
+        skillsData={testSkillsData}
+      />,
+    );
+    act(() => {
+      screen.getByText("CV").click();
+    });
+    act(() => {
+      screen.getByLabelText("Select Default theme").click();
+    });
+
+    expect(screen.getByText("Verify")).toBeDefined();
+    expect(screen.queryByText("View work")).toBeNull();
+  });
+
   it("picking a theme closes modal and shows captcha", () => {
     render(
       <Home
