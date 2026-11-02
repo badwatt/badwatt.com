@@ -1,19 +1,15 @@
 import type { APIRoute } from "astro";
+import { verifyCapToken } from "src/application/verifyCapToken";
 
 export const POST: APIRoute = async ({ request }) => {
   const { token } = (await request.json()) as { token: string };
-  const url = `${import.meta.env.PUBLIC_CAP_URL}/${import.meta.env.PUBLIC_CAP_SITE_KEY}/siteverify`;
-  const res = await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      secret: import.meta.env.CAP_SECRET,
-      response: token,
-    }),
+
+  const { ok } = await verifyCapToken(token, {
+    endpoint: import.meta.env.PUBLIC_CAP_URL,
+    siteKey: import.meta.env.PUBLIC_CAP_SITE_KEY,
+    secret: import.meta.env.CAP_SECRET,
+    fetchImpl: fetch,
   });
-  const data = (await res.json()) as { success: boolean };
-  if (!data.success) {
-    return new Response(JSON.stringify({ ok: false }), { status: 400 });
-  }
-  return new Response(JSON.stringify({ ok: true }), { status: 200 });
+
+  return new Response(JSON.stringify({ ok }), { status: ok ? 200 : 400 });
 };
