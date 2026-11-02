@@ -1,0 +1,17 @@
+.git
+.github
+.astro
+.vscode
+.vite-hooks
+coverage
+dist
+node_modules
+__tests__
+.env
+.env.*
+!.env.example
+*.log
+tsconfig.tsbuildinfo
+AGENTS.md
+README.md
+compose*.yml

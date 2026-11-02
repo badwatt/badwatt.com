@@ -2,6 +2,14 @@ import node from "@astrojs/node";
 import react from "@astrojs/react";
 import tailwind from "@tailwindcss/vite";
 import { defineConfig, fontProviders } from "astro/config";
+import { loadEnv } from "vite";
+
+// The server reads its secrets from the process (the container provides them),
+// so the dev server loads .env into it: one source for every environment.
+const fileEnv = loadEnv(process.env.NODE_ENV ?? "development", process.cwd(), "");
+for (const [key, value] of Object.entries(fileEnv)) {
+  process.env[key] ??= value;
+}
 
 export default defineConfig({
   integrations: [react()],

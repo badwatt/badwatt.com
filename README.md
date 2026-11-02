@@ -166,10 +166,23 @@ the content schema and generated Astro output.
 
 ## Deployment
 
-`compose.yml` runs the site on the official Vite+ image, with the repository bind-mounted
-into the container: on start it installs, builds and serves the standalone entry on port
-4321 with `node dist/server/entry.mjs`.
+The site ships as a container image, not as a checkout:
 
-Two things the container needs from the host: a writable checkout (add `user: "0:0"` if
-the bind mount is not writable by the image user) and `.node-version`, which pins the
-Node.js version `vp` provisions.
+1. `docker build` produces it from the `Dockerfile`: built on the official Vite+ image,
+   run on `debian:bookworm-slim` with only the Node.js binary that `vp` resolved, `dist/`
+   and the production dependencies. The five `PUBLIC_*` values are build arguments because
+   Vite inlines them at build time; `CAP_SECRET` is deliberately not one of them — the
+   server reads it from the environment when a request arrives.
+2. The image is pushed to `ghcr.io/badwatt/badwatt.com:latest`.
+3. On the host, a Podman Quadlet pulls it, passes the secret through its `EnvironmentFile`
+   and relies on `AutoUpdate=registry` to pick up new tags.
+
+```sh
+docker build -t ghcr.io/badwatt/badwatt.com:latest \
+  --build-arg PUBLIC_CAP_URL=... --build-arg PUBLIC_CAP_SITE_KEY=... \
+  --build-arg PUBLIC_SERVICE_ID=... --build-arg PUBLIC_TEMPLATE_ID=... \
+  --build-arg PUBLIC_PUBLIC_KEY=... .
+docker push ghcr.io/badwatt/badwatt.com:latest
+```
+
+`compose.yml` runs the same site from a bind-mounted checkout, for local or ad-hoc use.

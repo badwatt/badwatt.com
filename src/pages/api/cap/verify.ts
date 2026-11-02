@@ -7,7 +7,7 @@ export const POST: APIRoute = async ({ request }) => {
   const { ok } = await verifyCapToken(token, {
     endpoint: import.meta.env.PUBLIC_CAP_URL,
     siteKey: import.meta.env.PUBLIC_CAP_SITE_KEY,
-    secret: import.meta.env.CAP_SECRET,
+    secret: process.env.CAP_SECRET ?? "",
     fetchImpl: fetch,
   });
 
