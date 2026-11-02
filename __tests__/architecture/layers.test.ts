@@ -120,8 +120,13 @@ describe("architecture rules", () => {
   });
 
   it("never imports another capability's infrastructure", () => {
+    // `pages` is the composition root: a route is the adapter that builds the
+    // adapters, and that is the one place allowed to reach them.
     const broken = offenders(
-      ({ from, to }) => layer(to) === "infrastructure" && capability(to) !== capability(from),
+      ({ from, to }) =>
+        capability(from) !== "pages" &&
+        layer(to) === "infrastructure" &&
+        capability(to) !== capability(from),
     );
 
     expect(broken).toEqual([]);

@@ -17,70 +17,7 @@ exports[`<Contact /> > matches snapshot 1`] = `
     <div
       data-rht-toaster=""
       style="position: fixed; z-index: 9999; top: 16px; left: 16px; right: 16px; bottom: 16px; pointer-events: none;"
-    >
-      <div
-        class="go318030988"
-        style="left: 0px; right: 0px; display: flex; position: absolute; transition: all 230ms cubic-bezier(.21,1.02,.73,1); transform: translateY(0px); bottom: 0px; justify-content: flex-end;"
-      >
-        <div
-          class="go1131771667"
-          style="opacity: 0; background: var(--color-badwatt-surface); color: var(--color-badwatt-white); border: 1px solid; border-width: var(--color-badwatt-border); border-style: var(--color-badwatt-border); border-color: var(--color-badwatt-border);"
-        >
-          <div
-            class="go1744123236"
-          >
-            <div
-              class="go920402962"
-            />
-            <div
-              class="go1899046132"
-            >
-              <div
-                class="go378373464"
-              />
-            </div>
-          </div>
-          <div
-            aria-live="polite"
-            class="go3615723686"
-            role="status"
-          >
-            Captcha verification failed. Please try again.
-          </div>
-        </div>
-      </div>
-      <div
-        class="go318030988"
-        style="left: 0px; right: 0px; display: flex; position: absolute; transition: all 230ms cubic-bezier(.21,1.02,.73,1); transform: translateY(0px); bottom: 0px; justify-content: flex-end;"
-      >
-        <div
-          class="go1131771667"
-          style="opacity: 0; background: var(--color-badwatt-surface); color: var(--color-badwatt-white); border: 1px solid; border-width: var(--color-badwatt-border); border-style: var(--color-badwatt-border); border-color: var(--color-badwatt-border);"
-        >
-          <div
-            class="go1744123236"
-          >
-            <div
-              class="go920402962"
-            />
-            <div
-              class="go1899046132"
-            >
-              <div
-                class="go378373464"
-              />
-            </div>
-          </div>
-          <div
-            aria-live="polite"
-            class="go3615723686"
-            role="status"
-          >
-            Message failed to send. Please try again.
-          </div>
-        </div>
-      </div>
-    </div>
+    />
     <section
       aria-label="contact-form"
       class="grid grid-cols-1 md:grid-cols-[1fr_2fr] p-8 md:p-10 rounded-2xl bg-badwatt-surface border border-badwatt-border hover:border-badwatt-primary/20 transition-all duration-500"

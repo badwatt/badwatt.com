@@ -4,18 +4,13 @@
 FROM ghcr.io/voidzero-dev/vite-plus:latest AS build
 WORKDIR /app
 
-# Vite inlines import.meta.env while building. These five are public by design;
-# CAP_SECRET is not here on purpose: the server reads it at runtime.
+# Vite inlines import.meta.env while building, and the captcha widget needs these
+# two in the browser. Everything else is read from the environment at runtime:
+# CAP_SECRET and the four EMAILJS_* values never reach the image or the visitor.
 ARG PUBLIC_CAP_URL=""
 ARG PUBLIC_CAP_SITE_KEY=""
-ARG PUBLIC_SERVICE_ID=""
-ARG PUBLIC_TEMPLATE_ID=""
-ARG PUBLIC_PUBLIC_KEY=""
 ENV PUBLIC_CAP_URL=$PUBLIC_CAP_URL \
-    PUBLIC_CAP_SITE_KEY=$PUBLIC_CAP_SITE_KEY \
-    PUBLIC_SERVICE_ID=$PUBLIC_SERVICE_ID \
-    PUBLIC_TEMPLATE_ID=$PUBLIC_TEMPLATE_ID \
-    PUBLIC_PUBLIC_KEY=$PUBLIC_PUBLIC_KEY
+    PUBLIC_CAP_SITE_KEY=$PUBLIC_CAP_SITE_KEY
 
 # Dependencies first, so this layer survives source changes.
 COPY --chown=vp:vp package.json pnpm-lock.yaml pnpm-workspace.yaml .node-version* ./

@@ -1,29 +1,45 @@
 import { describe, expect, it, vi } from "vite-plus/test";
-import { sendContactForm } from "src/contact/infrastructure/emailClient";
+import { createMailer } from "src/contact/infrastructure/emailClient";
 
-vi.mock("@emailjs/browser", () => ({
-  default: { sendForm: vi.fn().mockResolvedValue({ status: 200, text: "OK" }) },
-}));
+const message = { name: "Alvaro", email: "a@b.com", phone: "", message: "Hello" };
 
-describe("sendContactForm", () => {
-  it("sends the form with the ids from the environment", async () => {
-    const { default: emailjs } = await import("@emailjs/browser");
-    const form = document.createElement("form");
+const config = {
+  serviceId: "service_1",
+  templateId: "template_1",
+  publicKey: "public_1",
+  privateKey: "private_1",
+};
 
-    await sendContactForm(form);
-    expect(emailjs.sendForm).toHaveBeenCalledWith(
-      import.meta.env.PUBLIC_SERVICE_ID,
-      import.meta.env.PUBLIC_TEMPLATE_ID,
-      form,
-      import.meta.env.PUBLIC_PUBLIC_KEY,
-    );
+describe("createMailer", () => {
+  it("posts the message to the EmailJS api with both keys", async () => {
+    const fetchImpl = vi.fn().mockResolvedValue({ ok: true });
+
+    expect(await createMailer({ ...config, fetchImpl }).send(message)).toBe(true);
+
+    expect(fetchImpl).toHaveBeenCalledWith("https://api.emailjs.com/api/v1.0/email/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        service_id: "service_1",
+        template_id: "template_1",
+        user_id: "public_1",
+        accessToken: "private_1",
+        template_params: message,
+      }),
+    });
   });
 
-  it("refuses to send when the form is not mounted", async () => {
-    const { default: emailjs } = await import("@emailjs/browser");
-    vi.mocked(emailjs.sendForm).mockClear();
+  it("uses the global fetch when none is injected", async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
+    global.fetch = fetchMock;
 
-    await expect(sendContactForm(null)).rejects.toThrow("contact form is not mounted");
-    expect(emailjs.sendForm).not.toHaveBeenCalled();
+    expect(await createMailer(config).send(message)).toBe(true);
+    expect(fetchMock).toHaveBeenCalledOnce();
+  });
+
+  it("reports a message the provider refused", async () => {
+    const fetchImpl = vi.fn().mockResolvedValue({ ok: false });
+
+    expect(await createMailer({ ...config, fetchImpl }).send(message)).toBe(false);
   });
 });

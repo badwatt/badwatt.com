@@ -1,11 +1,7 @@
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Contact } from "src/contact/ui/Contact";
-import type { EmailJSResponseStatus } from "@emailjs/browser";
+import toast from "react-hot-toast";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
-
-vi.mock("@emailjs/browser", () => ({
-  default: { sendForm: vi.fn().mockRejectedValue(new Error("fail")) },
-}));
 
 vi.mock("src/captcha/ui/CapWidget", () => {
   const React = require("react");
@@ -20,12 +16,11 @@ vi.mock("src/captcha/ui/CapWidget", () => {
   };
 });
 
-function setupFetchMock(ok = true) {
-  global.fetch = vi.fn().mockImplementation((url: string) => {
-    if (url === "/api/cap/verify") {
-      return Promise.resolve({ ok, json: () => Promise.resolve({ ok }) });
-    }
-    return Promise.resolve({ ok: true, json: () => Promise.resolve({}) });
+/** The component posts the message to our own route, which does the rest. */
+function setupFetchMock({ ok = true, reason = "mail" }: { ok?: boolean; reason?: string } = {}) {
+  global.fetch = vi.fn().mockResolvedValue({
+    ok,
+    json: () => Promise.resolve(ok ? { ok } : { ok, reason }),
   });
 }
 
@@ -40,6 +35,8 @@ describe("<Contact />", () => {
   });
   afterEach(() => {
     cleanup();
+    document.querySelector("[data-rht-toaster]")?.remove();
+    toast.remove();
     vi.restoreAllMocks();
   });
 
@@ -87,7 +84,8 @@ describe("<Contact />", () => {
     expect(screen.getByText("Verify")).toBeDefined();
   });
 
-  it("catches emailjs failure and shows toast", async () => {
+  it("shows the failure message when the route refuses the mail", async () => {
+    setupFetchMock({ ok: false, reason: "mail" });
     render(<Contact />);
     fireEvent.change(screen.getByLabelText(/name/i), { target: { name: "name", value: "Alvaro" } });
     fireEvent.change(screen.getByLabelText(/email/i), {
@@ -104,12 +102,25 @@ describe("<Contact />", () => {
     });
   });
 
-  it("shows success on emailjs send", async () => {
-    const { default: emailjs } = await import("@emailjs/browser");
-    vi.mocked(emailjs.sendForm).mockResolvedValueOnce({
-      status: 200,
-      text: "OK",
-    } as EmailJSResponseStatus);
+  it("shows the failure message when the request cannot be made", async () => {
+    global.fetch = vi.fn().mockRejectedValue(new Error("offline"));
+    render(<Contact />);
+    fireEvent.change(screen.getByLabelText(/name/i), { target: { name: "name", value: "Alvaro" } });
+    fireEvent.change(screen.getByLabelText(/email/i), {
+      target: { name: "email", value: "a@b.com" },
+    });
+    fireEvent.change(screen.getByLabelText(/message/i), {
+      target: { name: "message", value: "Hello" },
+    });
+    fireEvent.click(screen.getByLabelText("submit"));
+    fireEvent.click(screen.getByText("Verify"));
+
+    await waitFor(() => {
+      expect(screen.getByText(/Message failed to send/i)).toBeDefined();
+    });
+  });
+
+  it("shows the success panel when the route accepts the message", async () => {
     render(<Contact />);
     fireEvent.change(screen.getByLabelText(/name/i), { target: { name: "name", value: "Alvaro" } });
     fireEvent.change(screen.getByLabelText(/email/i), {
@@ -134,7 +145,7 @@ describe("<Contact />", () => {
   });
 
   it("blocks submit when captcha verification fails", async () => {
-    setupFetchMock(false);
+    setupFetchMock({ ok: false, reason: "captcha" });
     render(<Contact />);
     fireEvent.change(screen.getByLabelText(/name/i), { target: { name: "name", value: "Alvaro" } });
     fireEvent.change(screen.getByLabelText(/email/i), {

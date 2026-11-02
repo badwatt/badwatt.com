@@ -1,12 +1,14 @@
-import { type ChangeEvent, useRef, useState } from "react";
+import { type ChangeEvent, useState } from "react";
 import { CapWidget } from "src/captcha/ui/CapWidget";
-import { verifyCaptcha } from "src/captcha/application/verifyCaptcha";
-import { sendContactForm } from "src/contact/infrastructure/emailClient";
 import { PaperPlaneTiltIcon, CheckCircleIcon } from "@phosphor-icons/react";
 import toast, { Toaster } from "react-hot-toast";
 
+const MESSAGES = {
+  captcha: "Captcha verification failed. Please try again.",
+  mail: "Message failed to send. Please try again.",
+} as const;
+
 export const Contact = () => {
-  const form = useRef<HTMLFormElement>(null);
   const [_isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showCaptcha, setShowCaptcha] = useState(false);
@@ -51,15 +53,20 @@ export const Contact = () => {
   const doSubmit = async (token: string) => {
     setIsSubmitting(true);
     try {
-      if (!(await verifyCaptcha(token))) {
-        toast.error("Captcha verification failed. Please try again.");
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token, ...data }),
+      });
+      if (!res.ok) {
+        const { reason } = (await res.json()) as { reason: keyof typeof MESSAGES };
+        toast.error(MESSAGES[reason]);
         setShowCaptcha(false);
         return;
       }
-      await sendContactForm(form.current);
       setIsSubmitted(true);
     } catch {
-      toast.error("Message failed to send. Please try again.");
+      toast.error(MESSAGES.mail);
     } finally {
       setIsSubmitting(false);
     }
@@ -93,7 +100,7 @@ export const Contact = () => {
               <br /> Drop a message.
             </p>
           </div>
-          <form ref={form} className="grid gap-4">
+          <form className="grid gap-4">
             <div className="grid gap-2">
               <label htmlFor="contact-name" className="text-sm font-medium text-badwatt-muted">
                 Name

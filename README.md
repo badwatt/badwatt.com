@@ -106,11 +106,17 @@ vp run dev              # http://localhost:4321
 
 `.env.example` lists every variable the site reads:
 
-| Variable                                                       | Read by                    |
-| -------------------------------------------------------------- | -------------------------- |
-| `PUBLIC_CAP_URL`, `PUBLIC_CAP_SITE_KEY`                        | the captcha widget         |
-| `CAP_SECRET`                                                   | `POST /api/cap/verify`     |
-| `PUBLIC_SERVICE_ID`, `PUBLIC_TEMPLATE_ID`, `PUBLIC_PUBLIC_KEY` | the contact form (EmailJS) |
+| Variable                                    | Read by                            |
+| ------------------------------------------- | ---------------------------------- |
+| `PUBLIC_CAP_URL`, `PUBLIC_CAP_SITE_KEY`     | the captcha widget, in the browser |
+| `CAP_SECRET`                                | `POST /api/cap/verify`, at runtime |
+| `EMAILJS_SERVICE_ID`, `EMAILJS_TEMPLATE_ID` | `POST /api/contact`, at runtime    |
+| `EMAILJS_PUBLIC_KEY`, `EMAILJS_PRIVATE_KEY` | `POST /api/contact`, at runtime    |
+
+The first two are inlined by Vite at build time because the widget needs them in the
+browser; they are public by design. Everything else is read from the process when a
+request arrives, so rotating a key is a restart, not a rebuild — and nothing but those two
+ends up in the published image.
 
 `.env.example` also declares `FQDN`, which nothing reads today.
 
@@ -170,18 +176,16 @@ The site ships as a container image, not as a checkout:
 
 1. `docker build` produces it from the `Dockerfile`: built on the official Vite+ image,
    run on `debian:bookworm-slim` with only the Node.js binary that `vp` resolved, `dist/`
-   and the production dependencies. The five `PUBLIC_*` values are build arguments because
-   Vite inlines them at build time; `CAP_SECRET` is deliberately not one of them — the
-   server reads it from the environment when a request arrives.
+   and the production dependencies. The two `PUBLIC_CAP_*` values are build arguments
+   because the widget needs them inlined; the secrets are not, so the image carries no
+   credentials at all.
 2. The image is pushed to `ghcr.io/badwatt/badwatt.com:latest`.
 3. On the host, a Podman Quadlet pulls it, passes the secret through its `EnvironmentFile`
    and relies on `AutoUpdate=registry` to pick up new tags.
 
 ```sh
 docker build -t ghcr.io/badwatt/badwatt.com:latest \
-  --build-arg PUBLIC_CAP_URL=... --build-arg PUBLIC_CAP_SITE_KEY=... \
-  --build-arg PUBLIC_SERVICE_ID=... --build-arg PUBLIC_TEMPLATE_ID=... \
-  --build-arg PUBLIC_PUBLIC_KEY=... .
+  --build-arg PUBLIC_CAP_URL=... --build-arg PUBLIC_CAP_SITE_KEY=... .
 docker push ghcr.io/badwatt/badwatt.com:latest
 ```
 
