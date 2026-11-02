@@ -25,6 +25,18 @@ describe("<LoadingScreen />", () => {
     expect(container.firstChild).toBeNull();
   });
 
+  it("hides immediately when legacy ialvaro-visited flag is present", () => {
+    sessionStorage.setItem("ialvaro-visited", "true");
+    const { container } = render(<LoadingScreen />);
+    expect(container.firstChild).toBeNull();
+  });
+
+  it("migrates legacy visited flag to the badwatt key", () => {
+    sessionStorage.setItem("ialvaro-visited", "true");
+    render(<LoadingScreen />);
+    expect(sessionStorage.getItem("badwatt-visited")).toBe("true");
+  });
+
   it("triggers exit animation then hides after timers", () => {
     vi.useFakeTimers();
     const { container } = render(<LoadingScreen />);

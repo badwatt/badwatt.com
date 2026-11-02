@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 
+const VISITED_KEY = "badwatt-visited";
+const LEGACY_VISITED_KEY = "ialvaro-visited";
+
 export const LoadingScreen = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
-    const hasVisited = sessionStorage.getItem("badwatt-visited");
+    const hasVisited =
+      sessionStorage.getItem(VISITED_KEY) ?? sessionStorage.getItem(LEGACY_VISITED_KEY);
     if (hasVisited) {
+      sessionStorage.setItem(VISITED_KEY, "true");
       setIsVisible(false);
       return;
     }
@@ -14,7 +19,7 @@ export const LoadingScreen = () => {
     const exitTimer = setTimeout(() => setIsExiting(true), 1800);
     const hideTimer = setTimeout(() => {
       setIsVisible(false);
-      sessionStorage.setItem("badwatt-visited", "true");
+      sessionStorage.setItem(VISITED_KEY, "true");
     }, 2400);
 
     return () => {
@@ -27,7 +32,7 @@ export const LoadingScreen = () => {
     setIsExiting(true);
     setTimeout(() => {
       setIsVisible(false);
-      sessionStorage.setItem("badwatt-visited", "true");
+      sessionStorage.setItem(VISITED_KEY, "true");
     }, 400);
   };
 
