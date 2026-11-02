@@ -53,40 +53,62 @@ reshape the state so that the impossible case does not exist.
 
 ---
 
-## Architecture — hexagonal
+## Architecture — vertical slices, hexagonal inside
 
-Four layers. Dependencies point inward only:
+The top level of `src/` is the product, not the pattern. Each folder is a capability and
+the four layers live inside it:
 
-| Layer            | Path                                                                                  | May import                            |
-| ---------------- | ------------------------------------------------------------------------------------- | ------------------------------------- |
-| `domain`         | `src/domain/**`                                                                       | nothing but itself                    |
-| `application`    | `src/application/**`                                                                  | `domain`, its own ports               |
-| `infrastructure` | `src/infrastructure/**`                                                               | `application`, `domain`, libraries    |
-| `ui`             | `src/views/**`, `src/components/**`, `src/hooks/**`, `src/pages/**`, `src/layouts/**` | `application`, `domain`, React, Astro |
+```
+src/cv/          domain/ application/ infrastructure/ ui/   the CV: model, use case, pdf, viewer
+src/content/     domain/ application/                        the site model and how it is loaded
+src/captcha/     application/ ui/                            the token rule and the widget
+src/contact/     infrastructure/ ui/                         EmailJS behind an adapter
+src/theme/       infrastructure/ ui/                          the stored preference and its toggle
+src/ui/          components/ hooks/ views/ layouts/          chrome shared by every capability
+src/pages/                                                   router and composition root
+```
 
-- `domain` holds the rules: the CV data model, date parsing, pagination maths. No React,
-  no Astro, no jsPDF, no `import.meta.env`, no `fetch`, no DOM.
-- `application` holds the use cases (`requestCv`, `loadSiteContent`, `verifyCapToken`) and
-  declares the ports they need next to them. A port is a small `type` with the two or three members
-  the use case actually calls, not a folder of empty interfaces.
-- `infrastructure` holds one adapter per port: `getCollection` for content, jsPDF for the
-  PDF, `fetch` for Cap, EmailJS for mail. Inside `infrastructure/pdf`, `canvas` is the
-  drawing port, `markdown` draws blocks, `sections` and `sidebar` draw the page, and
+| Layer            | May import                                                                                         |
+| ---------------- | -------------------------------------------------------------------------------------------------- |
+| `domain`         | its own domain, `src/content/domain`                                                               |
+| `application`    | its own `domain`, `src/content/domain`, and other capabilities' `application`                      |
+| `infrastructure` | its own `domain`/`application`, `src/content/domain`, other capabilities' `application`, libraries |
+| `ui`             | `application` and `domain` of any capability, other `ui`, React, Astro                             |
+
+The rules the suite enforces (`__tests__/architecture/layers.test.ts`):
+
+- Nothing outside `src/pages` imports `src/pages`.
+- `domain` and `application` never import `infrastructure` or UI.
+- No capability imports another capability's `infrastructure`. The captcha is used by the
+  CV and the form through `captcha/application/verifyCaptcha`, not through an adapter.
+
+How to place a file:
+
+- `domain` holds the rules: the content model, date parsing, markdown tokens, CV
+  pagination maths. No React, no Astro, no jsPDF, no `import.meta.env`, no `fetch`, no DOM.
+- `application` holds one use case per file (`requestCv`, `loadSiteContent`,
+  `verifyCapToken`, `verifyCaptcha`) and declares its ports next to it. A port is a small
+  `type` with the two or three members the use case actually calls.
+- `infrastructure` holds one adapter per port. Inside `cv/infrastructure/pdf`, `canvas` is
+  the drawing port, `markdown` draws blocks, `sections` and `sidebar` draw the page, and
   `generateCv` owns the assets, the page loop and the jsPDF instance.
 - `ui` orchestrates and renders. It never parses markdown, never touches jsPDF and never
-  knows a provider's payload. `src/hooks/**` is UI as well: state and effects shared by
-  more than one view (`useCV`, `useZoom`).
+  knows a provider's payload.
 - Side effects and configuration are injected as arguments (`now`, `fetchImpl`, endpoint,
   secret). The core receives values; only the edge reads `import.meta.env`.
 - Routes under `src/pages/api/**` are adapters: parse the request, call a use case, build
   the response. No logic beyond that.
 - No port without an adapter, no adapter with logic. A use case with one implementation
-  called from one place is a plain function; the structure exists to keep the core
-  testable, not to draw a diagram.
-- Composition happens in exactly two places: `src/pages/index.astro` builds the content
-  source and `src/hooks/useCV.ts` builds the CV client. Every other UI module talks to
-  `application` or `domain`; the only components that touch a browser adapter
-  (`PdfCanvas`, `ThemeToggle`) are the ones rendering it.
+  called from one place is a plain function.
+
+A new folder at the top of `src/` is a capability, not a layer: it needs at least two
+layers of its own and more than one consumer. `src/ui` is only chrome; if something in
+there grows rules, it becomes a capability.
+
+Composition happens in exactly two places: `src/pages/index.astro` builds the content
+source and `src/cv/ui/useCV.ts` builds the CV client. Every other UI module talks to
+`application` or `domain`; the only modules that touch a browser adapter (`PdfCanvas`,
+`ThemeToggle`, `Contact`) are the ones rendering it.
 
 ---
 

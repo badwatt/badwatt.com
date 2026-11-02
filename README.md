@@ -41,27 +41,33 @@ round trip to a server.
 
 ## Architecture
 
-The code is split so the rules of the site do not depend on Astro, React or jsPDF.
-Dependencies point inward, one direction only:
+`src/` is organised by capability, and each capability keeps the four layers inside
+it. Dependencies point inward, one direction only:
 
 ```
-src/domain          rules: content model, dates, markdown, profile, CV maths
-src/application     use cases and the ports they need (requestCv, loadSiteContent)
-src/infrastructure  adapters: content collections, jsPDF, Cap, EmailJS, browser
-src/views           UI: sections, components, hooks, layouts, pages
+src/cv/          domain/ application/ infrastructure/ ui/   the CV: model, use case, pdf, viewer
+src/content/     domain/ application/                        the site model and how it is loaded
+src/captcha/     application/ ui/                            the token rule and the widget
+src/contact/     infrastructure/ ui/                         EmailJS behind an adapter
+src/theme/       infrastructure/ ui/                          the stored preference and its toggle
+src/ui/          components/ hooks/ views/ layouts/          chrome shared by every capability
+src/pages/                                                   router and composition root
 ```
 
-- `domain` imports nothing but itself: no framework, no DOM, no `import.meta.env`.
-- `application` holds one function per use case and declares its ports next to it, so
-  the rules can be tested with a fake fetcher and a fake clock.
-- `infrastructure` holds one adapter per port. `infrastructure/pdf` is split by
-  responsibility: `canvas` is the drawing port, `markdown` draws blocks, `sections`
-  and `sidebar` draw the page, `generateCv` owns the assets and the page loop.
-- Composition happens in exactly two places: `src/pages/index.astro` builds the
-  content source and `src/hooks/useCV.ts` builds the CV client.
+- `domain` imports nothing but its own rules and the shared content model: no framework,
+  no DOM, no `import.meta.env`.
+- `application` holds one function per use case and declares its ports next to it, so the
+  rules are tested with a fake fetcher and a fake clock.
+- `infrastructure` holds one adapter per port. `cv/infrastructure/pdf` is split by
+  responsibility: `canvas` is the drawing port, `markdown` draws blocks, `sections` and
+  `sidebar` draw the page, `generateCv` owns the assets and the page loop.
+- A capability never imports another capability's `infrastructure`; the captcha reaches
+  the CV and the form through `captcha/application/verifyCaptcha`.
+- Composition happens in exactly two places: `src/pages/index.astro` builds the content
+  source and `src/cv/ui/useCV.ts` builds the CV client.
 
-`AGENTS.md` documents the full set of rules; the sections above are the short
-version.
+Those three rules are executable: `__tests__/architecture/layers.test.ts` reads every
+import in `src/` and fails when one of them is broken. `AGENTS.md` has the long version.
 
 ## Getting started
 

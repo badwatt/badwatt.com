@@ -1,0 +1,151 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<Footer /> > matches snapshot 1`] = `
+<div>
+  <footer
+    class="relative border-t border-badwatt-primary/10 mt-32 md:mt-48"
+  >
+    <div
+      class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-badwatt-primary/30 to-transparent"
+    />
+    <div
+      class="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-16"
+    >
+      <div
+        class="grid md:grid-cols-3 gap-12"
+      >
+        <div>
+          <h3
+            class="text-xl font-bold tracking-[-0.03em] mb-3 text-badwatt-white"
+          >
+            Alvaro Garcia Macias
+          </h3>
+          <p
+            class="text-sm text-badwatt-muted leading-relaxed max-w-[30ch]"
+          >
+            Full Stack Developer building interfaces that move.
+          </p>
+          <div
+            class="flex gap-1.5 mt-6"
+          >
+            <div
+              class="w-1 h-1 rounded-full bg-badwatt-primary/60"
+            />
+            <div
+              class="w-1 h-1 rounded-full bg-badwatt-muted/30"
+            />
+            <div
+              class="w-1 h-1 rounded-full bg-badwatt-muted/30"
+            />
+          </div>
+        </div>
+        <div>
+          <h4
+            class="text-xs tracking-[0.15em] uppercase text-badwatt-muted/50 mb-5"
+          >
+            Navigation
+          </h4>
+          <ul
+            class="space-y-2.5"
+          >
+            <li>
+              <a
+                class="text-sm text-badwatt-muted hover:text-badwatt-primary transition-colors duration-200"
+                href="#home"
+              >
+                Home
+              </a>
+            </li>
+            <li>
+              <a
+                class="text-sm text-badwatt-muted hover:text-badwatt-primary transition-colors duration-200"
+                href="#about"
+              >
+                About
+              </a>
+            </li>
+            <li>
+              <a
+                class="text-sm text-badwatt-muted hover:text-badwatt-primary transition-colors duration-200"
+                href="#skills"
+              >
+                Skills
+              </a>
+            </li>
+            <li>
+              <a
+                class="text-sm text-badwatt-muted hover:text-badwatt-primary transition-colors duration-200"
+                href="#experience"
+              >
+                Experience
+              </a>
+            </li>
+            <li>
+              <a
+                class="text-sm text-badwatt-muted hover:text-badwatt-primary transition-colors duration-200"
+                href="#portfolio"
+              >
+                Portfolio
+              </a>
+            </li>
+            <li>
+              <a
+                class="text-sm text-badwatt-muted hover:text-badwatt-primary transition-colors duration-200"
+                href="#contact"
+              >
+                Contact
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4
+            class="text-xs tracking-[0.15em] uppercase text-badwatt-muted/50 mb-5"
+          >
+            Connect
+          </h4>
+          <ul
+            class="space-y-2.5"
+          >
+            <li>
+              <a
+                class="text-sm text-badwatt-muted hover:text-badwatt-primary transition-colors duration-200"
+                href="https://github.com/badwatt"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                GitHub
+              </a>
+            </li>
+            <li>
+              <a
+                class="text-sm text-badwatt-muted hover:text-badwatt-primary transition-colors duration-200"
+                href="https://linkedin.com/in/alvarogarciamacias"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                LinkedIn
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        class="mt-16 pt-6 border-t border-badwatt-primary/5 flex flex-col md:flex-row justify-between items-center gap-2"
+      >
+        <p
+          class="text-xs text-badwatt-muted/40"
+        >
+          2026
+           Alvaro Garcia Macias
+        </p>
+        <p
+          class="text-xs text-badwatt-muted/30"
+        >
+          Designed & built with intention
+        </p>
+      </div>
+    </div>
+  </footer>
+</div>
+`;
