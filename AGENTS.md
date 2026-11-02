@@ -45,7 +45,8 @@ No code without a test. No exceptions.
 test breaks the build: write the test first.
 
 Excluded, and only for this reason: `src/env.d.ts` (types), `src/content.config.ts`
-(schema read by Astro's content layer) and the generated `.astro/` output. Excluding
+(schema read by Astro's content layer), `src/components/CapWidget.tsx` (bridge to the
+third-party `cap-widget` custom element) and the generated `.astro/` output. Excluding
 anything else needs a reason in the commit message.
 
 When a branch cannot be covered, the branch is wrong: delete the unreachable fallback or

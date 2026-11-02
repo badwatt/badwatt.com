@@ -6,7 +6,6 @@ import {
   toCircular,
   generateCV,
   parseDescription,
-  parseDate,
   drawMarkdown,
   measureMarkdown,
   drawJob,
@@ -180,23 +179,6 @@ function stubImageToLoad() {
 }
 
 // ── Tests ──
-describe("parseDate", () => {
-  it("parses now as Date.now()", () => {
-    const result = parseDate("now");
-    expect(result).toBeGreaterThan(Date.now() - 1000);
-    expect(result).toBeLessThanOrEqual(Date.now());
-  });
-
-  it("returns 0 for invalid date", () => {
-    expect(parseDate("2024 13")).toBe(0);
-  });
-
-  it("parses normal month year", () => {
-    const result = parseDate("June 2023");
-    expect(result).toBeGreaterThan(0);
-  });
-});
-
 describe("getBioText", () => {
   it("uses id 3 bio when present", () => {
     expect(getBioText([{ email: "", location: "", languages: [], bio: "test" }])).toBe("test");

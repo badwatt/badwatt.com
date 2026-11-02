@@ -1,6 +1,6 @@
 import { Header } from "src/components/Header";
 import { SpotlightCard } from "src/components/SpotlightCard";
-import type { PortfolioEntry } from "src/utils/content";
+import type { PortfolioEntry } from "src/domain/content";
 
 interface PortfolioProps {
   portfolioData: PortfolioEntry[];

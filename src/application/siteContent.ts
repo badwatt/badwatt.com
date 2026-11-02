@@ -1,0 +1,32 @@
+import type { AboutEntry, ExperienceEntry, PortfolioEntry, SkillEntry } from "src/domain/content";
+import { sortByMostRecent } from "src/domain/experience";
+
+export interface SiteContent {
+  experience: ExperienceEntry[];
+  portfolio: PortfolioEntry[];
+  about: AboutEntry[];
+  skills: SkillEntry[];
+}
+
+/** Port: whatever holds the content (today Astro's content collections). */
+export interface ContentSource {
+  experience(): Promise<ExperienceEntry[]>;
+  portfolio(): Promise<PortfolioEntry[]>;
+  about(): Promise<AboutEntry[]>;
+  skills(): Promise<SkillEntry[]>;
+}
+
+/**
+ * Loads everything the page renders and applies the ordering rules.
+ * `now` is passed through so a "now" end date is deterministic in tests.
+ */
+export async function loadSiteContent(source: ContentSource, now?: number): Promise<SiteContent> {
+  const [experience, portfolio, about, skills] = await Promise.all([
+    source.experience(),
+    source.portfolio(),
+    source.about(),
+    source.skills(),
+  ]);
+
+  return { experience: sortByMostRecent(experience, now), portfolio, about, skills };
+}

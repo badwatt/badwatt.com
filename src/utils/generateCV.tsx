@@ -1,4 +1,5 @@
-import type { ExperienceEntry, AboutEntry, SkillEntry } from "src/utils/content";
+import type { ExperienceEntry, AboutEntry, SkillEntry } from "src/domain/content";
+import { sortByMostRecent } from "src/domain/experience";
 import { pickAssetByLuminance, type CVTheme, type CVThemeColors } from "src/utils/cvThemes";
 import {
   tokenize,
@@ -33,12 +34,6 @@ function buildColors(colors: CVThemeColors): CVColors {
     primary: colors.primary,
     accent: colors.accent,
   };
-}
-
-export function parseDate(str: string): number {
-  if (str.toLowerCase() === "now") return Date.now();
-  const d = new Date(`${str} 01`);
-  return isNaN(d.getTime()) ? 0 : d.getTime();
 }
 
 export function getBioText(data: AboutEntry[]): string {
@@ -642,9 +637,7 @@ export async function generateCV(
   skillsData: SkillEntry[],
 ): Promise<string> {
   const C = buildColors(theme.colors);
-  const sortedExperience = [...experienceData].sort(
-    (a, b) => parseDate(b.date_from) - parseDate(a.date_from),
-  );
+  const sortedExperience = sortByMostRecent(experienceData);
   const featuredSkills = skillsData.filter((s) => s.featured).map((s) => s.title);
   const otherSkills = skillsData.filter((s) => !s.featured).map((s) => s.title);
 

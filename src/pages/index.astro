@@ -15,52 +15,45 @@ import { Experience } from "src/views/Experience";
 import { Portfolio } from "src/views/Portfolio";
 import { CV } from "src/views/CV";
 import { Contact } from "src/views/Contact";
+import { loadSiteContent, type ContentSource } from "src/application/siteContent";
 
-import type { ExperienceEntry, PortfolioEntry, AboutEntry, SkillEntry } from "src/utils/content";
+const contentSource: ContentSource = {
+  experience: async () =>
+    (await getCollection("experience")).map((e) => ({
+      title: e.data.title,
+      image: e.data.image.src,
+      date_from: e.data.date_from,
+      date_to: e.data.date_to,
+      url: e.data.url,
+      description: e.body?.trim() ?? "",
+    })),
+  portfolio: async () =>
+    (await getCollection("portfolio")).map((e) => ({
+      title: e.data.title,
+      image: e.data.image.src,
+      url: e.data.url,
+      description: e.body?.trim() ?? "",
+    })),
+  about: async () =>
+    (await getCollection("about")).map((e) => ({
+      email: e.data.email,
+      location: e.data.location,
+      languages: e.data.languages,
+      education: e.data.education,
+      bio: e.body?.trim() ?? "",
+    })),
+  skills: async () =>
+    (await getCollection("skills")).map((e) => ({
+      title: e.data.title,
+      image: e.data.image.src,
+      url: e.data.url,
+      featured: e.data.featured,
+    })),
+};
 
-const experienceDocs = await getCollection("experience");
-const portfolioDocs = await getCollection("portfolio");
-const aboutDocs = await getCollection("about");
-const skillsDocs = await getCollection("skills");
+const { experience: experienceData, portfolio: portfolioData, about: aboutData, skills: skillsData } =
+  await loadSiteContent(contentSource);
 
-function parseDate(str: string): number {
-  if (str.toLowerCase() === "now") return Date.now();
-  const d = new Date(`${str} 01`);
-  return isNaN(d.getTime()) ? 0 : d.getTime();
-}
-
-const experienceData: ExperienceEntry[] = experienceDocs
-  .map((e) => ({
-    title: e.data.title,
-    image: e.data.image.src,
-    date_from: e.data.date_from,
-    date_to: e.data.date_to,
-    url: e.data.url,
-    description: e.body?.trim() ?? "",
-  }))
-  .sort((a, b) => parseDate(b.date_from) - parseDate(a.date_from));
-
-const portfolioData: PortfolioEntry[] = portfolioDocs.map((e) => ({
-  title: e.data.title,
-  image: e.data.image.src,
-  url: e.data.url,
-  description: e.body?.trim() ?? "",
-}));
-
-const aboutData: AboutEntry[] = aboutDocs.map((e) => ({
-  email: e.data.email,
-  location: e.data.location,
-  languages: e.data.languages,
-  education: e.data.education,
-  bio: e.body?.trim() ?? "",
-}));
-
-const skillsData: SkillEntry[] = skillsDocs.map((e) => ({
-  title: e.data.title,
-  image: e.data.image.src,
-  url: e.data.url,
-  featured: e.data.featured,
-}));
 const techStack = skillsData.map((s) => s.title);
 ---
 

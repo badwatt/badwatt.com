@@ -1,5 +1,5 @@
 import { AnimatedCounter } from "src/components/AnimatedCounter";
-import type { ExperienceEntry, PortfolioEntry, SkillEntry } from "src/utils/content";
+import type { ExperienceEntry, PortfolioEntry, SkillEntry } from "src/domain/content";
 
 interface StatsProps {
   experienceData: ExperienceEntry[];

@@ -6,7 +6,7 @@ import {
   parseExperienceSubgroups,
   stripExtractedTitleAndSubtitle,
 } from "src/utils/markdown";
-import type { ExperienceEntry } from "src/utils/content";
+import type { ExperienceEntry } from "src/domain/content";
 
 interface ExperienceProps {
   experienceData: ExperienceEntry[];

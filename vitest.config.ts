@@ -28,11 +28,11 @@ export default mergeConfig(
         provider: "istanbul",
         include: ["src/**/*.{ts,tsx}"],
         exclude: [
-          "src/data/**",
           "src/env.d.ts",
-          "src/utils/content.ts",
           "src/content.config.ts",
-          "src/config/cap.ts",
+          // Bridge to the third-party cap-widget custom element: it injects the CDN
+          // script and forwards the "solve" event, nothing of ours to assert beyond
+          // what the widget itself already guarantees.
           "src/components/CapWidget.tsx",
           ".astro/**",
         ],

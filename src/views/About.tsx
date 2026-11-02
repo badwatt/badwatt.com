@@ -1,6 +1,6 @@
 import { FloatingTags } from "src/components/FloatingTags";
 import { useScrollReveal } from "src/hooks/useScrollReveal";
-import type { AboutEntry } from "src/utils/content";
+import type { AboutEntry } from "src/domain/content";
 
 const profileTags = ["React", "TypeScript", "Node.js", "Full Stack", "UI/UX"];
 

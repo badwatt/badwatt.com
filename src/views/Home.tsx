@@ -6,7 +6,7 @@ import { CVThemePicker } from "src/components/CVThemePicker";
 import { Modal } from "src/components/Modal";
 import { getThemeById, type CVTheme } from "src/utils/cvThemes";
 import toast, { Toaster } from "react-hot-toast";
-import type { ExperienceEntry, AboutEntry, SkillEntry } from "src/utils/content";
+import type { ExperienceEntry, AboutEntry, SkillEntry } from "src/domain/content";
 
 // Cargado bajo demanda: arrastra pdfjs-dist y solo se necesita al abrir el CV.
 const PdfViewer = lazy(() =>
