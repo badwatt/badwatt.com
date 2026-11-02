@@ -1,11 +1,11 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { ScrambleWobble } from "src/components/ScrambleWobble";
 import { useScrollReveal } from "src/hooks/useScrollReveal";
+import { useCV } from "src/hooks/useCV";
 import { CapWidget } from "src/components/CapWidget";
 import { CVThemePicker } from "src/components/CVThemePicker";
 import { Modal } from "src/components/Modal";
-import { getThemeById, type CVTheme } from "src/utils/cvThemes";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import type { ExperienceEntry, AboutEntry, SkillEntry } from "src/domain/content";
 
 // Cargado bajo demanda: arrastra pdfjs-dist y solo se necesita al abrir el CV.
@@ -22,10 +22,7 @@ interface HomeProps {
 export const Home = ({ experienceData, aboutData, skillsData }: HomeProps) => {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
   const [parallax, setParallax] = useState(0);
-  const [cvStep, setCvStep] = useState<"idle" | "captcha" | "loading">("idle");
-  const [theme, setTheme] = useState<CVTheme>(getThemeById("default"));
-  const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
-  const [viewerUrl, setViewerUrl] = useState<string | null>(null);
+  const cv = useCV({ experienceData, aboutData, skillsData });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,30 +31,6 @@ export const Home = ({ experienceData, aboutData, skillsData }: HomeProps) => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const handleOpenCV = async (token: string) => {
-    setCvStep("loading");
-    try {
-      const verifyRes = await fetch("/api/cap/verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token }),
-      });
-      if (!verifyRes.ok) {
-        toast.error("Captcha verification failed. Please try again.");
-        setCvStep("captcha");
-        return;
-      }
-      const { generateCV } = await import("src/utils/generateCV");
-      const url = await generateCV(theme, experienceData, aboutData, skillsData);
-      setViewerUrl(url);
-      setCvStep("idle");
-    } catch (err) {
-      console.error("CV generation failed:", err);
-      toast.error("CV generation failed. Please try again.");
-      setCvStep("captcha");
-    }
-  };
 
   return (
     <section
@@ -113,16 +86,16 @@ export const Home = ({ experienceData, aboutData, skillsData }: HomeProps) => {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          {cvStep === "loading" ? (
+          {cv.step === "loading" ? (
             <span className="px-8 py-3.5 border border-badwatt-border text-badwatt-white font-semibold rounded-xl">
               Generating...
             </span>
-          ) : cvStep === "captcha" ? (
+          ) : cv.step === "captcha" ? (
             <div className="flex flex-col items-center gap-3">
-              <CapWidget onVerified={handleOpenCV} />
+              <CapWidget onVerified={cv.verify} />
               <button
                 type="button"
-                onClick={() => setIsThemeModalOpen(true)}
+                onClick={cv.openThemes}
                 className="text-xs text-badwatt-muted hover:text-badwatt-primary transition-colors duration-300 cursor-pointer"
               >
                 Change palette
@@ -139,7 +112,7 @@ export const Home = ({ experienceData, aboutData, skillsData }: HomeProps) => {
               </a>
               <button
                 type="button"
-                onClick={() => setIsThemeModalOpen(true)}
+                onClick={cv.openThemes}
                 className="px-8 py-3.5 border border-badwatt-border text-badwatt-white font-semibold rounded-xl hover:border-badwatt-primary/50 hover:text-badwatt-primary transition-all duration-300 active:scale-[0.97] cursor-pointer"
               >
                 CV
@@ -176,32 +149,18 @@ export const Home = ({ experienceData, aboutData, skillsData }: HomeProps) => {
         <span className="text-[10px] tracking-[0.2em] uppercase text-badwatt-muted/40">Scroll</span>
         <div className="w-px h-8 bg-gradient-to-b from-badwatt-primary/40 to-transparent" />
       </div>
-      {viewerUrl !== null && (
+      {cv.viewerUrl !== null && (
         <Suspense fallback={null}>
-          <PdfViewer
-            src={viewerUrl}
-            isOpen
-            onClose={() => {
-              if (viewerUrl) URL.revokeObjectURL(viewerUrl);
-              setViewerUrl(null);
-            }}
-          />
+          <PdfViewer src={cv.viewerUrl} isOpen onClose={cv.closeViewer} />
         </Suspense>
       )}
       <Modal
-        isOpen={isThemeModalOpen}
-        onClose={() => setIsThemeModalOpen(false)}
+        isOpen={cv.step === "themes"}
+        onClose={cv.closeThemes}
         ariaLabel="Choose CV palette"
         className="md:h-auto md:max-h-[85vh] md:max-w-3xl"
       >
-        <CVThemePicker
-          selectedId={theme.id}
-          onSelect={(t) => {
-            setTheme(t);
-            setIsThemeModalOpen(false);
-            setCvStep("captcha");
-          }}
-        />
+        <CVThemePicker selectedId={cv.theme.id} onSelect={cv.pickTheme} />
       </Modal>
     </section>
   );

@@ -1,9 +1,10 @@
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense } from "react";
 import { ArrowLeftIcon, FileTextIcon, SpinnerIcon } from "@phosphor-icons/react";
 import { CapWidget } from "src/components/CapWidget";
 import { CVThemePicker } from "src/components/CVThemePicker";
-import { getThemeById, type CVTheme } from "src/utils/cvThemes";
-import toast, { Toaster } from "react-hot-toast";
+import { useCV, type CvStep } from "src/hooks/useCV";
+import type { CVTheme } from "src/utils/cvThemes";
+import { Toaster } from "react-hot-toast";
 import type { ExperienceEntry, AboutEntry, SkillEntry } from "src/domain/content";
 
 // Cargado bajo demanda: arrastra pdfjs-dist y solo se necesita al abrir el CV.
@@ -17,38 +18,8 @@ interface CVProps {
   skillsData: SkillEntry[];
 }
 
-type CVStep = "idle" | "themes" | "captcha" | "loading";
-
-const DEFAULT_THEME: CVTheme = getThemeById("default");
-
 export const CV = ({ experienceData, aboutData, skillsData }: CVProps) => {
-  const [step, setStep] = useState<CVStep>("idle");
-  const [theme, setTheme] = useState<CVTheme>(DEFAULT_THEME);
-  const [viewerUrl, setViewerUrl] = useState<string | null>(null);
-
-  const handleOpen = async (token: string) => {
-    setStep("loading");
-    try {
-      const verifyRes = await fetch("/api/cap/verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token }),
-      });
-      if (!verifyRes.ok) {
-        toast.error("Captcha verification failed. Please try again.");
-        setStep("captcha");
-        return;
-      }
-      const { generateCV } = await import("src/utils/generateCV");
-      const url = await generateCV(theme, experienceData, aboutData, skillsData);
-      setViewerUrl(url);
-      setStep("idle");
-    } catch (err) {
-      console.error("CV generation failed:", err);
-      toast.error("CV generation failed. Please try again.");
-      setStep("captcha");
-    }
-  };
+  const cv = useCV({ experienceData, aboutData, skillsData });
 
   return (
     <section id="cv" className="section-curve mt-32 md:mt-48 px-4 md:px-0">
@@ -62,26 +33,16 @@ export const CV = ({ experienceData, aboutData, skillsData }: CVProps) => {
           },
         }}
       />
-      {renderStep(step, {
-        onOpen: () => setStep("themes"),
-        onPickTheme: (next) => {
-          setTheme(next);
-          setStep("captcha");
-        },
-        onBackToThemes: () => setStep("themes"),
-        onVerified: handleOpen,
-        selectedTheme: theme,
+      {renderStep(cv.step, {
+        onOpen: cv.openThemes,
+        onPickTheme: cv.pickTheme,
+        onBackToThemes: cv.backToThemes,
+        onVerified: cv.verify,
+        selectedTheme: cv.theme,
       })}
-      {viewerUrl !== null && (
+      {cv.viewerUrl !== null && (
         <Suspense fallback={null}>
-          <PdfViewer
-            src={viewerUrl}
-            isOpen
-            onClose={() => {
-              if (viewerUrl) URL.revokeObjectURL(viewerUrl);
-              setViewerUrl(null);
-            }}
-          />
+          <PdfViewer src={cv.viewerUrl} isOpen onClose={cv.closeViewer} />
         </Suspense>
       )}
     </section>
@@ -96,7 +57,7 @@ interface StepHandlers {
   selectedTheme: CVTheme;
 }
 
-function renderStep(step: CVStep, h: StepHandlers) {
+function renderStep(step: CvStep, h: StepHandlers) {
   switch (step) {
     case "idle":
       return <IdleStep onOpen={h.onOpen} />;
