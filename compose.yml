@@ -1,25 +1,14 @@
 services:
   badwatt:
     container_name: badwatt
-    image: ghcr.io/pnpm/pnpm:latest
+    image: ghcr.io/voidzero-dev/vite-plus:latest
     restart: unless-stopped
-    command: >
-      sh -c
-      "
-      pnpm runtime set node latest -g
-      && cd /project
-      && pnpm install
-      && pnpm run build
-      && exec node dist/server/entry.mjs
-      "
+    working_dir: /project
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        vp install --frozen-lockfile &&
+        vp run build &&
+        exec node dist/server/entry.mjs
     volumes:
       - .:/project
-    networks: [proxy]
-    labels:
-      caddy: badwatt.com, azama.es
-      caddy.import: cloudflare
-      caddy.reverse_proxy: "{{upstreams 4321}}"
-
-networks:
-  proxy:
-    external: {}
