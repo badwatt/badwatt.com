@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from "vite-plus/test";
-import { renderPageToCanvas } from "src/utils/renderPageToCanvas";
+import { renderPageToCanvas } from "src/infrastructure/pdf/renderPageToCanvas";
 
 describe("renderPageToCanvas", () => {
   afterEach(() => {

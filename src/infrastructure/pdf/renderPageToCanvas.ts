@@ -1,5 +1,5 @@
 import type { PDFPageProxy } from "pdfjs-dist/legacy/build/pdf.mjs";
-import { PDF_SCALE } from "src/utils/pdfConstants";
+import { PDF_SCALE } from "src/infrastructure/pdf/constants";
 
 const MAX_RENDER_SCALE = 3;
 

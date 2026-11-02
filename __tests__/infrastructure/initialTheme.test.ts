@@ -8,25 +8,25 @@ describe("getInitialTheme", () => {
 
   it("returns dark by default", async () => {
     vi.spyOn(window, "matchMedia").mockReturnValue({ matches: false } as MediaQueryList);
-    const { getInitialTheme } = await import("src/utils/getInitialTheme");
+    const { getInitialTheme } = await import("src/infrastructure/theme/initialTheme");
     expect(getInitialTheme()).toBe("dark");
   });
 
   it("returns stored light theme", async () => {
     localStorage.setItem("theme", "light");
-    const { getInitialTheme } = await import("src/utils/getInitialTheme");
+    const { getInitialTheme } = await import("src/infrastructure/theme/initialTheme");
     expect(getInitialTheme()).toBe("light");
   });
 
   it("returns stored dark theme", async () => {
     localStorage.setItem("theme", "dark");
-    const { getInitialTheme } = await import("src/utils/getInitialTheme");
+    const { getInitialTheme } = await import("src/infrastructure/theme/initialTheme");
     expect(getInitialTheme()).toBe("dark");
   });
 
   it("returns light when system prefers light", async () => {
     vi.spyOn(window, "matchMedia").mockReturnValue({ matches: true } as MediaQueryList);
-    const { getInitialTheme } = await import("src/utils/getInitialTheme");
+    const { getInitialTheme } = await import("src/infrastructure/theme/initialTheme");
     expect(getInitialTheme()).toBe("light");
   });
 
@@ -38,7 +38,7 @@ describe("getInitialTheme", () => {
       configurable: true,
     });
     vi.resetModules();
-    const { getInitialTheme } = await import("src/utils/getInitialTheme");
+    const { getInitialTheme } = await import("src/infrastructure/theme/initialTheme");
     expect(getInitialTheme()).toBe("dark");
     Object.defineProperty(globalThis, "window", {
       value: savedWindow,

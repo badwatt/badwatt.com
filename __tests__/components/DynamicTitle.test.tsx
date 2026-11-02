@@ -1,5 +1,5 @@
 import { cleanup, render } from "@testing-library/react";
-import { DynamicTitle, getSiteName } from "src/utils/DynamicTitle";
+import { DynamicTitle, getSiteName } from "src/components/DynamicTitle";
 import { afterEach, describe, expect, it, vi } from "vite-plus/test";
 
 describe("getSiteName", () => {

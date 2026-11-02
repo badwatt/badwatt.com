@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 import { usePdfPages } from "src/hooks/usePdfPages";
 import { usePinchZoom } from "src/hooks/usePinchZoom";
-import { renderPageToCanvas } from "src/utils/renderPageToCanvas";
+import { renderPageToCanvas } from "src/infrastructure/pdf/renderPageToCanvas";
 import { Spinner } from "./Spinner";
 
 // new Worker() y el fallback import() de pdfjs necesitan una URL de módulo real.
