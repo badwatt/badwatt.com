@@ -27,7 +27,7 @@ export function createCvClient({ experienceData, aboutData, skillsData }: CvCont
     },
 
     async render(theme: CVTheme) {
-      const { generateCV } = await import("src/utils/generateCV");
+      const { generateCV } = await import("src/infrastructure/pdf/generateCv");
       return generateCV(theme, experienceData, aboutData, skillsData);
     },
   };

@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vite-plus/test";
 import { createCvClient } from "src/infrastructure/cvClient";
 import { testAboutData, testExperienceData, testSkillsData } from "../fixtures";
 
-vi.mock("src/utils/generateCV", () => ({
+vi.mock("src/infrastructure/pdf/generateCv", () => ({
   generateCV: vi.fn().mockResolvedValue("blob:generated"),
 }));
 
@@ -36,7 +36,7 @@ describe("cvClient", () => {
   });
 
   it("renders the pdf with the content it was built with", async () => {
-    const { generateCV } = await import("src/utils/generateCV");
+    const { generateCV } = await import("src/infrastructure/pdf/generateCv");
     const theme = { id: "default" } as Parameters<typeof generateCV>[0];
 
     expect(await createCvClient(content).render(theme)).toBe("blob:generated");

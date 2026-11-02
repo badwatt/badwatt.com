@@ -5,7 +5,7 @@ import { testExperienceData, testAboutData, testSkillsData } from "../fixtures";
 import toast from "react-hot-toast";
 import { getThemeById } from "src/domain/cv/theme";
 
-vi.mock("src/utils/generateCV", () => ({
+vi.mock("src/infrastructure/pdf/generateCv", () => ({
   generateCV: vi.fn().mockResolvedValue("blob:test"),
 }));
 
@@ -174,7 +174,7 @@ describe("<CV />", () => {
   });
 
   it("shows generating state then opens PdfViewer", async () => {
-    const { generateCV } = await import("src/utils/generateCV");
+    const { generateCV } = await import("src/infrastructure/pdf/generateCv");
     vi.mocked(generateCV).mockImplementationOnce(
       () => new Promise((r) => setTimeout(() => r("blob:test"), 50)),
     );
@@ -195,7 +195,7 @@ describe("<CV />", () => {
   });
 
   it("passes the selected theme to generateCV", async () => {
-    const { generateCV } = await import("src/utils/generateCV");
+    const { generateCV } = await import("src/infrastructure/pdf/generateCv");
     render(
       <CV
         experienceData={testExperienceData}
@@ -219,7 +219,7 @@ describe("<CV />", () => {
   });
 
   it("opens PdfViewer via generateCV after captcha resolves", async () => {
-    const { generateCV } = await import("src/utils/generateCV");
+    const { generateCV } = await import("src/infrastructure/pdf/generateCv");
     render(
       <CV
         experienceData={testExperienceData}
@@ -237,7 +237,7 @@ describe("<CV />", () => {
   });
 
   it("handles PDF generation failure gracefully", async () => {
-    const { generateCV } = await import("src/utils/generateCV");
+    const { generateCV } = await import("src/infrastructure/pdf/generateCv");
     vi.mocked(generateCV).mockRejectedValueOnce(new Error("fail"));
     const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     render(
@@ -304,7 +304,7 @@ describe("<CV />", () => {
   });
 
   it("closes PdfViewer without revoking when url is empty", async () => {
-    const { generateCV } = await import("src/utils/generateCV");
+    const { generateCV } = await import("src/infrastructure/pdf/generateCv");
     vi.mocked(generateCV).mockResolvedValueOnce("");
     const revokeSpy = vi.spyOn(URL, "revokeObjectURL").mockImplementation(() => {});
     render(
