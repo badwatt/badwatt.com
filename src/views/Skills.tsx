@@ -1,6 +1,6 @@
 import { Header } from "src/components/Header";
 import { useScrollReveal } from "src/hooks/useScrollReveal";
-import type { SkillEntry } from "src/domain/content";
+import type { SkillEntry } from "src/content/domain/content";
 
 interface SkillsProps {
   skillsData: SkillEntry[];

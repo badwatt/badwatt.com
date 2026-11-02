@@ -1,6 +1,6 @@
-import type { AboutEntry } from "src/domain/content";
+import type { AboutEntry } from "src/content/domain/content";
 import type { CVColors } from "src/cv/domain/theme";
-import { PROFILE } from "src/domain/profile";
+import { PROFILE } from "src/content/domain/profile";
 import type { PdfCanvas } from "src/cv/infrastructure/pdf/canvas";
 import { sectionTitle, tag } from "src/cv/infrastructure/pdf/sections";
 

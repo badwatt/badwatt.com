@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vite-plus/test";
-import { loadSiteContent, type ContentSource } from "src/application/siteContent";
-import type { ExperienceEntry } from "src/domain/content";
+import { loadSiteContent, type ContentSource } from "src/content/application/siteContent";
+import type { ExperienceEntry } from "src/content/domain/content";
 
 const experienceEntries: ExperienceEntry[] = [
   {

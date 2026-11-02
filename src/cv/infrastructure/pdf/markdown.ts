@@ -1,5 +1,5 @@
 import type { CVColors } from "src/cv/domain/theme";
-import { getListItemInline, tokenize, type Token } from "src/domain/markdown";
+import { getListItemInline, tokenize, type Token } from "src/content/domain/markdown";
 import type { PdfCanvas } from "src/cv/infrastructure/pdf/canvas";
 import type { Tokens } from "marked";
 

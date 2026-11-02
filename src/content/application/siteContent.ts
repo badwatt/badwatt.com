@@ -1,5 +1,10 @@
-import type { AboutEntry, ExperienceEntry, PortfolioEntry, SkillEntry } from "src/domain/content";
-import { sortByMostRecent } from "src/domain/experience";
+import type {
+  AboutEntry,
+  ExperienceEntry,
+  PortfolioEntry,
+  SkillEntry,
+} from "src/content/domain/content";
+import { sortByMostRecent } from "src/content/domain/experience";
 
 export interface SiteContent {
   experience: ExperienceEntry[];

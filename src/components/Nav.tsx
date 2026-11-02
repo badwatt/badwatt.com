@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { ListIcon, XIcon } from "@phosphor-icons/react";
-import { ThemeToggle } from "src/components/ThemeToggle";
+import { ThemeToggle } from "src/theme/ui/ThemeToggle";
 
 const links = [
   { label: "Home", route: "home" },

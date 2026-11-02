@@ -1,4 +1,4 @@
-import { stripExtractedTitleAndSubtitle } from "src/domain/markdown";
+import { stripExtractedTitleAndSubtitle } from "src/content/domain/markdown";
 import { measureMarkdown, type PdfMetrics } from "src/cv/domain/measure";
 
 export const PAGE_W = 595;

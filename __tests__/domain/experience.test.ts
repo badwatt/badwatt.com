@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vite-plus/test";
-import { parseDate, sortByMostRecent } from "src/domain/experience";
+import { parseDate, sortByMostRecent } from "src/content/domain/experience";
 
 describe("parseDate", () => {
   it("reads 'now' as the injected clock", () => {

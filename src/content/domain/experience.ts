@@ -1,4 +1,4 @@
-import type { ExperienceEntry } from "src/domain/content";
+import type { ExperienceEntry } from "src/content/domain/content";
 
 type Dated = Pick<ExperienceEntry, "date_from">;
 

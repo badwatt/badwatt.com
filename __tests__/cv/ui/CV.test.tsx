@@ -9,7 +9,7 @@ vi.mock("src/cv/infrastructure/pdf/generateCv", () => ({
   generateCV: vi.fn().mockResolvedValue("blob:test"),
 }));
 
-vi.mock("src/components/CapWidget", () => {
+vi.mock("src/captcha/ui/CapWidget", () => {
   const React = require("react");
   return {
     CapWidget: ({ onVerified }: { onVerified?: (token: string) => void }) => {

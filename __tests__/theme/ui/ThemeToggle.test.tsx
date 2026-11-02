@@ -1,5 +1,5 @@
 import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
-import { ThemeToggle } from "src/components/ThemeToggle";
+import { ThemeToggle } from "src/theme/ui/ThemeToggle";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 describe("ThemeToggle", () => {

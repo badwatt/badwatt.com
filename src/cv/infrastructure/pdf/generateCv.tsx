@@ -1,7 +1,7 @@
-import type { AboutEntry, ExperienceEntry, SkillEntry } from "src/domain/content";
-import { sortByMostRecent } from "src/domain/experience";
+import type { AboutEntry, ExperienceEntry, SkillEntry } from "src/content/domain/content";
+import { sortByMostRecent } from "src/content/domain/experience";
 import { buildColors, pickAssetByLuminance, type CVTheme } from "src/cv/domain/theme";
-import { parseExperienceSubgroups } from "src/domain/markdown";
+import { parseExperienceSubgroups } from "src/content/domain/markdown";
 import { PAGE_H, M, chipBodyTopPad, fitSubgroups } from "src/cv/domain/layout";
 import { loadImage, loadImageToPng, toCircular } from "src/cv/infrastructure/pdf/assets";
 import {

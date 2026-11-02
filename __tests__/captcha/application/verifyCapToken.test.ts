@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vite-plus/test";
-import { verifyCapToken } from "src/application/verifyCapToken";
+import { verifyCapToken } from "src/captcha/application/verifyCapToken";
 
 const config = {
   endpoint: "https://cap.example.com",

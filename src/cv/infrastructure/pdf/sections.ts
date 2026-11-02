@@ -1,12 +1,12 @@
-import type { ExperienceEntry } from "src/domain/content";
-import { PROFILE } from "src/domain/profile";
+import type { ExperienceEntry } from "src/content/domain/content";
+import { PROFILE } from "src/content/domain/profile";
 import type { CVColors } from "src/cv/domain/theme";
 import type { PdfCanvas } from "src/cv/infrastructure/pdf/canvas";
 import {
   extractPeriodTitle,
   parseExperienceSubgroups,
   stripExtractedTitleAndSubtitle,
-} from "src/domain/markdown";
+} from "src/content/domain/markdown";
 import { measureMarkdown } from "src/cv/domain/measure";
 import { drawMarkdown } from "src/cv/infrastructure/pdf/markdown";
 import {

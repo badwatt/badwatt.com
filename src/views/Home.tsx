@@ -2,11 +2,11 @@ import { lazy, Suspense, useEffect, useState } from "react";
 import { ScrambleWobble } from "src/components/ScrambleWobble";
 import { useScrollReveal } from "src/hooks/useScrollReveal";
 import { useCV } from "src/cv/ui/useCV";
-import { CapWidget } from "src/components/CapWidget";
+import { CapWidget } from "src/captcha/ui/CapWidget";
 import { CVThemePicker } from "src/cv/ui/CVThemePicker";
 import { Modal } from "src/components/Modal";
 import { Toaster } from "react-hot-toast";
-import type { ExperienceEntry, AboutEntry, SkillEntry } from "src/domain/content";
+import type { ExperienceEntry, AboutEntry, SkillEntry } from "src/content/domain/content";
 
 // Cargado bajo demanda: arrastra pdfjs-dist y solo se necesita al abrir el CV.
 const PdfViewer = lazy(() => import("src/cv/ui/PdfViewer").then((m) => ({ default: m.PdfViewer })));

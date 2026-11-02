@@ -5,8 +5,8 @@ import {
   extractPeriodTitle,
   parseExperienceSubgroups,
   stripExtractedTitleAndSubtitle,
-} from "src/domain/markdown";
-import type { ExperienceEntry } from "src/domain/content";
+} from "src/content/domain/markdown";
+import type { ExperienceEntry } from "src/content/domain/content";
 
 interface ExperienceProps {
   experienceData: ExperienceEntry[];

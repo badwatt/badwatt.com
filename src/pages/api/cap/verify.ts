@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { verifyCapToken } from "src/application/verifyCapToken";
+import { verifyCapToken } from "src/captcha/application/verifyCapToken";
 
 export const POST: APIRoute = async ({ request }) => {
   const { token } = (await request.json()) as { token: string };

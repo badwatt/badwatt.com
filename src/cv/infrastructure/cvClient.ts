@@ -1,5 +1,6 @@
+import { verifyCaptcha } from "src/captcha/application/verifyCaptcha";
 import type { CvPorts } from "src/cv/application/requestCv";
-import type { AboutEntry, ExperienceEntry, SkillEntry } from "src/domain/content";
+import type { AboutEntry, ExperienceEntry, SkillEntry } from "src/content/domain/content";
 import type { CVTheme } from "src/cv/domain/theme";
 
 export interface CvContent {
@@ -8,8 +9,6 @@ export interface CvContent {
   skillsData: SkillEntry[];
 }
 
-const VERIFY_ENDPOINT = "/api/cap/verify";
-
 /**
  * Adapts the browser to the CV ports: the captcha is verified by our own route
  * and the PDF is rendered by the lazy-loaded generator, so jsPDF never enters
@@ -17,14 +16,7 @@ const VERIFY_ENDPOINT = "/api/cap/verify";
  */
 export function createCvClient({ experienceData, aboutData, skillsData }: CvContent): CvPorts {
   return {
-    async verifyCaptcha(token) {
-      const res = await fetch(VERIFY_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token }),
-      });
-      return res.ok;
-    },
+    verifyCaptcha: (token) => verifyCaptcha(token),
 
     async render(theme: CVTheme) {
       const { generateCV } = await import("src/cv/infrastructure/pdf/generateCv");

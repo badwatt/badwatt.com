@@ -1,6 +1,6 @@
 import { cleanup, render } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
-import { CapWidget } from "src/components/CapWidget";
+import { CapWidget } from "src/captcha/ui/CapWidget";
 
 const SCRIPT_ID = "cap-widget-script";
 

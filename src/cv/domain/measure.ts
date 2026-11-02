@@ -1,4 +1,4 @@
-import { tokenize, getListItemInline, type Token } from "src/domain/markdown";
+import { tokenize, getListItemInline, type Token } from "src/content/domain/markdown";
 import type { Tokens } from "marked";
 
 /** The slice of the PDF document the measurer needs; jsPDF satisfies it. */

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { SunIcon, MoonIcon } from "@phosphor-icons/react";
-import { getInitialTheme } from "src/infrastructure/theme/initialTheme";
+import { getInitialTheme } from "src/theme/infrastructure/initialTheme";
 
 export { getInitialTheme };
 

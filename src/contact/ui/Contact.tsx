@@ -1,6 +1,7 @@
 import { type ChangeEvent, useRef, useState } from "react";
-import emailjs from "@emailjs/browser";
-import { CapWidget } from "src/components/CapWidget";
+import { CapWidget } from "src/captcha/ui/CapWidget";
+import { verifyCaptcha } from "src/captcha/application/verifyCaptcha";
+import { sendContactForm } from "src/contact/infrastructure/emailClient";
 import { PaperPlaneTiltIcon, CheckCircleIcon } from "@phosphor-icons/react";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -50,23 +51,12 @@ export const Contact = () => {
   const doSubmit = async (token: string) => {
     setIsSubmitting(true);
     try {
-      const verifyRes = await fetch("/api/cap/verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token }),
-      });
-      if (!verifyRes.ok) {
+      if (!(await verifyCaptcha(token))) {
         toast.error("Captcha verification failed. Please try again.");
         setShowCaptcha(false);
-        setIsSubmitting(false);
         return;
       }
-      await emailjs.sendForm(
-        import.meta.env.PUBLIC_SERVICE_ID,
-        import.meta.env.PUBLIC_TEMPLATE_ID,
-        form.current!,
-        import.meta.env.PUBLIC_PUBLIC_KEY,
-      );
+      await sendContactForm(form.current);
       setIsSubmitted(true);
     } catch {
       toast.error("Message failed to send. Please try again.");

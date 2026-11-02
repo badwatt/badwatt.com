@@ -1,5 +1,5 @@
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { Contact } from "src/views/Contact";
+import { Contact } from "src/contact/ui/Contact";
 import type { EmailJSResponseStatus } from "@emailjs/browser";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
@@ -7,7 +7,7 @@ vi.mock("@emailjs/browser", () => ({
   default: { sendForm: vi.fn().mockRejectedValue(new Error("fail")) },
 }));
 
-vi.mock("src/components/CapWidget", () => {
+vi.mock("src/captcha/ui/CapWidget", () => {
   const React = require("react");
   return {
     CapWidget: ({ onVerified }: { onVerified?: (token: string) => void }) => {
