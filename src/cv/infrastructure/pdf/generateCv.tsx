@@ -74,7 +74,7 @@ export async function generateCV(
   startPage(doc, W, C);
 
   const bodyTop = drawHeader(doc, W, C);
-  const sidebarBottom = drawSidebar(
+  drawSidebar(
     doc,
     C,
     { aboutData, featuredSkills, otherSkills, profileImg, githubIcon, linkedinIcon },
@@ -89,7 +89,9 @@ export async function generateCV(
   const CONTENT_W = W - M * 2;
   const cx = mainX + 28;
 
-  let y = Math.max(sidebarBottom, bodyTop) + 8;
+  // Two independent columns: the experience starts under the header, at the same
+  // height as the sidebar, and the sidebar height never pushes it down.
+  let y = bodyTop + 8;
   let page = 1;
 
   const pageLimit = PAGE_H - M - 36;
