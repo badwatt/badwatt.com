@@ -119,3 +119,21 @@ export function stripExtractedTitleAndSubtitle(body: string): string {
   }
   return kept.join("\n").trim();
 }
+
+export function getListItemInline(item: Tokens.ListItem): Token[] {
+  // A list item can be either "tight" (tokens = [Text]) or "loose"
+  // (tokens = [Paragraph, Space, Paragraph, ...]). We want the inline
+  // tokens of the first content block so the marker and the text line
+  // up. For loose items, the first paragraph's tokens are used; for tight
+  // items, the text token's tokens are used.
+  for (const t of item.tokens) {
+    if (t.type === "paragraph") {
+      const p = t as Tokens.Paragraph;
+      return p.tokens as Token[];
+    } else if (t.type === "text") {
+      const text = t as Tokens.Text;
+      return text.tokens as Token[];
+    }
+  }
+  return [];
+}

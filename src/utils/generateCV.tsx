@@ -11,13 +11,27 @@ import {
 import type { Tokens } from "marked";
 import type { jsPDF } from "jspdf";
 import { loadImage, loadImageToPng, toCircular } from "src/infrastructure/pdf/assets";
+import { getListItemInline } from "src/domain/markdown";
+import { measureMarkdown } from "src/domain/cv/measure";
+import {
+  CARD_TOP_PAD,
+  CHIP_PAD_TOP,
+  CHIP_PAD_BOTTOM,
+  CHIP_TITLE_H,
+  CHIP_SUBTITLE_H,
+  CHIP_GAP,
+  PAGE_W,
+  PAGE_H,
+  M,
+  COMPANY_ROW_H,
+  DATES_ROW_H,
+  cardHeight,
+  chipBodyTopPad,
+  fitSubgroups,
+} from "src/domain/cv/layout";
 
 /** The slice of jsPDF the CV renderer uses; keeps the DOM out of the signature. */
 type PdfDoc = jsPDF;
-
-const PAGE_W = 595;
-const PAGE_H = 842;
-const M = 36;
 
 type CVColors = {
   base: CVThemeColors["base"];
@@ -47,82 +61,6 @@ export function getBioText(data: AboutEntry[]): string {
 
 export function parseDescription(raw: string): Token[] {
   return tokenize(raw);
-}
-
-function getListItemInline(item: Tokens.ListItem): Token[] {
-  // A list item can be either "tight" (tokens = [Text]) or "loose"
-  // (tokens = [Paragraph, Space, Paragraph, ...]). We want the inline
-  // tokens of the first content block so the marker and the text line
-  // up. For loose items, the first paragraph's tokens are used; for tight
-  // items, the text token's tokens are used.
-  for (const t of item.tokens) {
-    if (t.type === "paragraph") {
-      const p = t as Tokens.Paragraph;
-      return p.tokens as Token[];
-    } else if (t.type === "text") {
-      const text = t as Tokens.Text;
-      return text.tokens as Token[];
-    }
-  }
-  return [];
-}
-
-function measureText(doc: PdfDoc, text: string, w: number, lineHeight: number): number {
-  const lines = doc.splitTextToSize(text, w);
-  return lines.length * lineHeight;
-}
-
-function measureToken(doc: PdfDoc, token: Token, w: number): number {
-  switch (token.type) {
-    case "heading": {
-      const depth = (token as Tokens.Heading).depth;
-      const lineHeight = depth === 1 ? 14 : 13;
-      return measureText(doc, (token as Tokens.Heading).text, w, lineHeight) + 2;
-    }
-    case "paragraph":
-      return measureText(doc, (token as Tokens.Paragraph).text, w, 11) + 2;
-    case "list": {
-      const list = token as Tokens.List;
-      let h = 2;
-      for (const item of list.items) {
-        const inline = getListItemInline(item);
-        let inlineText = "";
-        for (const t of inline) {
-          const txt = (t as { text?: string }).text;
-          if (txt) inlineText += txt;
-        }
-        h += measureText(doc, inlineText, w - 14, 11) + 3;
-      }
-      return h + 2;
-    }
-    case "blockquote": {
-      const bq = token as Tokens.Blockquote;
-      let h = 2;
-      for (const t of bq.tokens) {
-        h += measureToken(doc, t as Token, w - 14);
-      }
-      return h + 4;
-    }
-    case "code": {
-      const code = token as Tokens.Code;
-      const lineH = 11;
-      return code.text.split("\n").length * lineH + 10;
-    }
-    default:
-      return 0;
-  }
-}
-
-export function measureMarkdown(doc: PdfDoc, raw: string, w: number): number {
-  let h = 0;
-  let first = true;
-  for (const token of parseDescription(raw)) {
-    if (token.type === "space") continue;
-    if (!first) h += 4;
-    first = false;
-    h += measureToken(doc, token, w);
-  }
-  return h;
 }
 
 function sectionTitle(doc: PdfDoc, C: CVColors, label: string, x: number, y: number): number {
@@ -342,60 +280,6 @@ export function drawMarkdown(
     y = drawMarkdownToken(doc, C, token, x, w, y);
   }
   return y;
-}
-
-// Card layout constants shared by the measurer and the drawer, so a card's
-// frame always matches the content it wraps.
-const CARD_TOP_PAD = 14;
-const CARD_BOTTOM_PAD = 12;
-const COMPANY_ROW_H = 18;
-const DATES_ROW_H = 14;
-const CHIP_PAD_TOP = 8;
-const CHIP_PAD_BOTTOM = 8;
-const CHIP_TITLE_H = 11;
-const CHIP_SUBTITLE_H = 11; // subtitle line (9pt) + small gap
-const CHIP_GAP = 6;
-
-// Breathing room between a period's subtitle and its body. Multi-period jobs
-// get more of it so stacked chips don't read as a single block.
-export function chipBodyTopPad(periodCount: number): number {
-  return periodCount > 1 ? 30 : 2;
-}
-
-export function cardHeight(
-  doc: PdfDoc,
-  subgroups: string[],
-  w: number,
-  bodyTopPad: number,
-): number {
-  let h = CARD_TOP_PAD + COMPANY_ROW_H + DATES_ROW_H;
-  for (let i = 0; i < subgroups.length; i++) {
-    h += CHIP_PAD_TOP + CHIP_TITLE_H + CHIP_SUBTITLE_H + bodyTopPad;
-    h += measureMarkdown(doc, stripExtractedTitleAndSubtitle(subgroups[i]), w);
-    h += CHIP_PAD_BOTTOM;
-    if (i < subgroups.length - 1) h += CHIP_GAP;
-  }
-  return h + CARD_BOTTOM_PAD;
-}
-
-// Longest prefix of `subgroups` that fits in `available` height. 0 means not
-// even the first period fits. Callers use this to break a long job across
-// pages at period boundaries, never inside a list.
-export function fitSubgroups(
-  doc: PdfDoc,
-  subgroups: string[],
-  w: number,
-  bodyTopPad: number,
-  available: number,
-): number {
-  let fit = 0;
-  while (
-    fit < subgroups.length &&
-    cardHeight(doc, subgroups.slice(0, fit + 1), w, bodyTopPad) <= available
-  ) {
-    fit++;
-  }
-  return fit;
 }
 
 export function drawJobCard(

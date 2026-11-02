@@ -4,9 +4,9 @@ import {
   generateCV,
   parseDescription,
   drawMarkdown,
-  measureMarkdown,
   drawJob,
 } from "src/utils/generateCV";
+import { measureMarkdown } from "src/domain/cv/measure";
 import { loadImage, loadImageToPng, toCircular } from "src/infrastructure/pdf/assets";
 import {
   CV_THEMES,
