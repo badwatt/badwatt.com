@@ -4,7 +4,7 @@ import {
   MagnifyingGlassPlusIcon,
   MagnifyingGlassMinusIcon,
 } from "@phosphor-icons/react";
-import { Modal } from "src/ui/components/Modal";
+import { Modal } from "src/site/components/Modal";
 import { PdfCanvas } from "./PdfCanvas";
 import { useZoom } from "src/cv/ui/useZoom";
 
