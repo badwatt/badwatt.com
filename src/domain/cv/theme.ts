@@ -102,3 +102,25 @@ export function relativeLuminance([r, g, b]: RGB): number {
 export function pickAssetByLuminance(base: RGB, lightUrl: string, darkUrl: string): string {
   return relativeLuminance(base) > 0.5 ? darkUrl : lightUrl;
 }
+
+export type CVColors = {
+  base: CVThemeColors["base"];
+  surface: CVThemeColors["surface"];
+  border: CVThemeColors["border"];
+  muted: CVThemeColors["muted"];
+  white: CVThemeColors["text"];
+  primary: CVThemeColors["primary"];
+  accent: CVThemeColors["accent"];
+};
+
+export function buildColors(colors: CVThemeColors): CVColors {
+  return {
+    base: colors.base,
+    surface: colors.surface,
+    border: colors.border,
+    muted: colors.muted,
+    white: colors.text,
+    primary: colors.primary,
+    accent: colors.accent,
+  };
+}
