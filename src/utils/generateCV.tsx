@@ -9,6 +9,10 @@ import {
   type Token,
 } from "src/utils/markdown";
 import type { Tokens } from "marked";
+import type { jsPDF } from "jspdf";
+
+/** The slice of jsPDF the CV renderer uses; keeps the DOM out of the signature. */
+type PdfDoc = jsPDF;
 
 const PAGE_W = 595;
 const PAGE_H = 842;
@@ -132,12 +136,12 @@ function getListItemInline(item: Tokens.ListItem): Token[] {
   return [];
 }
 
-function measureText(doc: any, text: string, w: number, lineHeight: number): number {
+function measureText(doc: PdfDoc, text: string, w: number, lineHeight: number): number {
   const lines = doc.splitTextToSize(text, w);
   return lines.length * lineHeight;
 }
 
-function measureToken(doc: any, token: Token, w: number): number {
+function measureToken(doc: PdfDoc, token: Token, w: number): number {
   switch (token.type) {
     case "heading": {
       const depth = (token as Tokens.Heading).depth;
@@ -178,7 +182,7 @@ function measureToken(doc: any, token: Token, w: number): number {
   }
 }
 
-export function measureMarkdown(doc: any, raw: string, w: number): number {
+export function measureMarkdown(doc: PdfDoc, raw: string, w: number): number {
   let h = 0;
   let first = true;
   for (const token of parseDescription(raw)) {
@@ -190,7 +194,7 @@ export function measureMarkdown(doc: any, raw: string, w: number): number {
   return h;
 }
 
-function sectionTitle(doc: any, C: CVColors, label: string, x: number, y: number): number {
+function sectionTitle(doc: PdfDoc, C: CVColors, label: string, x: number, y: number): number {
   doc.setFont("helvetica", "bold");
   doc.setFontSize(9);
   doc.setTextColor(...C.primary);
@@ -202,7 +206,7 @@ function sectionTitle(doc: any, C: CVColors, label: string, x: number, y: number
 }
 
 function tag(
-  doc: any,
+  doc: PdfDoc,
   C: CVColors,
   label: string,
   x: number,
@@ -235,7 +239,7 @@ function tag(
 }
 
 function drawInline(
-  doc: any,
+  doc: PdfDoc,
   C: CVColors,
   tokens: Token[],
   x: number,
@@ -298,7 +302,7 @@ function drawInline(
 }
 
 function drawMarkdownToken(
-  doc: any,
+  doc: PdfDoc,
   C: CVColors,
   token: Token,
   x: number,
@@ -388,7 +392,7 @@ function drawMarkdownToken(
 const BLOCK_GAP = 4;
 
 export function drawMarkdown(
-  doc: any,
+  doc: PdfDoc,
   C: CVColors,
   raw: string,
   x: number,
@@ -427,7 +431,12 @@ export function chipBodyTopPad(periodCount: number): number {
   return periodCount > 1 ? 30 : 2;
 }
 
-export function cardHeight(doc: any, subgroups: string[], w: number, bodyTopPad: number): number {
+export function cardHeight(
+  doc: PdfDoc,
+  subgroups: string[],
+  w: number,
+  bodyTopPad: number,
+): number {
   let h = CARD_TOP_PAD + COMPANY_ROW_H + DATES_ROW_H;
   for (let i = 0; i < subgroups.length; i++) {
     h += CHIP_PAD_TOP + CHIP_TITLE_H + CHIP_SUBTITLE_H + bodyTopPad;
@@ -442,7 +451,7 @@ export function cardHeight(doc: any, subgroups: string[], w: number, bodyTopPad:
 // even the first period fits. Callers use this to break a long job across
 // pages at period boundaries, never inside a list.
 export function fitSubgroups(
-  doc: any,
+  doc: PdfDoc,
   subgroups: string[],
   w: number,
   bodyTopPad: number,
@@ -459,7 +468,7 @@ export function fitSubgroups(
 }
 
 export function drawJobCard(
-  doc: any,
+  doc: PdfDoc,
   C: CVColors,
   job: ExperienceEntry,
   subgroups: string[],
@@ -565,7 +574,7 @@ export function drawJobCard(
 
 // Draw a whole job (all of its periods) as one card.
 export function drawJob(
-  doc: any,
+  doc: PdfDoc,
   C: CVColors,
   job: ExperienceEntry,
   x: number,
@@ -577,7 +586,7 @@ export function drawJob(
   return drawJobCard(doc, C, job, subgroups, x, w, startY, logo, chipBodyTopPad(subgroups.length));
 }
 
-function continuationHeader(doc: any, C: CVColors): number {
+function continuationHeader(doc: PdfDoc, C: CVColors): number {
   let y = M;
   doc.setFont("helvetica", "bold");
   doc.setFontSize(13);
@@ -593,7 +602,7 @@ function continuationHeader(doc: any, C: CVColors): number {
   return y + 56;
 }
 
-function drawFooter(doc: any, C: CVColors, profileAltImg: string | null) {
+function drawFooter(doc: PdfDoc, C: CVColors, profileAltImg: string | null) {
   const footerY = PAGE_H - 24;
   doc.setDrawColor(...C.border);
   doc.setLineWidth(0.5);
@@ -623,7 +632,7 @@ function drawFooter(doc: any, C: CVColors, profileAltImg: string | null) {
   }
 }
 
-function startPage(doc: any, W: number, C: CVColors) {
+function startPage(doc: PdfDoc, W: number, C: CVColors) {
   doc.setFillColor(...C.base);
   doc.rect(0, 0, W, PAGE_H, "F");
   doc.setFillColor(...C.primary);
