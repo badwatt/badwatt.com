@@ -1,0 +1,6 @@
+/** Zoom limits for the CV viewer; the UI decides how far the reader can go. */
+export const ZOOM_MIN = 0.5;
+export const ZOOM_MAX = 3;
+export const ZOOM_STEP = 0.2;
+export const ZOOM_DESKTOP = 0.5;
+export const ZOOM_MOBILE = 1;

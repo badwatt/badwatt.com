@@ -58,12 +58,12 @@ reshape the state so that the impossible case does not exist.
 
 Four layers. Dependencies point inward only:
 
-| Layer            | Path                                                                  | May import                            |
-| ---------------- | --------------------------------------------------------------------- | ------------------------------------- |
-| `domain`         | `src/domain/**`                                                       | nothing but itself                    |
-| `application`    | `src/application/**`                                                  | `domain`, its own ports               |
-| `infrastructure` | `src/infrastructure/**`                                               | `application`, `domain`, libraries    |
-| `ui`             | `src/views/**`, `src/components/**`, `src/pages/**`, `src/layouts/**` | `application`, `domain`, React, Astro |
+| Layer            | Path                                                                                  | May import                            |
+| ---------------- | ------------------------------------------------------------------------------------- | ------------------------------------- |
+| `domain`         | `src/domain/**`                                                                       | nothing but itself                    |
+| `application`    | `src/application/**`                                                                  | `domain`, its own ports               |
+| `infrastructure` | `src/infrastructure/**`                                                               | `application`, `domain`, libraries    |
+| `ui`             | `src/views/**`, `src/components/**`, `src/hooks/**`, `src/pages/**`, `src/layouts/**` | `application`, `domain`, React, Astro |
 
 - `domain` holds the rules: the CV data model, date parsing, pagination maths. No React,
   no Astro, no jsPDF, no `import.meta.env`, no `fetch`, no DOM.
@@ -73,7 +73,8 @@ Four layers. Dependencies point inward only:
 - `infrastructure` holds one adapter per port: `getCollection` for content, jsPDF for the
   PDF, `fetch` for Cap, EmailJS for mail.
 - `ui` orchestrates and renders. It never parses markdown, never touches jsPDF and never
-  knows a provider's payload.
+  knows a provider's payload. `src/hooks/**` is UI as well: state and effects shared by
+  more than one view (`useCV`, `useZoom`).
 - Side effects and configuration are injected as arguments (`now`, `fetchImpl`, endpoint,
   secret). The core receives values; only the edge reads `import.meta.env`.
 - Routes under `src/pages/api/**` are adapters: parse the request, call a use case, build
@@ -81,6 +82,10 @@ Four layers. Dependencies point inward only:
 - No port without an adapter, no adapter with logic. A use case with one implementation
   called from one place is a plain function; the structure exists to keep the core
   testable, not to draw a diagram.
+- Composition happens in exactly two places: `src/pages/index.astro` builds the content
+  source and `src/hooks/useCV.ts` builds the CV client. Every other UI module talks to
+  `application` or `domain`; the only components that touch a browser adapter
+  (`PdfCanvas`, `ThemeToggle`) are the ones rendering it.
 
 ---
 

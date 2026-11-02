@@ -1,5 +1,5 @@
 import { useRef, useCallback } from "react";
-import { ZOOM_MIN, ZOOM_MAX } from "src/infrastructure/pdf/constants";
+import { ZOOM_MIN, ZOOM_MAX } from "src/hooks/zoom";
 
 interface PinchState {
   startDist: number;

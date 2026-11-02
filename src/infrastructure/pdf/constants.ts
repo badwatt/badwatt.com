@@ -1,6 +1,2 @@
+/** Render scale for a PDF page when no container width is available. */
 export const PDF_SCALE = 1.5;
-export const ZOOM_MIN = 0.5;
-export const ZOOM_MAX = 3;
-export const ZOOM_STEP = 0.2;
-export const ZOOM_DESKTOP = 0.5;
-export const ZOOM_MOBILE = 1;

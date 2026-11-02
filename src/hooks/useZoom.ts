@@ -1,11 +1,5 @@
 import { useState, useCallback } from "react";
-import {
-  ZOOM_MIN,
-  ZOOM_MAX,
-  ZOOM_STEP,
-  ZOOM_DESKTOP,
-  ZOOM_MOBILE,
-} from "src/infrastructure/pdf/constants";
+import { ZOOM_MIN, ZOOM_MAX, ZOOM_STEP, ZOOM_DESKTOP, ZOOM_MOBILE } from "src/hooks/zoom";
 
 const DESKTOP_MIN_WIDTH = 768;
 
