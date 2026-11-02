@@ -24,8 +24,7 @@ const DEFAULT_THEME: CVTheme = getThemeById("default");
 export const CV = ({ experienceData, aboutData, skillsData }: CVProps) => {
   const [step, setStep] = useState<CVStep>("idle");
   const [theme, setTheme] = useState<CVTheme>(DEFAULT_THEME);
-  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
-  const [showViewer, setShowViewer] = useState(false);
+  const [viewerUrl, setViewerUrl] = useState<string | null>(null);
 
   const handleOpen = async (token: string) => {
     setStep("loading");
@@ -42,8 +41,7 @@ export const CV = ({ experienceData, aboutData, skillsData }: CVProps) => {
       }
       const { generateCV } = await import("src/utils/generateCV");
       const url = await generateCV(theme, experienceData, aboutData, skillsData);
-      setPdfUrl(url);
-      setShowViewer(true);
+      setViewerUrl(url);
       setStep("idle");
     } catch (err) {
       console.error("CV generation failed:", err);
@@ -74,15 +72,14 @@ export const CV = ({ experienceData, aboutData, skillsData }: CVProps) => {
         onVerified: handleOpen,
         selectedTheme: theme,
       })}
-      {showViewer && (
+      {viewerUrl !== null && (
         <Suspense fallback={null}>
           <PdfViewer
-            src={pdfUrl ?? ""}
+            src={viewerUrl}
             isOpen
             onClose={() => {
-              if (pdfUrl) URL.revokeObjectURL(pdfUrl);
-              setPdfUrl(null);
-              setShowViewer(false);
+              if (viewerUrl) URL.revokeObjectURL(viewerUrl);
+              setViewerUrl(null);
             }}
           />
         </Suspense>

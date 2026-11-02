@@ -25,8 +25,7 @@ export const Home = ({ experienceData, aboutData, skillsData }: HomeProps) => {
   const [cvStep, setCvStep] = useState<"idle" | "captcha" | "loading">("idle");
   const [theme, setTheme] = useState<CVTheme>(getThemeById("default"));
   const [isThemeModalOpen, setIsThemeModalOpen] = useState(false);
-  const [pdfUrl, setPdfUrl] = useState<string | null>(null);
-  const [showViewer, setShowViewer] = useState(false);
+  const [viewerUrl, setViewerUrl] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,8 +50,7 @@ export const Home = ({ experienceData, aboutData, skillsData }: HomeProps) => {
       }
       const { generateCV } = await import("src/utils/generateCV");
       const url = await generateCV(theme, experienceData, aboutData, skillsData);
-      setPdfUrl(url);
-      setShowViewer(true);
+      setViewerUrl(url);
       setCvStep("idle");
     } catch (err) {
       console.error("CV generation failed:", err);
@@ -178,15 +176,14 @@ export const Home = ({ experienceData, aboutData, skillsData }: HomeProps) => {
         <span className="text-[10px] tracking-[0.2em] uppercase text-badwatt-muted/40">Scroll</span>
         <div className="w-px h-8 bg-gradient-to-b from-badwatt-primary/40 to-transparent" />
       </div>
-      {showViewer && (
+      {viewerUrl !== null && (
         <Suspense fallback={null}>
           <PdfViewer
-            src={pdfUrl ?? ""}
+            src={viewerUrl}
             isOpen
             onClose={() => {
-              if (pdfUrl) URL.revokeObjectURL(pdfUrl);
-              setPdfUrl(null);
-              setShowViewer(false);
+              if (viewerUrl) URL.revokeObjectURL(viewerUrl);
+              setViewerUrl(null);
             }}
           />
         </Suspense>
