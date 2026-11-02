@@ -51,6 +51,19 @@ const layer = (file: string) => relative(file)[1] ?? "";
 
 const ALL_EDGES = edges();
 
+/**
+ * The only ui entry points the site may mount. A capability that is not listed
+ * cannot be reached from the site's own components: it is composed from its own
+ * slice or through its application layer.
+ */
+const PUBLIC_UI_ENTRIES: Record<string, string[]> = {
+  contact: ["contact/ui/Contact.tsx"],
+  cv: ["cv/ui/CvLauncher.tsx"],
+  theme: ["theme/ui/ThemeToggle.tsx"],
+};
+
+const asPath = (file: string) => path.relative(SRC, file).split(path.sep).join("/");
+
 function offenders(rule: (edge: Edge) => boolean): string[] {
   return ALL_EDGES.filter(rule).map(({ from, specifier }) => {
     return `${path.relative(SRC, from)} -> ${specifier}`;
@@ -76,6 +89,16 @@ describe("architecture rules", () => {
       if (sourceLayer !== "domain" && sourceLayer !== "application") return false;
       return ["infrastructure", "ui", "components", "views", "pages"].includes(layer(to));
     });
+
+    expect(broken).toEqual([]);
+  });
+
+  it("lets the site reach a capability only through its public entry", () => {
+    const broken = ALL_EDGES.filter(
+      ({ from, to }) => capability(from) === "site" && layer(to) === "ui",
+    )
+      .filter(({ to }) => !(PUBLIC_UI_ENTRIES[capability(to)] ?? []).includes(asPath(to)))
+      .map(({ from, specifier }) => `${asPath(from)} -> ${specifier}`);
 
     expect(broken).toEqual([]);
   });

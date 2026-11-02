@@ -3,7 +3,7 @@ import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 import { usePdfPages } from "src/cv/ui/usePdfPages";
 import { usePinchZoom } from "src/cv/ui/usePinchZoom";
 import { renderPageToCanvas } from "src/cv/infrastructure/pdf/renderPageToCanvas";
-import { Spinner } from "src/site/components/Spinner";
+import { Spinner } from "src/cv/ui/Spinner";
 
 // new Worker() y el fallback import() de pdfjs necesitan una URL de módulo real.
 // Un fichero de /public no sirve: Vite rechaza importarlo desde código ("should not be

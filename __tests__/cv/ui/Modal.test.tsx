@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vite-plus/test";
 import { render, screen, fireEvent, cleanup } from "@testing-library/react";
-import { Modal, lockBodyScroll } from "src/site/components/Modal";
+import { Modal, lockBodyScroll } from "src/cv/ui/Modal";
 
 describe("Modal", () => {
   beforeEach(() => {

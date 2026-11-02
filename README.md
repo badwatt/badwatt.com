@@ -41,16 +41,16 @@ round trip to a server.
 
 ## Architecture
 
-`src/` is organised by capability, and each capability keeps the four layers inside
-it. Dependencies point inward, one direction only:
+`src/` is organised by capability, and each capability keeps the four layers inside it.
+Dependencies point inward, one direction only:
 
 ```
 src/cv/          domain/ application/ infrastructure/ ui/   the CV: model, use case, pdf, viewer
-src/content/     domain/ application/                        the site model and how it is loaded
 src/captcha/     application/ ui/                            the token rule and the widget
+src/content/     domain/ application/                        the site model and how it is loaded
 src/contact/     infrastructure/ ui/                         EmailJS behind an adapter
-src/theme/       infrastructure/ ui/                          the stored preference and its toggle
-src/ui/          components/ hooks/ views/ layouts/          chrome shared by every capability
+src/theme/       infrastructure/ ui/                         the stored preference and its toggle
+src/site/        components/ hooks/ sections/ layouts/       the one-page site that composes the rest
 src/pages/                                                   router and composition root
 ```
 
@@ -61,12 +61,13 @@ src/pages/                                                   router and composit
 - `infrastructure` holds one adapter per port. `cv/infrastructure/pdf` is split by
   responsibility: `canvas` is the drawing port, `markdown` draws blocks, `sections` and
   `sidebar` draw the page, `generateCv` owns the assets and the page loop.
-- A capability never imports another capability's `infrastructure`; the captcha reaches
+- `site` is a capability too: the six sections and the chrome. It composes the others
+  through a declared entry point — `cv/ui/CvLauncher`, `contact/ui/Contact`,
+  `theme/ui/ThemeToggle` — never by reaching into their internals.
+- A capability never imports another capability's `infrastructure`. The captcha reaches
   the CV and the form through `captcha/application/verifyCaptcha`.
-- Composition happens in exactly two places: `src/pages/index.astro` builds the content
-  source and `src/cv/ui/useCV.ts` builds the CV client.
 
-Those three rules are executable: `__tests__/architecture/layers.test.ts` reads every
+Four of those rules are executable: `__tests__/architecture/layers.test.ts` reads every
 import in `src/` and fails when one of them is broken. `AGENTS.md` has the long version.
 
 ## Getting started

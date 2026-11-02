@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Spinner } from "src/site/components/Spinner";
+import { Spinner } from "src/cv/ui/Spinner";
 import { describe, expect, it } from "vite-plus/test";
 
 describe("Spinner", () => {

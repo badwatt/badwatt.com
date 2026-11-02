@@ -1,15 +1,9 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ScrambleWobble } from "src/site/components/ScrambleWobble";
 import { useScrollReveal } from "src/site/hooks/useScrollReveal";
-import { useCV } from "src/cv/ui/useCV";
-import { CapWidget } from "src/captcha/ui/CapWidget";
-import { CVThemePicker } from "src/cv/ui/CVThemePicker";
-import { Modal } from "src/site/components/Modal";
+import { CvLauncher } from "src/cv/ui/CvLauncher";
 import { Toaster } from "react-hot-toast";
 import type { ExperienceEntry, AboutEntry, SkillEntry } from "src/content/domain/content";
-
-// Cargado bajo demanda: arrastra pdfjs-dist y solo se necesita al abrir el CV.
-const PdfViewer = lazy(() => import("src/cv/ui/PdfViewer").then((m) => ({ default: m.PdfViewer })));
 
 interface HomeProps {
   experienceData: ExperienceEntry[];
@@ -20,7 +14,6 @@ interface HomeProps {
 export const Home = ({ experienceData, aboutData, skillsData }: HomeProps) => {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
   const [parallax, setParallax] = useState(0);
-  const cv = useCV({ experienceData, aboutData, skillsData });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -84,39 +77,18 @@ export const Home = ({ experienceData, aboutData, skillsData }: HomeProps) => {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          {cv.step === "loading" ? (
-            <span className="px-8 py-3.5 border border-badwatt-border text-badwatt-white font-semibold rounded-xl">
-              Generating...
-            </span>
-          ) : cv.step === "captcha" ? (
-            <div className="flex flex-col items-center gap-3">
-              <CapWidget onVerified={cv.verify} />
-              <button
-                type="button"
-                onClick={cv.openThemes}
-                className="text-xs text-badwatt-muted hover:text-badwatt-primary transition-colors duration-300 cursor-pointer"
-              >
-                Change palette
-              </button>
-            </div>
-          ) : (
-            <>
-              <a
-                href="#portfolio"
-                className="group relative px-8 py-3.5 bg-badwatt-primary text-badwatt-dark font-semibold rounded-xl overflow-hidden transition-all duration-300 active:scale-[0.97] hover:shadow-[0_0_30px_-5px_rgba(91,155,213,0.3)]"
-              >
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                <span className="relative">View work</span>
-              </a>
-              <button
-                type="button"
-                onClick={cv.openThemes}
-                className="px-8 py-3.5 border border-badwatt-border text-badwatt-white font-semibold rounded-xl hover:border-badwatt-primary/50 hover:text-badwatt-primary transition-all duration-300 active:scale-[0.97] cursor-pointer"
-              >
-                CV
-              </button>
-            </>
-          )}
+          <a
+            href="#portfolio"
+            className="group relative px-8 py-3.5 bg-badwatt-primary text-badwatt-dark font-semibold rounded-xl overflow-hidden transition-all duration-300 active:scale-[0.97] hover:shadow-[0_0_30px_-5px_rgba(91,155,213,0.3)]"
+          >
+            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+            <span className="relative">View work</span>
+          </a>
+          <CvLauncher
+            experienceData={experienceData}
+            aboutData={aboutData}
+            skillsData={skillsData}
+          />
         </div>
       </div>
 
@@ -147,19 +119,6 @@ export const Home = ({ experienceData, aboutData, skillsData }: HomeProps) => {
         <span className="text-[10px] tracking-[0.2em] uppercase text-badwatt-muted/40">Scroll</span>
         <div className="w-px h-8 bg-gradient-to-b from-badwatt-primary/40 to-transparent" />
       </div>
-      {cv.viewerUrl !== null && (
-        <Suspense fallback={null}>
-          <PdfViewer src={cv.viewerUrl} isOpen onClose={cv.closeViewer} />
-        </Suspense>
-      )}
-      <Modal
-        isOpen={cv.step === "themes"}
-        onClose={cv.closeThemes}
-        ariaLabel="Choose CV palette"
-        className="md:h-auto md:max-h-[85vh] md:max-w-3xl"
-      >
-        <CVThemePicker selectedId={cv.theme.id} onSelect={cv.pickTheme} />
-      </Modal>
     </section>
   );
 };

@@ -60,27 +60,33 @@ the four layers live inside it:
 
 ```
 src/cv/          domain/ application/ infrastructure/ ui/   the CV: model, use case, pdf, viewer
-src/content/     domain/ application/                        the site model and how it is loaded
 src/captcha/     application/ ui/                            the token rule and the widget
+src/content/     domain/ application/                        the site model and how it is loaded
 src/contact/     infrastructure/ ui/                         EmailJS behind an adapter
 src/theme/       infrastructure/ ui/                          the stored preference and its toggle
-src/ui/          components/ hooks/ views/ layouts/          chrome shared by every capability
+src/site/        components/ hooks/ sections/ layouts/       the one-page site that composes the rest
 src/pages/                                                   router and composition root
 ```
+
+`site` is a capability, not a layer: it holds the six sections, the chrome they share and
+the layout. Its `sections/` may compose other capabilities, but only through their
+declared entry points.
 
 | Layer            | May import                                                                                         |
 | ---------------- | -------------------------------------------------------------------------------------------------- |
 | `domain`         | its own domain, `src/content/domain`                                                               |
-| `application`    | its own `domain`, `src/content/domain`, and other capabilities' `application`                      |
+| `application`    | its own `domain`, `src/content/domain`, other capabilities' `application`                          |
 | `infrastructure` | its own `domain`/`application`, `src/content/domain`, other capabilities' `application`, libraries |
-| `ui`             | `application` and `domain` of any capability, other `ui`, React, Astro                             |
+| `ui`             | its own slice, `application` and `domain` of any capability                                        |
 
 The rules the suite enforces (`__tests__/architecture/layers.test.ts`):
 
 - Nothing outside `src/pages` imports `src/pages`.
 - `domain` and `application` never import `infrastructure` or UI.
-- No capability imports another capability's `infrastructure`. The captcha is used by the
-  CV and the form through `captcha/application/verifyCaptcha`, not through an adapter.
+- No capability imports another capability's `infrastructure`.
+- `site` reaches another capability only through its public entry: `contact/ui/Contact`,
+  `cv/ui/CvLauncher`, `theme/ui/ThemeToggle`. The list lives in the test, so adding a new
+  entry is a deliberate edit, not an accident.
 
 How to place a file:
 
@@ -93,7 +99,8 @@ How to place a file:
   the drawing port, `markdown` draws blocks, `sections` and `sidebar` draw the page, and
   `generateCv` owns the assets, the page loop and the jsPDF instance.
 - `ui` orchestrates and renders. It never parses markdown, never touches jsPDF and never
-  knows a provider's payload.
+  knows a provider's payload. When a capability grows a widget another one needs, the
+  widget moves to the capability that owns the behaviour, not to a `shared/` bucket.
 - Side effects and configuration are injected as arguments (`now`, `fetchImpl`, endpoint,
   secret). The core receives values; only the edge reads `import.meta.env`.
 - Routes under `src/pages/api/**` are adapters: parse the request, call a use case, build
@@ -102,13 +109,12 @@ How to place a file:
   called from one place is a plain function.
 
 A new folder at the top of `src/` is a capability, not a layer: it needs at least two
-layers of its own and more than one consumer. `src/ui` is only chrome; if something in
-there grows rules, it becomes a capability.
+layers of its own and more than one consumer. If something in `site/` grows rules of its
+own, it becomes its own capability.
 
 Composition happens in exactly two places: `src/pages/index.astro` builds the content
-source and `src/cv/ui/useCV.ts` builds the CV client. Every other UI module talks to
-`application` or `domain`; the only modules that touch a browser adapter (`PdfCanvas`,
-`ThemeToggle`, `Contact`) are the ones rendering it.
+source and `src/cv/ui/useCV.ts` builds the CV client. Every other module talks to
+`application` or `domain`.
 
 ---
 
