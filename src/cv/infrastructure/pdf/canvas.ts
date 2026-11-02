@@ -1,7 +1,3 @@
-/**
- * The drawing surface the CV needs. jsPDF satisfies it, and so does any stub in
- * a test: the layout code never depends on the PDF engine.
- */
 export interface PdfCanvas {
   setFont(family: string, style?: string): void;
   setFontSize(size: number): void;

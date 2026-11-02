@@ -131,7 +131,6 @@ describe("<Home />", () => {
     });
     expect(screen.getByTestId("modal-panel")).toBeDefined();
     expect(screen.getByText("Pick a palette")).toBeDefined();
-    // buttons stay visible behind the modal
     expect(screen.getByText("View work")).toBeDefined();
     expect(screen.queryByText("Verify")).toBeNull();
   });
@@ -168,8 +167,6 @@ describe("<Home />", () => {
       screen.getByText("CV").click();
     });
 
-    // The hero wraps its content in a transformed element, which would become the
-    // containing block of a fixed overlay and push it off centre.
     expect(container.contains(screen.getByTestId("modal-panel"))).toBe(false);
     expect(document.body.contains(screen.getByTestId("modal-panel"))).toBe(true);
   });

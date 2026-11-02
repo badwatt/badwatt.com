@@ -81,8 +81,6 @@ describe("<Markdown />", () => {
   });
 
   it("renders a list item that contains a paragraph", () => {
-    // A loose list (blank line between items) yields a paragraph token
-    // inside the list item, exercising the paragraph branch in ListItemBody.
     const source = "- item\n\n  more content";
     const { container } = render(<Markdown source={source} />);
     expect(container.querySelector("li")?.textContent).toContain("more content");
@@ -91,16 +89,12 @@ describe("<Markdown />", () => {
   it("renders a list item that contains a nested list", () => {
     const source = "- outer\n  - inner";
     const { container } = render(<Markdown source={source} />);
-    // Both outer and inner list items render.
     const items = container.querySelectorAll("li");
     expect(items.length).toBeGreaterThanOrEqual(2);
   });
 
   it("renders an unknown inline token type as a span with its text", () => {
-    // Use a custom renderer via a sub-string that produces an escape token:
-    // \\( is an escape sequence.
     const { container } = render(<Markdown source={"\\(escaped\\)"} />);
-    // Should still render with text content even if specific token type is unknown.
     expect(container.textContent).toContain("escaped");
   });
 
@@ -116,8 +110,6 @@ describe("<Markdown />", () => {
   });
 
   it("renders Inline with an unknown token type using its text fallback", () => {
-    // The `tag` token type isn't handled by Inline's switch, so it falls
-    // through to the default span.
     const tokens = [
       { type: "tag", raw: "<x>", text: "x" } as unknown as Parameters<
         typeof Inline

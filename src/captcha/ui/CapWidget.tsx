@@ -7,11 +7,6 @@ interface CapWidgetProps {
 const SCRIPT_ID = "cap-widget-script";
 const SCRIPT_URL = "https://cdn.jsdelivr.net/npm/cap-widget";
 
-/**
- * Injects the cap-widget script once and forwards the token it solves. The
- * listener lives in an effect keyed on the element, so it is attached when the
- * node mounts and removed when it unmounts.
- */
 export const CapWidget = ({ onVerified }: CapWidgetProps) => {
   const [widget, setWidget] = useState<HTMLElement | null>(null);
 

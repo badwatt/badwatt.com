@@ -57,7 +57,6 @@ describe("triggerRubberBand", () => {
   });
 });
 
-// Polyfill Web Animations API for happy-dom
 beforeAll(() => {
   if (!HTMLElement.prototype.animate) {
     HTMLElement.prototype.animate = vi.fn().mockReturnValue({

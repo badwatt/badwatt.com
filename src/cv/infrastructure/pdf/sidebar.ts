@@ -25,12 +25,9 @@ function drawIcon(doc: PdfCanvas, image: string | null, x: number, y: number): v
   if (!image) return;
   try {
     doc.addImage(image, "PNG", x, y, ICON_SIZE, ICON_SIZE);
-  } catch {
-    /* a broken logo must not stop the CV */
-  }
+  } catch {}
 }
 
-/** Left column: portrait, contact, bio, languages, education and the skill tags. */
 export function drawSidebar(
   doc: PdfCanvas,
   C: CVColors,
@@ -56,9 +53,7 @@ export function drawSidebar(
         "S",
       );
       y += PROFILE_SIZE + 24;
-    } catch {
-      /* a missing portrait must not stop the CV */
-    }
+    } catch {}
   }
 
   if (aboutData[0]?.email) {

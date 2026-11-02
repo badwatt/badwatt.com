@@ -40,11 +40,6 @@ export const Experience = ({ experienceData }: ExperienceProps) => {
             </a>
           </div>
           {hasSubgroups ? (
-            // Multiple periods separated by `---`. Render each as a
-            // sub-accordion item. The title for each item is the first `#`
-            // heading in that period; the subtitle is the first blockquote
-            // (typically a duration). The first period is expanded by
-            // default; the rest are collapsed.
             <Accordion
               items={subgroups.map((sub, j) => {
                 const meta = extractPeriodTitle(sub, j);
@@ -52,8 +47,6 @@ export const Experience = ({ experienceData }: ExperienceProps) => {
                   id: `${i}-${j}`,
                   title: meta.title,
                   subtitle: meta.subtitle,
-                  // Don't render the title/subtitle twice; the body
-                  // already shows them in the header.
                   content: <Markdown source={stripExtractedTitleAndSubtitle(sub)} />,
                 };
               })}

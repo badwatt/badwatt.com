@@ -11,11 +11,6 @@ const MESSAGES = {
   generation: "CV generation failed. Please try again.",
 } as const;
 
-/**
- * The CV flow shared by every view that offers it: pick a palette, clear the
- * captcha, render, open the viewer. Keeping it here means the two entry points
- * cannot drift apart.
- */
 export function useCV(content: CvContent) {
   const [step, setStep] = useState<CvStep>("idle");
   const [theme, setTheme] = useState<CVTheme>(getThemeById("default"));

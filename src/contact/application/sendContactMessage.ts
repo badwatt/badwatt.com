@@ -1,4 +1,3 @@
-/** What the contact form collects; the mail adapter decides how to send it. */
 export interface ContactMessage {
   name: string;
   email: string;
@@ -17,10 +16,6 @@ export interface ContactDeps {
 
 export type ContactResult = { ok: true } | { ok: false; reason: "captcha" | "mail" };
 
-/**
- * A message leaves only if the token is genuine and the provider accepts it.
- * The reason comes back so the view can say which of the two failed.
- */
 export async function sendContactMessage(
   token: string,
   message: ContactMessage,

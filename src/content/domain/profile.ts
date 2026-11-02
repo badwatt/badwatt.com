@@ -1,4 +1,3 @@
-/** Who the CV is about. Kept in one place so no section spells it out twice. */
 export const PROFILE = {
   name: "Alvaro Garcia Macias",
   role: "FULL STACK DEVELOPER",

@@ -89,24 +89,16 @@ export function drawJobCard(
   const cardH = cardHeight(doc, subgroups, w, bodyTopPad);
   const LOGO = 16;
 
-  // Card background. The card itself draws no left accent bar; every
-  // period chip draws its own 4pt bar on the left, including the
-  // single-period case. The bar's color is always the primary color
-  // so single-period and multi-period jobs read consistently.
   doc.setFillColor(...C.surface);
   doc.setDrawColor(...C.border);
   doc.roundedRect(x - 12, startY - 10, w + 24, cardH, 4, 4, "FD");
 
   let y = startY + CARD_TOP_PAD;
 
-  // Company + logo. Re-drawn for every segment so a job continued on the
-  // next page still says who it belongs to.
   if (logo) {
     try {
       doc.addImage(logo, "PNG", x, y - LOGO + 2, LOGO, LOGO);
-    } catch {
-      /* noop */
-    }
+    } catch {}
   }
   doc.setFont("helvetica", "bold");
   doc.setFontSize(11);
@@ -114,7 +106,6 @@ export function drawJobCard(
   doc.text(job.title, x + (logo ? LOGO + 6 : 0), y);
   y += COMPANY_ROW_H;
 
-  // Dates
   doc.setFont("helvetica", "normal");
   doc.setFontSize(8.5);
   doc.setTextColor(...C.muted);
@@ -122,34 +113,19 @@ export function drawJobCard(
   y += DATES_ROW_H;
 
   for (let i = 0; i < subgroups.length; i++) {
-    // Render each period as a chip inside the parent card. Both
-    // periods share the same primary color so they read as siblings
-    // of one experience, not as two competing entries. A card-wide
-    // accent bar is drawn on top of the card (single-period only);
-    // for multi-period jobs each chip draws its own 4pt left bar in
-    // the primary color to mark the period.
     const meta = extractPeriodTitle(subgroups[i], i);
     const chipColor = C.primary as unknown as [number, number, number];
 
-    // Chip body height drives the chip frame height. `bodyTopPad` comes
-    // from `chipBodyTopPad` so the measurer and the drawer agree.
     const bodyH = measureMarkdown(doc, stripExtractedTitleAndSubtitle(subgroups[i]), w);
     const chipH =
       CHIP_PAD_TOP + CHIP_TITLE_H + CHIP_SUBTITLE_H + bodyTopPad + bodyH + CHIP_PAD_BOTTOM;
 
-    // Draw the chip frame: only a subtle base fill (no border, since
-    // the parent card already provides one and a nested border would
-    // feel busy). The chip is flush with the card's interior
-    // (same x and width) so only the card's outline is visible.
     doc.setFillColor(...C.base);
     doc.roundedRect(x - 12, y, w + 24, chipH, 4, 4, "F");
 
-    // Colored left accent bar inside the chip, aligned with the
-    // card's accent bar.
     doc.setFillColor(...chipColor);
     doc.rect(x - 12, y, 4, chipH, "F");
 
-    // Title inside the chip.
     const innerX = x + 2;
     let innerY = y + CHIP_PAD_TOP + 9;
     doc.setFont("helvetica", "bold");
@@ -157,7 +133,6 @@ export function drawJobCard(
     doc.setTextColor(...chipColor);
     doc.text(meta.title, innerX, innerY);
 
-    // Subtitle on its own line below the title.
     if (meta.subtitle) {
       innerY += CHIP_SUBTITLE_H;
       doc.setFont("helvetica", "italic");
@@ -166,10 +141,6 @@ export function drawJobCard(
       doc.text(meta.subtitle, innerX, innerY);
     }
 
-    // Body content with the title and subtitle stripped. The body sits
-    // to the right of the colored accent bar (4pt) with a small
-    // padding. bodyTopPad leaves a clear gap between the subtitle and
-    // the first body heading so the two never collide.
     const bodyY = y + CHIP_PAD_TOP + CHIP_TITLE_H + CHIP_SUBTITLE_H + bodyTopPad;
     drawMarkdown(doc, C, stripExtractedTitleAndSubtitle(subgroups[i]), innerX, w + 12, bodyY);
 
@@ -180,7 +151,6 @@ export function drawJobCard(
   return startY + cardH + 14;
 }
 
-// Draw a whole job (all of its periods) as one card.
 export function drawJob(
   doc: PdfCanvas,
   C: CVColors,
@@ -234,9 +204,7 @@ export function drawFooter(doc: PdfCanvas, C: CVColors, profileAltImg: string | 
   if (profileAltImg) {
     try {
       doc.addImage(profileAltImg, "PNG", imgX, imgY, imgSize, imgSize);
-    } catch {
-      /* noop */
-    }
+    } catch {}
   }
 }
 
@@ -247,7 +215,6 @@ export function startPage(doc: PdfCanvas, W: number, C: CVColors) {
   doc.rect(0, 0, W, 3, "F");
 }
 
-/** Name, role and the rule under them. Returns the y where the body starts. */
 export function drawHeader(doc: PdfCanvas, pageWidth: number, C: CVColors): number {
   let y = M;
   doc.setFont("helvetica", "bold");

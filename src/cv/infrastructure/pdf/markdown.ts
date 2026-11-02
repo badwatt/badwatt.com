@@ -11,11 +11,6 @@ function drawInline(
   w: number,
   y: number,
 ): number {
-  // Walk inline tokens and draw them left-to-right with the right font style.
-  // Word-wrap is handled per-chunk; we just print each chunk on the current line
-  // using its own font + size, then advance y if any chunk wrapped.
-  // Returns y advanced by at least one line height (lineH) so callers can
-  // stack the next block without overlap.
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9);
   doc.setTextColor(...C.muted);
@@ -44,8 +39,6 @@ function drawInline(
     if (t.type === "br") {
       y += lineH;
       cursorX = x;
-      // Track the number of lines drawn so far so the return value reflects
-      // the full block height even if a later chunk draws fewer lines.
       maxLines = Math.floor((y - startY) / lineH) + 1;
       continue;
     }
@@ -60,9 +53,6 @@ function drawInline(
     }
   }
 
-  // Always advance by at least one line height, even when text didn't wrap
-  // or when no chunks were drawn. This keeps callers from stacking blocks
-  // on top of each other.
   return startY + lineH * maxLines;
 }
 
@@ -119,11 +109,6 @@ function drawMarkdownToken(
       for (const t of bq.tokens) {
         y = drawMarkdownToken(doc, C, t as Token, x + 10, w - 10, y);
       }
-      // Draw the left rule aligned with the first and last text lines.
-      // Text drawn at the baseline `startY` extends roughly from `startY - 7`
-      // (ascender of a 9pt helvetica glyph) to `y + 2` (descender of the
-      // last line). The line is offset slightly above the visual top and
-      // below the visual bottom to bracket the text cleanly.
       doc.setDrawColor(...C.primary);
       doc.setLineWidth(0.6);
       doc.line(x + 6, startY - 12, x + 6, y - 4);
@@ -167,9 +152,6 @@ export function drawMarkdown(
   let y = startY;
   let first = true;
   for (const token of tokenize(raw)) {
-    // Drop `hr` tokens here; callers (e.g. drawJob) split on them
-    // explicitly so they can render sub-periods with proper spacing
-    // instead of a horizontal rule line.
     if (token.type === "space" || token.type === "hr") continue;
     if (!first) y += BLOCK_GAP;
     first = false;

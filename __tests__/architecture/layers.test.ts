@@ -51,11 +51,6 @@ const layer = (file: string) => relative(file)[1] ?? "";
 
 const ALL_EDGES = edges();
 
-/**
- * The only ui entry points the site may mount. A capability that is not listed
- * cannot be reached from the site's own components: it is composed from its own
- * slice or through its application layer.
- */
 const PUBLIC_UI_ENTRIES: Record<string, string[]> = {
   contact: ["contact/ui/Contact.tsx"],
   cv: ["cv/ui/CvLauncher.tsx"],
@@ -64,7 +59,6 @@ const PUBLIC_UI_ENTRIES: Record<string, string[]> = {
 
 const asPath = (file: string) => path.relative(SRC, file).split(path.sep).join("/");
 
-/** Folders that hold presentation; every capability keeps them under `ui/`. */
 const PRESENTATION_DIRS = ["components", "hooks", "sections", "views", "layouts"];
 
 function offenders(rule: (edge: Edge) => boolean): string[] {
@@ -120,8 +114,6 @@ describe("architecture rules", () => {
   });
 
   it("never imports another capability's infrastructure", () => {
-    // `pages` is the composition root: a route is the adapter that builds the
-    // adapters, and that is the one place allowed to reach them.
     const broken = offenders(
       ({ from, to }) =>
         capability(from) !== "pages" &&

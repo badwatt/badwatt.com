@@ -37,8 +37,6 @@ export async function loadPdfPages(
 
   container.innerHTML = "";
 
-  // Use container's CSS width so canvas buffer matches displayed size × DPR.
-  // Falls back to 0 (PDF_SCALE path) when container not yet laid out.
   const containerWidth = container.clientWidth;
 
   for (let i = 1; i <= pdf.numPages; i++) {

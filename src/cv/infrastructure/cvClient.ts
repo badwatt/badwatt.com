@@ -9,11 +9,6 @@ export interface CvContent {
   skillsData: SkillEntry[];
 }
 
-/**
- * Adapts the browser to the CV ports: the captcha is verified by our own route
- * and the PDF is rendered by the lazy-loaded generator, so jsPDF never enters
- * the initial bundle.
- */
 export function createCvClient({ experienceData, aboutData, skillsData }: CvContent): CvPorts {
   return {
     verifyCaptcha: (token) => verifyCaptcha(token),

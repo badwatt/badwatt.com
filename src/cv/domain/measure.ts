@@ -1,7 +1,6 @@
 import { tokenize, getListItemInline, type Token } from "src/content/domain/markdown";
 import type { Tokens } from "marked";
 
-/** The slice of the PDF document the measurer needs; jsPDF satisfies it. */
 export interface PdfMetrics {
   splitTextToSize(text: string, width: number): string[];
 }

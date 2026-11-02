@@ -79,7 +79,6 @@ describe("<Wobble />", () => {
     const spans = document.querySelectorAll("span[aria-label='wobble']");
     fireEvent.mouseEnter(spans[0]);
     expect(animateMock).toHaveBeenCalledTimes(1);
-    // Simulate animation finish — the component set anim.onfinish, call it
     const firstAnim = animateMock.mock.results[0].value;
     if (firstAnim.onfinish) firstAnim.onfinish();
     fireEvent.mouseEnter(spans[0]);

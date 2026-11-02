@@ -10,12 +10,10 @@ const navItems = [
 export const Footer = () => {
   return (
     <footer className="relative border-t border-badwatt-primary/10 mt-32 md:mt-48">
-      {/* Top accent line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-badwatt-primary/30 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-16">
         <div className="grid md:grid-cols-3 gap-12">
-          {/* Brand */}
           <div>
             <h3 className="text-xl font-bold tracking-[-0.03em] mb-3 text-badwatt-white">
               Alvaro Garcia Macias
@@ -23,15 +21,12 @@ export const Footer = () => {
             <p className="text-sm text-badwatt-muted leading-relaxed max-w-[30ch]">
               Full Stack Developer building interfaces that move.
             </p>
-            {/* Decorative dots */}
             <div className="flex gap-1.5 mt-6">
               <div className="w-1 h-1 rounded-full bg-badwatt-primary/60" />
               <div className="w-1 h-1 rounded-full bg-badwatt-muted/30" />
               <div className="w-1 h-1 rounded-full bg-badwatt-muted/30" />
             </div>
           </div>
-
-          {/* Navigation */}
           <div>
             <h4 className="text-xs tracking-[0.15em] uppercase text-badwatt-muted/50 mb-5">
               Navigation
@@ -49,8 +44,6 @@ export const Footer = () => {
               ))}
             </ul>
           </div>
-
-          {/* Connect */}
           <div>
             <h4 className="text-xs tracking-[0.15em] uppercase text-badwatt-muted/50 mb-5">
               Connect
@@ -79,8 +72,6 @@ export const Footer = () => {
             </ul>
           </div>
         </div>
-
-        {/* Bottom bar */}
         <div className="mt-16 pt-6 border-t border-badwatt-primary/5 flex flex-col md:flex-row justify-between items-center gap-2">
           <p className="text-xs text-badwatt-muted/40">
             {new Date().getFullYear()} Alvaro Garcia Macias

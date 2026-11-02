@@ -1,9 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
-/**
- * Recording document with metrics close to Helvetica 9pt (about 4.5pt per
- * character), so a long sidebar really does eat the height it eats in the PDF.
- */
 const rec = { page: 1, texts: [] as { text: string; page: number }[] };
 
 vi.mock("jspdf", () => {

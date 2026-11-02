@@ -89,8 +89,6 @@ export async function generateCV(
   const CONTENT_W = W - M * 2;
   const cx = mainX + 28;
 
-  // Two independent columns: the experience starts under the header, at the same
-  // height as the sidebar, and the sidebar height never pushes it down.
   let y = bodyTop + 8;
   let page = 1;
 
@@ -111,14 +109,9 @@ export async function generateCV(
     const bodyTopPad = chipBodyTopPad(subgroups.length);
 
     let pending = subgroups;
-    // True once this job already started on a fresh page. Without it a
-    // single period taller than a page would ping-pong between pages.
     let started = false;
 
     while (pending.length > 0) {
-      // Page 1 keeps the narrow sidebar column; a job continued on the
-      // next page spans the full width, where its body wraps into fewer
-      // lines.
       const usePage1 = page === 1;
       const jx = usePage1 ? cx : M + 28;
       const jw = usePage1 ? contW : CONTENT_W - 40;

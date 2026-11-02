@@ -4,15 +4,11 @@ import { drawJobCard } from "src/cv/infrastructure/pdf/sections";
 import { cardHeight, fitSubgroups } from "src/cv/domain/layout";
 import { getThemeById } from "src/cv/domain/theme";
 
-// ── Recording jsPDF mock ──
-// Tracks which page every `text()` call landed on so the pagination
-// behaviour (first period on page 1, continuation on page 2) is assertable.
 const rec = {
   page: 1,
   texts: [] as { text: string; page: number }[],
   addPage: vi.fn(),
   output: vi.fn(() => new Blob(["pdf"], { type: "application/pdf" })),
-  // Deterministic line count: 1 line per 40 characters.
   lines: (t: string) => Math.max(1, Math.ceil(String(t).length / 40)),
 };
 
@@ -83,7 +79,6 @@ function makeDoc() {
   };
 }
 
-// ── Image / DOM plumbing so generateCV can resolve assets ──
 function setupEnv() {
   global.fetch = vi.fn(() =>
     Promise.resolve({ blob: () => Promise.resolve(new Blob(["img"])) }),
@@ -206,7 +201,6 @@ describe("drawJobCard", () => {
     const job = exp("Openbank", "# A\n\n- a\n\n---\n\n# B\n\n- b");
     const before = (doc.roundedRect as never as { mock: { calls: unknown[] } }).mock.calls.length;
     drawJobCard(doc as never, C, job, ["# A\n\n- a", "# B\n\n- b"], 36, 200, 50, null, 30);
-    // card frame + one frame per subgroup
     expect((doc.roundedRect as never as { mock: { calls: unknown[] } }).mock.calls.length).toBe(
       before + 3,
     );
@@ -238,8 +232,6 @@ describe("generateCV experience pagination", () => {
     setupEnv();
     const urlSpy = vi.spyOn(URL, "createObjectURL").mockReturnValue("blob:test");
 
-    // Period 1 is small; period 2 is enormous, so the full card cannot fit
-    // on page 1 but the first period can.
     const huge = "x".repeat(6000);
     const oversized = exp(
       "Openbank",

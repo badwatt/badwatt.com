@@ -260,7 +260,6 @@ describe("<CV />", () => {
       expect(consoleSpy).toHaveBeenCalledWith("CV generation failed:", expect.any(Error));
     });
     expect(screen.queryByRole("dialog")).toBeNull();
-    // returns to captcha so user can retry
     expect(screen.getByText("Verify")).toBeDefined();
     consoleSpy.mockRestore();
   });

@@ -48,8 +48,6 @@ describe("tokenizeInline", () => {
   });
 
   it("falls back to a text token for non-paragraph input", () => {
-    // Pure list input lexes to a list block, not a paragraph; tokenizeInline
-    // should fall back to wrapping the raw text in a generic text token.
     const tokens = tokenizeInline("- one");
     expect(tokens.length).toBeGreaterThan(0);
     expect(tokens[0].type).toBe("text");
@@ -65,7 +63,6 @@ describe("extractPeriodTitle", () => {
 
   it("ignores non-`#` headings (e.g. h2)", () => {
     const r = extractPeriodTitle("## Subhead\n\nbody", 0);
-    // No h1 found, so title falls back to a generic label.
     expect(r.title).toMatch(/^Period/);
   });
 

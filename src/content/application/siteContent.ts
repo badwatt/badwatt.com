@@ -13,7 +13,6 @@ export interface SiteContent {
   skills: SkillEntry[];
 }
 
-/** Port: whatever holds the content (today Astro's content collections). */
 export interface ContentSource {
   experience(): Promise<ExperienceEntry[]>;
   portfolio(): Promise<PortfolioEntry[]>;
@@ -21,10 +20,6 @@ export interface ContentSource {
   skills(): Promise<SkillEntry[]>;
 }
 
-/**
- * Loads everything the page renders and applies the ordering rules.
- * `now` is passed through so a "now" end date is deterministic in tests.
- */
 export async function loadSiteContent(source: ContentSource, now?: number): Promise<SiteContent> {
   const [experience, portfolio, about, skills] = await Promise.all([
     source.experience(),

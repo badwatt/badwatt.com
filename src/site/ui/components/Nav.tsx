@@ -58,8 +58,6 @@ export const Nav = () => {
           >
             AM
           </button>
-
-          {/* Desktop — refined pill nav */}
           <div className="hidden md:flex items-center gap-0.5">
             {links.map(({ label, route }) => (
               <button
@@ -76,8 +74,6 @@ export const Nav = () => {
           </div>
 
           <ThemeToggle />
-
-          {/* Mobile */}
           <div className="flex md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -91,8 +87,6 @@ export const Nav = () => {
           </div>
         </div>
       </div>
-
-      {/* Mobile menu */}
       {isOpen && (
         <div className="md:hidden border-t border-badwatt-primary/10 bg-badwatt-base/95 backdrop-blur-xl">
           <div className="px-4 py-3 space-y-0.5">

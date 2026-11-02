@@ -56,7 +56,6 @@ export const Stats = ({ experienceData, portfolioData, skillsData }: StatsProps)
             >
               <AnimatedCounter end={stat.value} suffix={stat.suffix} />
             </div>
-            {/* Progress bar */}
             <div className="mt-3 mx-auto w-16 h-1 bg-badwatt-border rounded-full overflow-hidden">
               <div
                 className={`h-full rounded-full transition-all duration-1000 delay-500 ${

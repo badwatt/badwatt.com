@@ -67,7 +67,6 @@ describe("renderPageToCanvas", () => {
       render: vi.fn().mockReturnValue({ promise: Promise.resolve() }),
     } as unknown as import("pdfjs-dist/legacy/build/pdf.mjs").PDFPageProxy;
 
-    // containerWidth 200, baseWidth 100, dpr 1 -> renderScale = 2 (no clamp)
     await renderPageToCanvas(page, canvas, 1, 200);
 
     expect(canvas.width).toBe(200);
@@ -89,7 +88,6 @@ describe("renderPageToCanvas", () => {
       render: vi.fn().mockReturnValue({ promise: Promise.resolve() }),
     } as unknown as import("pdfjs-dist/legacy/build/pdf.mjs").PDFPageProxy;
 
-    // containerWidth 400 would give scale 8, clamped to 3 -> canvas 300x450
     await renderPageToCanvas(page, canvas, 1, 400);
     expect(canvas.width).toBe(300);
     expect(canvas.height).toBe(450);

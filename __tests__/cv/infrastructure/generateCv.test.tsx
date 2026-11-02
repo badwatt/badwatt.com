@@ -174,7 +174,6 @@ function stubImageToLoad() {
   );
 }
 
-// ── Tests ──
 describe("getBioText", () => {
   it("uses id 3 bio when present", () => {
     expect(getBioText([{ email: "", location: "", languages: [], bio: "test" }])).toBe("test");
@@ -468,8 +467,6 @@ describe("generateCV", () => {
     const urlSpy = vi.spyOn(URL, "createObjectURL").mockReturnValue("blob:test");
     await generateCV(TEST_THEME, testExperienceData, testAboutData, testSkillsData);
 
-    // jsPDF instance is created internally; capture calls via addImage registry isn't enough.
-    // Spy on the prototype methods exposed through the mock constructor.
     const calls = (await import("jspdf")).jsPDF;
     void calls;
 
@@ -490,7 +487,6 @@ describe("generateCV", () => {
     await generateCV(MOCHA_THEME, testExperienceData, testAboutData, testSkillsData);
     const mochaBaseCall = (mockRegistry.addImage as any).mock.calls.length;
 
-    // Same number of images fetched + drawn per generation; both should be non-zero.
     expect(whiteBaseCall).toBeGreaterThan(0);
     expect(mochaBaseCall).toBeGreaterThan(0);
     urlSpy.mockRestore();
@@ -712,21 +708,15 @@ describe("measureMarkdown", () => {
     const doc = { splitTextToSize: (t: string) => [t] };
     const h1 = measureMarkdown(doc as any, "# Heading", 200);
     const h2 = measureMarkdown(doc as any, "## Heading", 200);
-    // h1 is larger (13pt line vs 12pt)
     expect(h1).toBeGreaterThan(h2);
   });
 
   it("skips empty inline text in list items when measuring", async () => {
-    // A list item with an inline token whose text field is empty/undefined
-    // must not crash the measure loop. The empty string branch of
-    // `if (txt) inlineText += txt;` is the defensive guard.
     const doc = { splitTextToSize: (t: string) => [t] };
     expect(() => measureMarkdown(doc as any, "- ", 200)).not.toThrow();
   });
 
   it("skips empty inline text tokens in list items (measure branch)", async () => {
-    // Inject an empty text token into a list item's first text token so the
-    // `if (txt)` guard takes the false branch while measuring.
     const marked = await import("marked");
     const origLexer = marked.marked.lexer;
     marked.marked.lexer = ((input: string) => {
@@ -747,9 +737,6 @@ describe("measureMarkdown", () => {
   });
 
   it("adds the subgroup gap between periods when measuring", () => {
-    // Two subgroups split on `---` should have a gap between them when
-    // measuring total experience height. The first period is small; the
-    // second is larger; the total must be sum + gap.
     const doc = { splitTextToSize: (t: string) => [t] };
     const single = measureMarkdown(doc as any, "period body", 200);
     const split = measureMarkdown(doc as any, "first body\n\n---\n\nsecond body", 200);
@@ -758,7 +745,6 @@ describe("measureMarkdown", () => {
 });
 
 describe("drawMarkdown", () => {
-  // Build a minimal jsPDF-shaped mock that records method calls.
   function makeDoc() {
     return {
       setTextColor: vi.fn(),
@@ -814,7 +800,6 @@ describe("drawMarkdown", () => {
     const doc = makeDoc();
     const beforeLineCalls = (doc.line as any).mock.calls.length;
     drawMarkdown(doc as any, C, "---", 36, 200, 50);
-    // No line drawn; the hr is filtered out by drawMarkdown.
     expect((doc.line as any).mock.calls.length).toBe(beforeLineCalls);
   });
 
@@ -843,7 +828,6 @@ describe("drawMarkdown", () => {
     const source =
       "![alt](https://example.com/x.png) and a [link](https://example.com) and \\(escaped\\)";
     drawMarkdown(doc as any, C, source, 36, 200, 50);
-    // The link text and the image text are both drawn.
     const calls = (doc.text as any).mock.calls.map((c: unknown[]) => c[0]);
     expect(calls).toContain("link");
   });
@@ -857,29 +841,22 @@ describe("drawMarkdown", () => {
 
   it("handles inline HTML tag tokens without crashing", () => {
     const doc = makeDoc();
-    // Inline HTML produces an 'html' token. Should not throw.
     expect(() => drawMarkdown(doc as any, C, "an <em>inline</em> tag", 36, 200, 50)).not.toThrow();
   });
 
   it("skips an empty inline text token without crashing", () => {
     const doc = makeDoc();
-    // Direct call: feed an empty paragraph through drawMarkdown by wrapping
-    // an empty text-like source. Marked won't produce empty text, but the
-    // draw loop should still skip the call gracefully.
     expect(() => drawMarkdown(doc as any, C, "", 36, 200, 50)).not.toThrow();
   });
 
   it("skips unknown inline token types gracefully", () => {
     const doc = makeDoc();
-    // No crash when input contains only HTML that doesn't match an inline
-    // pattern recognised by pickText. The draw loop should no-op.
     expect(() => drawMarkdown(doc as any, C, "<unknown>raw</unknown>", 36, 200, 50)).not.toThrow();
   });
 
   it("draws an ordered list with numeric markers", () => {
     const doc = makeDoc();
     drawMarkdown(doc as any, C, "1. first\n2. second", 36, 200, 50);
-    // The accent color is used for the marker. The number "1." should appear.
     const calls = (doc.text as any).mock.calls.map((c: unknown[]) => c[0]);
     expect(calls).toContain("1.");
     expect(calls).toContain("2.");
@@ -895,7 +872,6 @@ describe("drawMarkdown", () => {
   it("draws a paragraph with a hard line break", () => {
     const doc = makeDoc();
     drawMarkdown(doc as any, C, "line one  \nline two", 36, 200, 50);
-    // The break token is not drawn via text(), but the surrounding text is.
     const calls = (doc.text as any).mock.calls.map((c: unknown[]) => c[0]);
     expect(calls).toContain("line one");
     expect(calls).toContain("line two");
@@ -905,23 +881,16 @@ describe("drawMarkdown", () => {
     const doc = makeDoc();
     const beforeTextCalls = (doc.text as any).mock.calls.length;
     const finalY = drawMarkdown(doc as any, C, "| col |\n| --- |\n| val |", 36, 200, 50);
-    // No new text drawn for the unsupported block; y is unchanged.
     expect(finalY).toBe(50);
     expect((doc.text as any).mock.calls.length).toBe(beforeTextCalls);
   });
 
   it("renders a list item that contains only inline HTML (no text or paragraph tokens)", () => {
-    // A list item with only an html token has no paragraph/text children for
-    // getListItemInline to extract; it must fall back to an empty token list
-    // without throwing.
     const doc = makeDoc();
     expect(() => drawMarkdown(doc as any, C, '- <img src="x.png">', 36, 200, 50)).not.toThrow();
   });
 
   it("skips an inline token whose text field is empty", async () => {
-    // A stray text token with empty string must not crash the draw loop.
-    // We reach into marked to lex a contrived source and force a paragraph
-    // with an empty text token by directly mutating the result.
     const marked = await import("marked");
     const origLexer = marked.marked.lexer;
     marked.marked.lexer = ((input: string) => {
@@ -939,9 +908,6 @@ describe("drawMarkdown", () => {
   });
 
   it("falls back to empty string when an inline token has no text field", async () => {
-    // A token without a `text` field at all exercises the `?? ""` branch in
-    // drawInline. The draw loop should treat it as an empty string and skip
-    // drawing via `if (!text) continue;`.
     const marked = await import("marked");
     const origLexer = marked.marked.lexer;
     marked.marked.lexer = ((input: string) => {
@@ -962,9 +928,6 @@ describe("drawMarkdown", () => {
   });
 
   it("renders two subgroups with a gap between them in drawJob", () => {
-    // Direct coverage for the loop in drawJob that walks subgroups and
-    // inserts a divider between them. The mock is jsPDF-shaped so we
-    // invoke drawJob directly.
     const doc = makeDoc();
     const job = {
       title: "Openbank",
@@ -979,8 +942,6 @@ describe("drawMarkdown", () => {
   });
 
   it("draws the period subtitle in italic muted when present", () => {
-    // A subgroup with a blockquote (subtitle) exercises the if-branch
-    // that draws the subtitle inline with the title.
     const doc = makeDoc();
     const job = {
       title: "Openbank",
@@ -992,7 +953,6 @@ describe("drawMarkdown", () => {
     };
     const finalY = drawJob(doc as any, C, job, 36, 200, 50, null);
     expect(finalY).toBeGreaterThan(50);
-    // The subtitle text was drawn.
     const calls = (doc.text as any).mock.calls.map((c: unknown[]) => c[0]);
     expect(calls).toContain("1 year 3 months");
   });

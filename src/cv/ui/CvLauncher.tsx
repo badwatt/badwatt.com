@@ -5,21 +5,15 @@ import { Modal } from "src/cv/ui/Modal";
 import { useCV } from "src/cv/ui/useCV";
 import type { AboutEntry, ExperienceEntry, SkillEntry } from "src/content/domain/content";
 
-// Cargado bajo demanda: arrastra pdfjs-dist y solo se necesita al abrir el CV.
 const PdfViewer = lazy(() => import("src/cv/ui/PdfViewer").then((m) => ({ default: m.PdfViewer })));
 
 interface CvLauncherProps {
   experienceData: ExperienceEntry[];
   aboutData: AboutEntry[];
   skillsData: SkillEntry[];
-  /** What the page shows before the flow starts; `start` opens the palette picker. */
   idle: (start: () => void) => ReactNode;
 }
 
-/**
- * The whole CV flow as one widget: palette picker, captcha, generating state and
- * the viewer. The page only decides how the idle state looks.
- */
 export const CvLauncher = ({ experienceData, aboutData, skillsData, idle }: CvLauncherProps) => {
   const cv = useCV({ experienceData, aboutData, skillsData });
 

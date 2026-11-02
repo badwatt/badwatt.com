@@ -16,7 +16,6 @@ vi.mock("src/captcha/ui/CapWidget", () => {
   };
 });
 
-/** The component posts the message to our own route, which does the rest. */
 function setupFetchMock({ ok = true, reason = "mail" }: { ok?: boolean; reason?: string } = {}) {
   global.fetch = vi.fn().mockResolvedValue({
     ok,

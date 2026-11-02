@@ -20,7 +20,6 @@ export function About({ aboutData }: AboutProps) {
       className="relative min-h-[100dvh] md:min-h-0 grid items-center md:items-start overflow-hidden py-24 md:py-16"
     >
       <div id="about-nav" className="absolute top-0 left-0 scroll-mt-[4rem]" aria-hidden="true" />
-      {/* Atmospheric layers */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 -right-1/3 w-[700px] h-[700px] rounded-full bg-badwatt-primary/3 blur-[150px]" />
         <div className="absolute bottom-0 -left-1/3 w-[600px] h-[600px] rounded-full bg-badwatt-primary/2 blur-[130px]" />
@@ -30,7 +29,6 @@ export function About({ aboutData }: AboutProps) {
         ref={ref}
         className="relative z-10 grid md:grid-cols-[1fr_1.3fr] gap-12 md:gap-24 items-center max-w-7xl mx-auto px-5 sm:px-6 lg:px-8"
       >
-        {/* Left: Profile with floating tags */}
         <div className="relative flex justify-center">
           <div className="relative">
             <div className="absolute -inset-8 rounded-3xl bg-badwatt-primary/6 blur-3xl" />
@@ -51,10 +49,7 @@ export function About({ aboutData }: AboutProps) {
             <FloatingTags tags={profileTags} />
           </div>
         </div>
-
-        {/* Right: Editorial monograph */}
         <div className="space-y-12">
-          {/* Label */}
           <div
             className={`flex items-center gap-3 transition-all duration-500 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
@@ -65,8 +60,6 @@ export function About({ aboutData }: AboutProps) {
               About me
             </span>
           </div>
-
-          {/* Headline */}
           <h2
             className={`text-4xl md:text-6xl lg:text-7xl tracking-[-0.03em] leading-[0.85] font-bold transition-all duration-700 delay-100 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -78,15 +71,11 @@ export function About({ aboutData }: AboutProps) {
             <br />
             <span className="text-badwatt-primary">the web.</span>
           </h2>
-
-          {/* Decorative rule */}
           <div
             className={`w-16 h-px bg-badwatt-primary/30 transition-all duration-700 delay-200 ${
               isVisible ? "opacity-100 w-16" : "opacity-0 w-0"
             }`}
           />
-
-          {/* Bio paragraphs */}
           <div
             className={`space-y-6 transition-all duration-700 delay-300 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
@@ -101,8 +90,6 @@ export function About({ aboutData }: AboutProps) {
               </p>
             ))}
           </div>
-
-          {/* Details grid */}
           <div
             className={`grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 transition-all duration-700 delay-400 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"

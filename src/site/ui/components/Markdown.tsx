@@ -79,10 +79,6 @@ function ListNode({ token }: { token: Tokens.List }) {
 }
 
 function ListItemBody({ item }: { item: Tokens.ListItem }) {
-  // ListItem.tokens can be any block-level token. The common case is a
-  // single `text` token whose `.tokens` are the inline children. For more
-  // complex items (multi-paragraph, nested blocks), render each child with
-  // the right helper.
   const inline: Token[] = [];
   const others: Token[] = [];
   for (const t of item.tokens) {
@@ -183,5 +179,4 @@ export function Inline({ tokens }: { tokens: Tokens.Generic[] }) {
   );
 }
 
-// Re-export for direct use in callers that want a quick string conversion.
 export { tokenizeInline };

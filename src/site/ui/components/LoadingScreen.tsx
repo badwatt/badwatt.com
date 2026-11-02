@@ -51,7 +51,6 @@ export const LoadingScreen = () => {
       }`}
     >
       <div className="relative">
-        {/* Glow */}
         <div className="absolute inset-0 w-32 h-32 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 bg-badwatt-primary/20 blur-[80px] rounded-full animate-[pulse-glow_2s_ease-in-out_infinite]" />
         <h1 className="relative text-7xl md:text-8xl font-bold tracking-[-0.06em] text-badwatt-white animate-[scaleIn_0.6s_ease-out]">
           AM

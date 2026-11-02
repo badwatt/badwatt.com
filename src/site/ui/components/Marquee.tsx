@@ -8,7 +8,6 @@ export const Marquee = ({ items, speed = 30 }: Props) => {
 
   return (
     <div className="py-8 space-y-3 border-y border-badwatt-border overflow-hidden">
-      {/* Row 1: left scroll */}
       <div className="marquee-container">
         <div className="marquee-track" style={{ animationDuration: `${speed}s` }}>
           <span className="text-2xl md:text-4xl font-bold tracking-tight text-badwatt-muted/20 px-4">
@@ -19,7 +18,6 @@ export const Marquee = ({ items, speed = 30 }: Props) => {
           </span>
         </div>
       </div>
-      {/* Row 2: right scroll */}
       <div className="marquee-container">
         <div className="marquee-track-reverse" style={{ animationDuration: `${speed * 0.8}s` }}>
           <span className="text-2xl md:text-4xl font-bold tracking-tight text-badwatt-primary/15 px-4">

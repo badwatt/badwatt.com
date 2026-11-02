@@ -91,7 +91,6 @@ describe("<DynamicTitle />", () => {
     setupSections(["experience"], ["experience"]);
     setScrollY(500);
     render(<DynamicTitle />);
-    // experience is missing from DOM, so falls back
     expect(document.title).toBe(site);
   });
 
