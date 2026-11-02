@@ -31,7 +31,9 @@ describe("portfolio content", () => {
     }
   });
 
-  it("includes zix and prompty", () => {
-    expect(entries.map(({ title }) => title)).toEqual(expect.arrayContaining(["zix", "prompty"]));
+  it("includes zix, prompty, wal and systema", () => {
+    expect(entries.map(({ title }) => title)).toEqual(
+      expect.arrayContaining(["zix", "prompty", "wal", "systema"]),
+    );
   });
 });
