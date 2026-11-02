@@ -1,58 +1,46 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 
 interface CapWidgetProps {
   onVerified: (token: string) => void;
-  name?: string;
 }
 
-export const CapWidget = ({ onVerified, name = "cap-token" }: CapWidgetProps) => {
-  const ref = useRef<HTMLDivElement>(null);
+const SCRIPT_ID = "cap-widget-script";
+const SCRIPT_URL = "https://cdn.jsdelivr.net/npm/cap-widget";
+
+/**
+ * Injects the cap-widget script once and forwards the token it solves. The
+ * listener lives in an effect keyed on the element, so it is attached when the
+ * node mounts and removed when it unmounts.
+ */
+export const CapWidget = ({ onVerified }: CapWidgetProps) => {
+  const [widget, setWidget] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
-    const scriptId = "cap-widget-script";
-    let script: HTMLScriptElement | null = null;
-    if (!document.getElementById(scriptId)) {
-      script = document.createElement("script");
-      script.id = scriptId;
-      script.src = "https://cdn.jsdelivr.net/npm/cap-widget";
-      script.async = true;
-      document.body.appendChild(script);
-    }
+    if (document.getElementById(SCRIPT_ID)) return;
+    const script = document.createElement("script");
+    script.id = SCRIPT_ID;
+    script.src = SCRIPT_URL;
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
 
-    let cancelled = false;
-    const input = ref.current?.querySelector(`input[name="${name}"]`) as HTMLInputElement | null;
+  useEffect(() => {
+    if (!widget) return;
 
-    const attach = () => {
-      if (cancelled) return;
-      const el = ref.current?.querySelector("cap-widget");
-      if (!el) return;
-      const handler = (e: Event) => {
-        const token = (e as CustomEvent).detail?.token;
-        if (token) {
-          if (input) input.value = token;
-          onVerified(token);
-        }
-      };
-      el.addEventListener("solve", handler);
+    const handleSolve = (event: Event) => {
+      const token = (event as CustomEvent<{ token?: string }>).detail?.token;
+      if (token) onVerified(token);
     };
 
-    if (window.customElements?.get("cap-widget")) {
-      attach();
-    } else {
-      void window.customElements?.whenDefined("cap-widget").then(attach);
-    }
-
-    return () => {
-      cancelled = true;
-    };
-  }, [onVerified, name]);
+    widget.addEventListener("solve", handleSolve);
+    return () => widget.removeEventListener("solve", handleSolve);
+  }, [widget, onVerified]);
 
   const endpoint = `${import.meta.env.PUBLIC_CAP_URL}/${import.meta.env.PUBLIC_CAP_SITE_KEY}/`;
 
   return (
-    <div ref={ref}>
-      <cap-widget data-cap-api-endpoint={endpoint} />
-      <input type="hidden" name={name} />
+    <div>
+      <cap-widget ref={setWidget} data-cap-api-endpoint={endpoint} />
     </div>
   );
 };

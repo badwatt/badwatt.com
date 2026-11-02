@@ -27,15 +27,7 @@ export default mergeConfig(
       coverage: {
         provider: "istanbul",
         include: ["src/**/*.{ts,tsx}"],
-        exclude: [
-          "src/env.d.ts",
-          "src/content.config.ts",
-          // Bridge to the third-party cap-widget custom element: it injects the CDN
-          // script and forwards the "solve" event, nothing of ours to assert beyond
-          // what the widget itself already guarantees.
-          "src/components/CapWidget.tsx",
-          ".astro/**",
-        ],
+        exclude: ["src/env.d.ts", "src/content.config.ts", ".astro/**"],
         thresholds: {
           statements: 100,
           branches: 100,
