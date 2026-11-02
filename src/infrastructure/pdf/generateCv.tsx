@@ -11,7 +11,7 @@ import {
   sectionTitle,
   startPage,
   tag,
-} from "src/infrastructure/pdf/draw";
+} from "src/infrastructure/pdf/sections";
 
 export function getBioText(data: AboutEntry[]): string {
   return data[0]?.bio ?? "";

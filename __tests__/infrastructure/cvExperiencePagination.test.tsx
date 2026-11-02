@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from "vite-plus/test";
 import { generateCV } from "src/infrastructure/pdf/generateCv";
-import { drawJobCard } from "src/infrastructure/pdf/draw";
+import { drawJobCard } from "src/infrastructure/pdf/sections";
 import { cardHeight, fitSubgroups } from "src/domain/cv/layout";
 import { getThemeById } from "src/domain/cv/theme";
 
