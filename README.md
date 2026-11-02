@@ -50,7 +50,7 @@ src/captcha/     application/ ui/                            the token rule and 
 src/content/     domain/ application/                        the site model and how it is loaded
 src/contact/     infrastructure/ ui/                         EmailJS behind an adapter
 src/theme/       infrastructure/ ui/                         the stored preference and its toggle
-src/site/        components/ hooks/ sections/ layouts/       the one-page site that composes the rest
+src/site/ui/     components/ hooks/ sections/ layouts/       the one-page site that composes the rest
 src/pages/                                                   router and composition root
 ```
 
@@ -67,7 +67,7 @@ src/pages/                                                   router and composit
 - A capability never imports another capability's `infrastructure`. The captcha reaches
   the CV and the form through `captcha/application/verifyCaptcha`.
 
-Four of those rules are executable: `__tests__/architecture/layers.test.ts` reads every
+Five of those rules are executable: `__tests__/architecture/layers.test.ts` reads every
 import in `src/` and fails when one of them is broken. `AGENTS.md` has the long version.
 
 ## Getting started

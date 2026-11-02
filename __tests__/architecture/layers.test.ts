@@ -64,6 +64,9 @@ const PUBLIC_UI_ENTRIES: Record<string, string[]> = {
 
 const asPath = (file: string) => path.relative(SRC, file).split(path.sep).join("/");
 
+/** Folders that hold presentation; every capability keeps them under `ui/`. */
+const PRESENTATION_DIRS = ["components", "hooks", "sections", "views", "layouts"];
+
 function offenders(rule: (edge: Edge) => boolean): string[] {
   return ALL_EDGES.filter(rule).map(({ from, specifier }) => {
     return `${path.relative(SRC, from)} -> ${specifier}`;
@@ -95,10 +98,23 @@ describe("architecture rules", () => {
 
   it("lets the site reach a capability only through its public entry", () => {
     const broken = ALL_EDGES.filter(
-      ({ from, to }) => capability(from) === "site" && layer(to) === "ui",
+      ({ from, to }) =>
+        capability(from) === "site" && capability(to) !== "site" && layer(to) === "ui",
     )
       .filter(({ to }) => !(PUBLIC_UI_ENTRIES[capability(to)] ?? []).includes(asPath(to)))
       .map(({ from, specifier }) => `${asPath(from)} -> ${specifier}`);
+
+    expect(broken).toEqual([]);
+  });
+
+  it("keeps presentation inside a ui folder", () => {
+    const broken = codeFiles(SRC).flatMap((file) => {
+      const segments = relative(file).slice(0, -1);
+      const misplaced = segments.some(
+        (segment, index) => PRESENTATION_DIRS.includes(segment) && segments[index - 1] !== "ui",
+      );
+      return misplaced ? [asPath(file)] : [];
+    });
 
     expect(broken).toEqual([]);
   });

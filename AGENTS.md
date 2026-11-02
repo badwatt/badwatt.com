@@ -64,13 +64,14 @@ src/captcha/     application/ ui/                            the token rule and 
 src/content/     domain/ application/                        the site model and how it is loaded
 src/contact/     infrastructure/ ui/                         EmailJS behind an adapter
 src/theme/       infrastructure/ ui/                          the stored preference and its toggle
-src/site/        components/ hooks/ sections/ layouts/       the one-page site that composes the rest
+src/site/ui/     components/ hooks/ sections/ layouts/       the one-page site that composes the rest
 src/pages/                                                   router and composition root
 ```
 
 `site` is a capability, not a layer: it holds the six sections, the chrome they share and
 the layout. Its `sections/` may compose other capabilities, but only through their
-declared entry points.
+declared entry points. Every capability that renders keeps its presentation under `ui/`,
+`site` included, so the shape is the same at every level.
 
 | Layer            | May import                                                                                         |
 | ---------------- | -------------------------------------------------------------------------------------------------- |
@@ -87,6 +88,8 @@ The rules the suite enforces (`__tests__/architecture/layers.test.ts`):
 - `site` reaches another capability only through its public entry: `contact/ui/Contact`,
   `cv/ui/CvLauncher`, `theme/ui/ThemeToggle`. The list lives in the test, so adding a new
   entry is a deliberate edit, not an accident.
+- Presentation lives in a folder called `ui`: `components`, `hooks`, `sections`, `views` and
+  `layouts` are only allowed one level under it.
 
 How to place a file:
 
