@@ -3,7 +3,7 @@
 exports[`<Marquee /> > matches snapshot 1`] = `
 <div>
   <div
-    class="py-8 space-y-3 border-y border-alvaro-border overflow-hidden"
+    class="py-8 space-y-3 border-y border-badwatt-border overflow-hidden"
   >
     <div
       class="marquee-container"
@@ -13,7 +13,7 @@ exports[`<Marquee /> > matches snapshot 1`] = `
         style="animation-duration: 25s;"
       >
         <span
-          class="text-2xl md:text-4xl font-bold tracking-tight text-alvaro-muted/20 px-4"
+          class="text-2xl md:text-4xl font-bold tracking-tight text-badwatt-muted/20 px-4"
         >
           React  ✦  TypeScript
            
@@ -24,7 +24,7 @@ exports[`<Marquee /> > matches snapshot 1`] = `
           ✦
         </span>
         <span
-          class="text-2xl md:text-4xl font-bold tracking-tight text-alvaro-muted/20 px-4"
+          class="text-2xl md:text-4xl font-bold tracking-tight text-badwatt-muted/20 px-4"
         >
           React  ✦  TypeScript
            
@@ -44,7 +44,7 @@ exports[`<Marquee /> > matches snapshot 1`] = `
         style="animation-duration: 20s;"
       >
         <span
-          class="text-2xl md:text-4xl font-bold tracking-tight text-alvaro-primary/15 px-4"
+          class="text-2xl md:text-4xl font-bold tracking-tight text-badwatt-primary/15 px-4"
         >
           React  ✦  TypeScript
            
@@ -55,7 +55,7 @@ exports[`<Marquee /> > matches snapshot 1`] = `
           ✦
         </span>
         <span
-          class="text-2xl md:text-4xl font-bold tracking-tight text-alvaro-primary/15 px-4"
+          class="text-2xl md:text-4xl font-bold tracking-tight text-badwatt-primary/15 px-4"
         >
           React  ✦  TypeScript
            

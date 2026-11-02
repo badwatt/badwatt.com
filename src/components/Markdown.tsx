@@ -10,7 +10,7 @@ export function Markdown({ source, className }: MarkdownProps) {
   const tokens = tokenize(source);
   return (
     <div
-      className={["space-y-3 text-sm text-alvaro-muted leading-relaxed", className]
+      className={["space-y-3 text-sm text-badwatt-muted leading-relaxed", className]
         .filter(Boolean)
         .join(" ")}
     >
@@ -34,7 +34,7 @@ function RenderToken({ token }: { token: Token }) {
     case "code":
       return <CodeNode token={token as Tokens.Code} />;
     case "hr":
-      return <hr className="border-alvaro-border" />;
+      return <hr className="border-badwatt-border" />;
     case "space":
       return null;
     default:
@@ -46,12 +46,12 @@ function HeadingNode({ token }: { token: Tokens.Heading }) {
   const depth = Math.min(Math.max(token.depth, 1), 6);
   const Tag = `h${depth}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   const sizes: Record<number, string> = {
-    1: "text-xl font-semibold text-alvaro-white",
-    2: "text-lg font-semibold text-alvaro-white",
-    3: "text-base font-semibold text-alvaro-white",
-    4: "text-sm font-medium text-alvaro-white",
-    5: "text-sm font-medium text-alvaro-white",
-    6: "text-xs font-medium text-alvaro-white",
+    1: "text-xl font-semibold text-badwatt-white",
+    2: "text-lg font-semibold text-badwatt-white",
+    3: "text-base font-semibold text-badwatt-white",
+    4: "text-sm font-medium text-badwatt-white",
+    5: "text-sm font-medium text-badwatt-white",
+    6: "text-xs font-medium text-badwatt-white",
   };
   return <Tag className={sizes[depth]}>{token.text}</Tag>;
 }
@@ -109,7 +109,7 @@ function ListItemBody({ item }: { item: Tokens.ListItem }) {
 
 function BlockquoteNode({ token }: { token: Tokens.Blockquote }) {
   return (
-    <blockquote className="border-l-2 border-alvaro-primary/60 pl-4 italic text-alvaro-muted/90 space-y-2">
+    <blockquote className="border-l-2 border-badwatt-primary/60 pl-4 italic text-badwatt-muted/90 space-y-2">
       {token.tokens.map((t, i) => (
         <RenderToken key={i} token={t as Token} />
       ))}
@@ -119,7 +119,7 @@ function BlockquoteNode({ token }: { token: Tokens.Blockquote }) {
 
 function CodeNode({ token }: { token: Tokens.Code }) {
   return (
-    <pre className="rounded-lg bg-alvaro-base/70 border border-alvaro-border p-3 overflow-x-auto text-xs font-mono text-alvaro-white">
+    <pre className="rounded-lg bg-badwatt-base/70 border border-badwatt-border p-3 overflow-x-auto text-xs font-mono text-badwatt-white">
       <code>{token.text}</code>
     </pre>
   );
@@ -133,7 +133,7 @@ export function Inline({ tokens }: { tokens: Tokens.Generic[] }) {
         switch (token.type) {
           case "strong":
             return (
-              <strong key={i} className="font-semibold text-alvaro-white">
+              <strong key={i} className="font-semibold text-badwatt-white">
                 {token.text}
               </strong>
             );
@@ -143,7 +143,7 @@ export function Inline({ tokens }: { tokens: Tokens.Generic[] }) {
             return (
               <code
                 key={i}
-                className="rounded bg-alvaro-base/70 border border-alvaro-border px-1 py-0.5 text-xs font-mono"
+                className="rounded bg-badwatt-base/70 border border-badwatt-border px-1 py-0.5 text-xs font-mono"
               >
                 {token.text}
               </code>
@@ -155,7 +155,7 @@ export function Inline({ tokens }: { tokens: Tokens.Generic[] }) {
                 href={token.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-alvaro-primary hover:underline underline-offset-2"
+                className="text-badwatt-primary hover:underline underline-offset-2"
               >
                 {token.text}
               </a>

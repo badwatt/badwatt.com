@@ -19,7 +19,7 @@ export const FloatingTags = ({ tags }: Props) => {
         return (
           <span
             key={tag}
-            className={`absolute px-3 py-1.5 text-xs font-medium bg-alvaro-surface/80 backdrop-blur-sm border border-alvaro-border rounded-full text-alvaro-muted float transition-all duration-700 ${
+            className={`absolute px-3 py-1.5 text-xs font-medium bg-badwatt-surface/80 backdrop-blur-sm border border-badwatt-border rounded-full text-badwatt-muted float transition-all duration-700 ${
               isVisible ? "opacity-100 scale-100" : "opacity-0 scale-75"
             }`}
             style={{

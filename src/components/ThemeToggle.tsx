@@ -18,7 +18,7 @@ export const ThemeToggle = () => {
     <button
       onClick={toggle}
       aria-label="Toggle theme"
-      className="p-2 rounded-lg text-alvaro-muted hover:text-alvaro-primary transition-colors duration-200 cursor-pointer"
+      className="p-2 rounded-lg text-badwatt-muted hover:text-badwatt-primary transition-colors duration-200 cursor-pointer"
     >
       {theme === "dark" ? (
         <SunIcon size={20} weight="bold" />

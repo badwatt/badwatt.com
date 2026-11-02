@@ -24,7 +24,7 @@ exports[`<Contact /> > matches snapshot 1`] = `
       >
         <div
           class="go2072408551"
-          style="opacity: 0; background: var(--color-alvaro-surface); color: var(--color-alvaro-white); border: 1px solid; border-width: var(--color-alvaro-border); border-style: var(--color-alvaro-border); border-color: var(--color-alvaro-border);"
+          style="opacity: 0; background: var(--color-badwatt-surface); color: var(--color-badwatt-white); border: 1px solid; border-width: var(--color-badwatt-border); border-style: var(--color-badwatt-border); border-color: var(--color-badwatt-border);"
         >
           <div
             class="go685806154"
@@ -55,7 +55,7 @@ exports[`<Contact /> > matches snapshot 1`] = `
       >
         <div
           class="go2072408551"
-          style="opacity: 0; background: var(--color-alvaro-surface); color: var(--color-alvaro-white); border: 1px solid; border-width: var(--color-alvaro-border); border-style: var(--color-alvaro-border); border-color: var(--color-alvaro-border);"
+          style="opacity: 0; background: var(--color-badwatt-surface); color: var(--color-badwatt-white); border: 1px solid; border-width: var(--color-badwatt-border); border-style: var(--color-badwatt-border); border-color: var(--color-badwatt-border);"
         >
           <div
             class="go685806154"
@@ -83,7 +83,7 @@ exports[`<Contact /> > matches snapshot 1`] = `
     </div>
     <section
       aria-label="contact-form"
-      class="grid grid-cols-1 md:grid-cols-[1fr_2fr] p-8 md:p-10 rounded-2xl bg-alvaro-surface border border-alvaro-border hover:border-alvaro-primary/20 transition-all duration-500"
+      class="grid grid-cols-1 md:grid-cols-[1fr_2fr] p-8 md:p-10 rounded-2xl bg-badwatt-surface border border-badwatt-border hover:border-badwatt-primary/20 transition-all duration-500"
     >
       <div
         class="mb-8 md:mb-0 md:pr-8"
@@ -94,7 +94,7 @@ exports[`<Contact /> > matches snapshot 1`] = `
           Get in touch
         </h2>
         <p
-          class="text-alvaro-muted leading-relaxed max-w-[35ch]"
+          class="text-badwatt-muted leading-relaxed max-w-[35ch]"
         >
           Have a project or opportunity?
           <br />
@@ -108,14 +108,14 @@ exports[`<Contact /> > matches snapshot 1`] = `
           class="grid gap-2"
         >
           <label
-            class="text-sm font-medium text-alvaro-muted"
+            class="text-sm font-medium text-badwatt-muted"
             for="contact-name"
           >
             Name
           </label>
           <input
             autocomplete="name"
-            class="bg-alvaro-base text-alvaro-white p-4 border border-alvaro-border rounded-lg focus:outline-none focus:border-alvaro-primary transition-colors duration-200"
+            class="bg-badwatt-base text-badwatt-white p-4 border border-badwatt-border rounded-lg focus:outline-none focus:border-badwatt-primary transition-colors duration-200"
             id="contact-name"
             name="name"
             required=""
@@ -127,14 +127,14 @@ exports[`<Contact /> > matches snapshot 1`] = `
           class="grid gap-2"
         >
           <label
-            class="text-sm font-medium text-alvaro-muted"
+            class="text-sm font-medium text-badwatt-muted"
             for="contact-email"
           >
             Email
           </label>
           <input
             autocomplete="email"
-            class="bg-alvaro-base text-alvaro-white p-4 border border-alvaro-border rounded-lg focus:outline-none focus:border-alvaro-primary transition-colors duration-200"
+            class="bg-badwatt-base text-badwatt-white p-4 border border-badwatt-border rounded-lg focus:outline-none focus:border-badwatt-primary transition-colors duration-200"
             id="contact-email"
             name="email"
             required=""
@@ -146,19 +146,19 @@ exports[`<Contact /> > matches snapshot 1`] = `
           class="grid gap-2"
         >
           <label
-            class="text-sm font-medium text-alvaro-muted"
+            class="text-sm font-medium text-badwatt-muted"
             for="contact-phone"
           >
             Phone 
             <span
-              class="text-alvaro-border"
+              class="text-badwatt-border"
             >
               (optional)
             </span>
           </label>
           <input
             autocomplete="tel"
-            class="bg-alvaro-base text-alvaro-white p-4 border border-alvaro-border rounded-lg focus:outline-none focus:border-alvaro-primary transition-colors duration-200"
+            class="bg-badwatt-base text-badwatt-white p-4 border border-badwatt-border rounded-lg focus:outline-none focus:border-badwatt-primary transition-colors duration-200"
             id="contact-phone"
             name="phone"
             type="tel"
@@ -169,13 +169,13 @@ exports[`<Contact /> > matches snapshot 1`] = `
           class="grid gap-2"
         >
           <label
-            class="text-sm font-medium text-alvaro-muted"
+            class="text-sm font-medium text-badwatt-muted"
             for="contact-message"
           >
             Message
           </label>
           <textarea
-            class="bg-alvaro-base text-alvaro-white p-4 border border-alvaro-border rounded-lg focus:outline-none focus:border-alvaro-primary transition-colors duration-200 min-h-[120px] resize-y"
+            class="bg-badwatt-base text-badwatt-white p-4 border border-badwatt-border rounded-lg focus:outline-none focus:border-badwatt-primary transition-colors duration-200 min-h-[120px] resize-y"
             id="contact-message"
             name="message"
             required=""
@@ -183,7 +183,7 @@ exports[`<Contact /> > matches snapshot 1`] = `
         </div>
         <button
           aria-label="submit"
-          class="flex items-center justify-center gap-2 p-4 mt-2 rounded-lg bg-alvaro-primary text-alvaro-dark font-medium cursor-pointer hover:opacity-90 transition-all duration-200 active:scale-[0.98]"
+          class="flex items-center justify-center gap-2 p-4 mt-2 rounded-lg bg-badwatt-primary text-badwatt-dark font-medium cursor-pointer hover:opacity-90 transition-all duration-200 active:scale-[0.98]"
           type="button"
         >
           Send message

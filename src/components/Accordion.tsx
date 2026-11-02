@@ -19,15 +19,15 @@ export const Accordion = ({ items, defaultOpenId, timeline }: Props) => {
 
   return (
     <div className={timeline ? "relative pl-10" : "space-y-3"}>
-      {timeline && <div className="absolute left-4 top-6 bottom-6 w-px bg-alvaro-border" />}
+      {timeline && <div className="absolute left-4 top-6 bottom-6 w-px bg-badwatt-border" />}
       {items.map((item) => {
         const isOpen = openId === item.id;
         const card = (
           <div
             className={`border rounded-2xl overflow-hidden transition-colors duration-300 ${
               isOpen
-                ? "border-alvaro-primary/30 bg-alvaro-surface"
-                : "border-alvaro-border hover:border-alvaro-muted"
+                ? "border-badwatt-primary/30 bg-badwatt-surface"
+                : "border-badwatt-border hover:border-badwatt-muted"
             }`}
           >
             <button
@@ -38,9 +38,9 @@ export const Accordion = ({ items, defaultOpenId, timeline }: Props) => {
               aria-controls={`accordion-content-${item.id}`}
             >
               <div>
-                <span className="text-xl font-semibold text-alvaro-white">{item.title}</span>
+                <span className="text-xl font-semibold text-badwatt-white">{item.title}</span>
                 {item.subtitle && (
-                  <p className="text-sm text-alvaro-muted mt-1 font-mono tabular-nums">
+                  <p className="text-sm text-badwatt-muted mt-1 font-mono tabular-nums">
                     {item.subtitle}
                   </p>
                 )}
@@ -48,7 +48,7 @@ export const Accordion = ({ items, defaultOpenId, timeline }: Props) => {
               <CaretDownIcon
                 size={20}
                 weight="bold"
-                className={`text-alvaro-muted transition-transform duration-300 shrink-0 ml-4 ${
+                className={`text-badwatt-muted transition-transform duration-300 shrink-0 ml-4 ${
                   isOpen ? "rotate-180" : ""
                 }`}
               />
@@ -65,7 +65,7 @@ export const Accordion = ({ items, defaultOpenId, timeline }: Props) => {
         );
         return timeline ? (
           <div key={item.id} className="relative mb-6">
-            <div className="absolute -left-[29px] top-[26px] w-2.5 h-2.5 rounded-full bg-alvaro-accent ring-[3px] ring-alvaro-base" />
+            <div className="absolute -left-[29px] top-[26px] w-2.5 h-2.5 rounded-full bg-badwatt-accent ring-[3px] ring-badwatt-base" />
             {card}
           </div>
         ) : (

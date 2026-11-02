@@ -15,12 +15,12 @@ exports[`<Skills /> > matches snapshot 1`] = `
       class="mb-8 md:mb-10 mt-16 md:mt-13 overflow-hidden"
     >
       <h1
-        class="text-4xl md:text-5xl tracking-tight leading-none font-bold text-alvaro-white transition-all duration-700 ease-out origin-left opacity-0 scale-x-0"
+        class="text-4xl md:text-5xl tracking-tight leading-none font-bold text-badwatt-white transition-all duration-700 ease-out origin-left opacity-0 scale-x-0"
       >
         Skills
       </h1>
       <div
-        class="mt-3 h-[2px] bg-alvaro-primary transition-all duration-700 delay-200 ease-out origin-left w-0 opacity-0"
+        class="mt-3 h-[2px] bg-badwatt-primary transition-all duration-700 delay-200 ease-out origin-left w-0 opacity-0"
       />
     </div>
     <div
@@ -46,7 +46,7 @@ exports[`<Skills /> > matches snapshot 1`] = `
           src="/skills/react.svg"
         />
         <h2
-          class="font-medium text-alvaro-muted group-hover:text-alvaro-white transition-colors duration-200 text-base md:text-lg"
+          class="font-medium text-badwatt-muted group-hover:text-badwatt-white transition-colors duration-200 text-base md:text-lg"
         >
           react.js
         </h2>
@@ -71,7 +71,7 @@ exports[`<Skills /> > matches snapshot 1`] = `
           src="/skills/vue.svg"
         />
         <h2
-          class="font-medium text-alvaro-muted group-hover:text-alvaro-white transition-colors duration-200 text-sm"
+          class="font-medium text-badwatt-muted group-hover:text-badwatt-white transition-colors duration-200 text-sm"
         >
           vue.js
         </h2>
@@ -96,7 +96,7 @@ exports[`<Skills /> > matches snapshot 1`] = `
           src="/skills/typescript.svg"
         />
         <h2
-          class="font-medium text-alvaro-muted group-hover:text-alvaro-white transition-colors duration-200 text-base md:text-lg"
+          class="font-medium text-badwatt-muted group-hover:text-badwatt-white transition-colors duration-200 text-base md:text-lg"
         >
           typescript
         </h2>

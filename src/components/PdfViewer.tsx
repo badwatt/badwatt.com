@@ -21,8 +21,8 @@ export function PdfViewer({ src, isOpen, onClose, fileName = "cv.pdf" }: PdfView
   return (
     <Modal isOpen={isOpen} onClose={onClose} ariaLabel="CV preview">
       <div className="flex h-full flex-col">
-        <header className="flex shrink-0 items-center justify-between border-b border-alvaro-border px-6 py-4">
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-alvaro-white">
+        <header className="flex shrink-0 items-center justify-between border-b border-badwatt-border px-6 py-4">
+          <h3 className="text-sm font-semibold uppercase tracking-wide text-badwatt-white">
             CV Preview
           </h3>
           <div className="flex items-center gap-3">
@@ -30,18 +30,18 @@ export function PdfViewer({ src, isOpen, onClose, fileName = "cv.pdf" }: PdfView
               <button
                 type="button"
                 onClick={zoomOut}
-                className="rounded-full border border-alvaro-border bg-alvaro-surface p-2 text-alvaro-muted transition-all duration-300 hover:border-alvaro-primary/40 hover:text-alvaro-primary cursor-pointer"
+                className="rounded-full border border-badwatt-border bg-badwatt-surface p-2 text-badwatt-muted transition-all duration-300 hover:border-badwatt-primary/40 hover:text-badwatt-primary cursor-pointer"
                 aria-label="Zoom out"
               >
                 <MagnifyingGlassMinusIcon size={20} weight="bold" />
               </button>
-              <span className="text-xs text-alvaro-muted w-10 text-center">
+              <span className="text-xs text-badwatt-muted w-10 text-center">
                 {Math.round(zoom * 100)}%
               </span>
               <button
                 type="button"
                 onClick={zoomIn}
-                className="rounded-full border border-alvaro-border bg-alvaro-surface p-2 text-alvaro-muted transition-all duration-300 hover:border-alvaro-primary/40 hover:text-alvaro-primary cursor-pointer"
+                className="rounded-full border border-badwatt-border bg-badwatt-surface p-2 text-badwatt-muted transition-all duration-300 hover:border-badwatt-primary/40 hover:text-badwatt-primary cursor-pointer"
                 aria-label="Zoom in"
               >
                 <MagnifyingGlassPlusIcon size={20} weight="bold" />
@@ -50,7 +50,7 @@ export function PdfViewer({ src, isOpen, onClose, fileName = "cv.pdf" }: PdfView
             <a
               href={src}
               download={fileName}
-              className="rounded-full border border-alvaro-border bg-alvaro-surface p-2 text-alvaro-muted transition-all duration-300 hover:border-alvaro-primary/40 hover:text-alvaro-primary"
+              className="rounded-full border border-badwatt-border bg-badwatt-surface p-2 text-badwatt-muted transition-all duration-300 hover:border-badwatt-primary/40 hover:text-badwatt-primary"
               aria-label="Download CV"
             >
               <DownloadIcon size={20} weight="bold" />
@@ -58,7 +58,7 @@ export function PdfViewer({ src, isOpen, onClose, fileName = "cv.pdf" }: PdfView
             <button
               type="button"
               onClick={onClose}
-              className="cursor-pointer rounded-full border border-alvaro-border bg-alvaro-surface p-2 text-alvaro-muted transition-all duration-300 hover:border-alvaro-primary/40 hover:text-alvaro-primary"
+              className="cursor-pointer rounded-full border border-badwatt-border bg-badwatt-surface p-2 text-badwatt-muted transition-all duration-300 hover:border-badwatt-primary/40 hover:text-badwatt-primary"
               aria-label="Close preview"
             >
               <XIcon size={20} weight="bold" />

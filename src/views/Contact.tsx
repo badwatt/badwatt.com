@@ -83,29 +83,29 @@ export const Contact = () => {
         position="bottom-right"
         toastOptions={{
           style: {
-            background: "var(--color-alvaro-surface)",
-            color: "var(--color-alvaro-white)",
-            border: "1px solid var(--color-alvaro-border)",
+            background: "var(--color-badwatt-surface)",
+            color: "var(--color-badwatt-white)",
+            border: "1px solid var(--color-badwatt-border)",
           },
         }}
       />
       {!isSubmitted ? (
         <section
-          className="grid grid-cols-1 md:grid-cols-[1fr_2fr] p-8 md:p-10 rounded-2xl bg-alvaro-surface border border-alvaro-border hover:border-alvaro-primary/20 transition-all duration-500"
+          className="grid grid-cols-1 md:grid-cols-[1fr_2fr] p-8 md:p-10 rounded-2xl bg-badwatt-surface border border-badwatt-border hover:border-badwatt-primary/20 transition-all duration-500"
           aria-label="contact-form"
         >
           <div className="mb-8 md:mb-0 md:pr-8">
             <h2 className="text-3xl md:text-4xl tracking-[-0.03em] leading-none font-bold mb-4">
               Get in touch
             </h2>
-            <p className="text-alvaro-muted leading-relaxed max-w-[35ch]">
+            <p className="text-badwatt-muted leading-relaxed max-w-[35ch]">
               Have a project or opportunity?
               <br /> Drop a message.
             </p>
           </div>
           <form ref={form} className="grid gap-4">
             <div className="grid gap-2">
-              <label htmlFor="contact-name" className="text-sm font-medium text-alvaro-muted">
+              <label htmlFor="contact-name" className="text-sm font-medium text-badwatt-muted">
                 Name
               </label>
               <input
@@ -115,7 +115,7 @@ export const Contact = () => {
                 value={data.name}
                 onChange={updateData}
                 autoComplete="name"
-                className="bg-alvaro-base text-alvaro-white p-4 border border-alvaro-border rounded-lg focus:outline-none focus:border-alvaro-primary transition-colors duration-200"
+                className="bg-badwatt-base text-badwatt-white p-4 border border-badwatt-border rounded-lg focus:outline-none focus:border-badwatt-primary transition-colors duration-200"
                 aria-describedby={errors.name ? "name-error" : undefined}
                 required
               />
@@ -127,7 +127,7 @@ export const Contact = () => {
             </div>
 
             <div className="grid gap-2">
-              <label htmlFor="contact-email" className="text-sm font-medium text-alvaro-muted">
+              <label htmlFor="contact-email" className="text-sm font-medium text-badwatt-muted">
                 Email
               </label>
               <input
@@ -137,7 +137,7 @@ export const Contact = () => {
                 value={data.email}
                 onChange={updateData}
                 autoComplete="email"
-                className="bg-alvaro-base text-alvaro-white p-4 border border-alvaro-border rounded-lg focus:outline-none focus:border-alvaro-primary transition-colors duration-200"
+                className="bg-badwatt-base text-badwatt-white p-4 border border-badwatt-border rounded-lg focus:outline-none focus:border-badwatt-primary transition-colors duration-200"
                 aria-describedby={errors.email ? "email-error" : undefined}
                 required
               />
@@ -149,8 +149,8 @@ export const Contact = () => {
             </div>
 
             <div className="grid gap-2">
-              <label htmlFor="contact-phone" className="text-sm font-medium text-alvaro-muted">
-                Phone <span className="text-alvaro-border">(optional)</span>
+              <label htmlFor="contact-phone" className="text-sm font-medium text-badwatt-muted">
+                Phone <span className="text-badwatt-border">(optional)</span>
               </label>
               <input
                 id="contact-phone"
@@ -159,12 +159,12 @@ export const Contact = () => {
                 value={data.phone}
                 onChange={updateData}
                 autoComplete="tel"
-                className="bg-alvaro-base text-alvaro-white p-4 border border-alvaro-border rounded-lg focus:outline-none focus:border-alvaro-primary transition-colors duration-200"
+                className="bg-badwatt-base text-badwatt-white p-4 border border-badwatt-border rounded-lg focus:outline-none focus:border-badwatt-primary transition-colors duration-200"
               />
             </div>
 
             <div className="grid gap-2">
-              <label htmlFor="contact-message" className="text-sm font-medium text-alvaro-muted">
+              <label htmlFor="contact-message" className="text-sm font-medium text-badwatt-muted">
                 Message
               </label>
               <textarea
@@ -172,7 +172,7 @@ export const Contact = () => {
                 name="message"
                 value={data.message}
                 onChange={updateData}
-                className="bg-alvaro-base text-alvaro-white p-4 border border-alvaro-border rounded-lg focus:outline-none focus:border-alvaro-primary transition-colors duration-200 min-h-[120px] resize-y"
+                className="bg-badwatt-base text-badwatt-white p-4 border border-badwatt-border rounded-lg focus:outline-none focus:border-badwatt-primary transition-colors duration-200 min-h-[120px] resize-y"
                 aria-describedby={errors.message ? "message-error" : undefined}
                 required
               />
@@ -196,7 +196,7 @@ export const Contact = () => {
                 type="button"
                 onClick={handleClickSend}
                 aria-label="submit"
-                className="flex items-center justify-center gap-2 p-4 mt-2 rounded-lg bg-alvaro-primary text-alvaro-dark font-medium cursor-pointer hover:opacity-90 transition-all duration-200 active:scale-[0.98]"
+                className="flex items-center justify-center gap-2 p-4 mt-2 rounded-lg bg-badwatt-primary text-badwatt-dark font-medium cursor-pointer hover:opacity-90 transition-all duration-200 active:scale-[0.98]"
               >
                 Send message
                 <PaperPlaneTiltIcon size={20} weight="bold" />
@@ -205,10 +205,10 @@ export const Contact = () => {
           </form>
         </section>
       ) : (
-        <section className="grid place-items-center p-12 rounded-2xl bg-alvaro-surface border border-alvaro-border animate-[scaleIn_0.5s_ease-out]">
-          <CheckCircleIcon size={48} weight="bold" className="text-alvaro-primary mb-4" />
+        <section className="grid place-items-center p-12 rounded-2xl bg-badwatt-surface border border-badwatt-border animate-[scaleIn_0.5s_ease-out]">
+          <CheckCircleIcon size={48} weight="bold" className="text-badwatt-primary mb-4" />
           <h2 className="text-2xl font-semibold tracking-tight mb-2">Message sent</h2>
-          <p className="text-alvaro-muted">I will get back to you soon.</p>
+          <p className="text-badwatt-muted">I will get back to you soon.</p>
         </section>
       )}
     </section>

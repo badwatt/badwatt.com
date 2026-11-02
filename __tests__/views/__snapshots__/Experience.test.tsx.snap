@@ -15,28 +15,28 @@ exports[`<Experience /> > should match the snapshot 1`] = `
       class="mb-8 md:mb-10 mt-16 md:mt-13 overflow-hidden"
     >
       <h1
-        class="text-4xl md:text-5xl tracking-tight leading-none font-bold text-alvaro-white transition-all duration-700 ease-out origin-left opacity-0 scale-x-0"
+        class="text-4xl md:text-5xl tracking-tight leading-none font-bold text-badwatt-white transition-all duration-700 ease-out origin-left opacity-0 scale-x-0"
       >
         Experience
       </h1>
       <div
-        class="mt-3 h-[2px] bg-alvaro-primary transition-all duration-700 delay-200 ease-out origin-left w-0 opacity-0"
+        class="mt-3 h-[2px] bg-badwatt-primary transition-all duration-700 delay-200 ease-out origin-left w-0 opacity-0"
       />
     </div>
     <div
       class="relative pl-10"
     >
       <div
-        class="absolute left-4 top-6 bottom-6 w-px bg-alvaro-border"
+        class="absolute left-4 top-6 bottom-6 w-px bg-badwatt-border"
       />
       <div
         class="relative mb-6"
       >
         <div
-          class="absolute -left-[29px] top-[26px] w-2.5 h-2.5 rounded-full bg-alvaro-accent ring-[3px] ring-alvaro-base"
+          class="absolute -left-[29px] top-[26px] w-2.5 h-2.5 rounded-full bg-badwatt-accent ring-[3px] ring-badwatt-base"
         />
         <div
-          class="border rounded-2xl overflow-hidden transition-colors duration-300 border-alvaro-primary/30 bg-alvaro-surface"
+          class="border rounded-2xl overflow-hidden transition-colors duration-300 border-badwatt-primary/30 bg-badwatt-surface"
         >
           <button
             aria-controls="accordion-content-0"
@@ -46,18 +46,18 @@ exports[`<Experience /> > should match the snapshot 1`] = `
           >
             <div>
               <span
-                class="text-xl font-semibold text-alvaro-white"
+                class="text-xl font-semibold text-badwatt-white"
               >
                 Openbank
               </span>
               <p
-                class="text-sm text-alvaro-muted mt-1 font-mono tabular-nums"
+                class="text-sm text-badwatt-muted mt-1 font-mono tabular-nums"
               >
                 June 2023 — now
               </p>
             </div>
             <svg
-              class="text-alvaro-muted transition-transform duration-300 shrink-0 ml-4 rotate-180"
+              class="text-badwatt-muted transition-transform duration-300 shrink-0 ml-4 rotate-180"
               fill="currentColor"
               height="20"
               viewBox="0 0 256 256"
@@ -99,10 +99,10 @@ exports[`<Experience /> > should match the snapshot 1`] = `
                   </a>
                 </div>
                 <div
-                  class="space-y-3 text-sm text-alvaro-muted leading-relaxed"
+                  class="space-y-3 text-sm text-badwatt-muted leading-relaxed"
                 >
                   <h1
-                    class="text-xl font-semibold text-alvaro-white"
+                    class="text-xl font-semibold text-badwatt-white"
                   >
                     Consulting Firm
                   </h1>
@@ -125,7 +125,7 @@ exports[`<Experience /> > should match the snapshot 1`] = `
                     </li>
                   </ul>
                   <h1
-                    class="text-xl font-semibold text-alvaro-white"
+                    class="text-xl font-semibold text-badwatt-white"
                   >
                     Projects
                   </h1>
@@ -157,10 +157,10 @@ exports[`<Experience /> > should match the snapshot 1`] = `
         class="relative mb-6"
       >
         <div
-          class="absolute -left-[29px] top-[26px] w-2.5 h-2.5 rounded-full bg-alvaro-accent ring-[3px] ring-alvaro-base"
+          class="absolute -left-[29px] top-[26px] w-2.5 h-2.5 rounded-full bg-badwatt-accent ring-[3px] ring-badwatt-base"
         />
         <div
-          class="border rounded-2xl overflow-hidden transition-colors duration-300 border-alvaro-border hover:border-alvaro-muted"
+          class="border rounded-2xl overflow-hidden transition-colors duration-300 border-badwatt-border hover:border-badwatt-muted"
         >
           <button
             aria-controls="accordion-content-1"
@@ -170,18 +170,18 @@ exports[`<Experience /> > should match the snapshot 1`] = `
           >
             <div>
               <span
-                class="text-xl font-semibold text-alvaro-white"
+                class="text-xl font-semibold text-badwatt-white"
               >
                 RSI
               </span>
               <p
-                class="text-sm text-alvaro-muted mt-1 font-mono tabular-nums"
+                class="text-sm text-badwatt-muted mt-1 font-mono tabular-nums"
               >
                 October 2021 — April 2023
               </p>
             </div>
             <svg
-              class="text-alvaro-muted transition-transform duration-300 shrink-0 ml-4 "
+              class="text-badwatt-muted transition-transform duration-300 shrink-0 ml-4 "
               fill="currentColor"
               height="20"
               viewBox="0 0 256 256"
@@ -223,10 +223,10 @@ exports[`<Experience /> > should match the snapshot 1`] = `
                   </a>
                 </div>
                 <div
-                  class="space-y-3 text-sm text-alvaro-muted leading-relaxed"
+                  class="space-y-3 text-sm text-badwatt-muted leading-relaxed"
                 >
                   <h1
-                    class="text-xl font-semibold text-alvaro-white"
+                    class="text-xl font-semibold text-badwatt-white"
                   >
                     Consulting Firm
                   </h1>
@@ -242,7 +242,7 @@ exports[`<Experience /> > should match the snapshot 1`] = `
                     </li>
                   </ul>
                   <h1
-                    class="text-xl font-semibold text-alvaro-white"
+                    class="text-xl font-semibold text-badwatt-white"
                   >
                     Projects
                   </h1>
@@ -265,7 +265,7 @@ exports[`<Experience /> > should match the snapshot 1`] = `
                     </li>
                   </ul>
                   <h1
-                    class="text-xl font-semibold text-alvaro-white"
+                    class="text-xl font-semibold text-badwatt-white"
                   >
                     Tasks
                   </h1>
@@ -281,7 +281,7 @@ exports[`<Experience /> > should match the snapshot 1`] = `
                     </li>
                   </ul>
                   <h1
-                    class="text-xl font-semibold text-alvaro-white"
+                    class="text-xl font-semibold text-badwatt-white"
                   >
                     Skills
                   </h1>

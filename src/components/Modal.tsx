@@ -55,7 +55,7 @@ export function Modal({ isOpen, onClose, children, className = "", ariaLabel }: 
     <div
       data-testid="modal-backdrop"
       onClick={onClose}
-      className="fixed inset-0 z-[70] flex items-center justify-center bg-alvaro-base/80 backdrop-blur-md transition-opacity duration-300"
+      className="fixed inset-0 z-[70] flex items-center justify-center bg-badwatt-base/80 backdrop-blur-md transition-opacity duration-300"
     >
       <div
         ref={panelRef}
@@ -66,9 +66,9 @@ export function Modal({ isOpen, onClose, children, className = "", ariaLabel }: 
         aria-label={ariaLabel}
         onClick={stopPropagation}
         className={[
-          "relative z-[71] overflow-hidden bg-alvaro-surface outline-none",
+          "relative z-[71] overflow-hidden bg-badwatt-surface outline-none",
           "h-full w-full rounded-none",
-          "md:h-[85vh] md:w-[90vw] md:rounded-3xl md:border md:border-alvaro-border md:shadow-2xl md:shadow-alvaro-primary/10",
+          "md:h-[85vh] md:w-[90vw] md:rounded-3xl md:border md:border-badwatt-border md:shadow-2xl md:shadow-badwatt-primary/10",
           className,
         ].join(" ")}
       >

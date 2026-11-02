@@ -20,7 +20,7 @@ describe("<LoadingScreen />", () => {
   });
 
   it("hides immediately when sessionStorage has visited flag", () => {
-    sessionStorage.setItem("ialvaro-visited", "true");
+    sessionStorage.setItem("badwatt-visited", "true");
     const { container } = render(<LoadingScreen />);
     expect(container.firstChild).toBeNull();
   });

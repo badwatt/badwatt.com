@@ -15,12 +15,12 @@ exports[`<Portfolio /> > matches snapshot 1`] = `
       class="mb-8 md:mb-10 mt-16 md:mt-13 overflow-hidden"
     >
       <h1
-        class="text-4xl md:text-5xl tracking-tight leading-none font-bold text-alvaro-white transition-all duration-700 ease-out origin-left opacity-0 scale-x-0"
+        class="text-4xl md:text-5xl tracking-tight leading-none font-bold text-badwatt-white transition-all duration-700 ease-out origin-left opacity-0 scale-x-0"
       >
         Portfolio
       </h1>
       <div
-        class="mt-3 h-[2px] bg-alvaro-primary transition-all duration-700 delay-200 ease-out origin-left w-0 opacity-0"
+        class="mt-3 h-[2px] bg-badwatt-primary transition-all duration-700 delay-200 ease-out origin-left w-0 opacity-0"
       />
     </div>
     <div
@@ -30,21 +30,21 @@ exports[`<Portfolio /> > matches snapshot 1`] = `
         class="spotlight-card sticky grid md:grid-cols-[1fr_2fr] gap-8 p-6 md:p-10 group"
       >
         <div
-          class="grid cursor-pointer place-items-center rounded-2xl overflow-hidden bg-alvaro-base/50"
+          class="grid cursor-pointer place-items-center rounded-2xl overflow-hidden bg-badwatt-base/50"
           style="z-index: 1;"
         >
           <a
-            aria-label="ialvaro"
-            href="https://github.com/badwatt/ialvaro"
+            aria-label="badwatt"
+            href="https://github.com/badwatt/badwatt.com"
             rel="noopener noreferrer"
             target="_blank"
           >
             <img
-              alt="ialvaro"
+              alt="badwatt"
               class="object-contain max-h-40 transition-transform duration-700 group-hover:scale-105"
               decoding="async"
               loading="lazy"
-              src="../../assets/images/readme/ialvaro.png"
+              src="../../assets/images/readme/badwatt.png"
             />
           </a>
         </div>
@@ -52,18 +52,18 @@ exports[`<Portfolio /> > matches snapshot 1`] = `
           class="flex flex-col justify-center"
         >
           <h2
-            class="mb-4 text-3xl md:text-4xl tracking-tighter leading-none font-bold text-alvaro-white"
+            class="mb-4 text-3xl md:text-4xl tracking-tighter leading-none font-bold text-badwatt-white"
           >
-            ialvaro
+            badwatt
           </h2>
           <p
-            class="text-alvaro-muted leading-relaxed max-w-[60ch]"
+            class="text-badwatt-muted leading-relaxed max-w-[60ch]"
           >
             A website done by using TypeScript, React.js, Astro.js, Tailwind & Framer Motion
           </p>
           <a
-            class="inline-flex items-center gap-2 mt-6 text-sm font-medium text-alvaro-primary hover:underline underline-offset-4"
-            href="https://github.com/badwatt/ialvaro"
+            class="inline-flex items-center gap-2 mt-6 text-sm font-medium text-badwatt-primary hover:underline underline-offset-4"
+            href="https://github.com/badwatt/badwatt.com"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -80,7 +80,7 @@ exports[`<Portfolio /> > matches snapshot 1`] = `
         class="spotlight-card sticky grid md:grid-cols-[1fr_2fr] gap-8 p-6 md:p-10 group"
       >
         <div
-          class="grid cursor-pointer place-items-center rounded-2xl overflow-hidden bg-alvaro-base/50"
+          class="grid cursor-pointer place-items-center rounded-2xl overflow-hidden bg-badwatt-base/50"
           style="z-index: 2;"
         >
           <a
@@ -102,17 +102,17 @@ exports[`<Portfolio /> > matches snapshot 1`] = `
           class="flex flex-col justify-center"
         >
           <h2
-            class="mb-4 text-3xl md:text-4xl tracking-tighter leading-none font-bold text-alvaro-white"
+            class="mb-4 text-3xl md:text-4xl tracking-tighter leading-none font-bold text-badwatt-white"
           >
             wrestic
           </h2>
           <p
-            class="text-alvaro-muted leading-relaxed max-w-[60ch]"
+            class="text-badwatt-muted leading-relaxed max-w-[60ch]"
           >
             Wrestic is a backup tool built in Rust.
           </p>
           <a
-            class="inline-flex items-center gap-2 mt-6 text-sm font-medium text-alvaro-primary hover:underline underline-offset-4"
+            class="inline-flex items-center gap-2 mt-6 text-sm font-medium text-badwatt-primary hover:underline underline-offset-4"
             href="https://github.com/badwatt/wrestic"
             rel="noopener noreferrer"
             target="_blank"

@@ -52,7 +52,7 @@ export function PdfCanvas({ src, zoom = 1, onZoomChange }: PdfCanvasProps) {
   if (!src) return null;
 
   if (error) {
-    return <div className="grid h-full place-items-center text-alvaro-muted">{error}</div>;
+    return <div className="grid h-full place-items-center text-badwatt-muted">{error}</div>;
   }
 
   return (
@@ -64,7 +64,7 @@ export function PdfCanvas({ src, zoom = 1, onZoomChange }: PdfCanvasProps) {
       onTouchEnd={handleTouchEnd}
     >
       {loading && (
-        <div className="absolute inset-0 z-10 grid place-items-center bg-alvaro-surface">
+        <div className="absolute inset-0 z-10 grid place-items-center bg-badwatt-surface">
           <Spinner />
         </div>
       )}

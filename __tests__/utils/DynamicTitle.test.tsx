@@ -4,11 +4,11 @@ import { afterEach, describe, expect, it, vi } from "vite-plus/test";
 
 describe("getSiteName", () => {
   it("extracts name from simple domain", () => {
-    expect(getSiteName("ialvaro.com")).toBe("ialvaro.com");
+    expect(getSiteName("badwatt.com")).toBe("badwatt.com");
   });
 
   it("extracts name from subdomain", () => {
-    expect(getSiteName("www.ialvaro.com")).toBe("ialvaro.com");
+    expect(getSiteName("www.badwatt.com")).toBe("badwatt.com");
   });
 
   it("returns full hostname when single part", () => {

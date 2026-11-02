@@ -12,7 +12,7 @@ exports[`<Stats /> > should match the snapshot 1`] = `
         class="text-center"
       >
         <div
-          class="text-5xl md:text-7xl font-bold tracking-tighter text-alvaro-white"
+          class="text-5xl md:text-7xl font-bold tracking-tighter text-badwatt-white"
         >
           <span
             class="tabular-nums"
@@ -22,15 +22,15 @@ exports[`<Stats /> > should match the snapshot 1`] = `
           </span>
         </div>
         <div
-          class="mt-3 mx-auto w-16 h-1 bg-alvaro-border rounded-full overflow-hidden"
+          class="mt-3 mx-auto w-16 h-1 bg-badwatt-border rounded-full overflow-hidden"
         >
           <div
-            class="h-full rounded-full transition-all duration-1000 delay-500 bg-alvaro-muted/50"
+            class="h-full rounded-full transition-all duration-1000 delay-500 bg-badwatt-muted/50"
             style="width: 60%;"
           />
         </div>
         <p
-          class="mt-2 text-sm text-alvaro-muted"
+          class="mt-2 text-sm text-badwatt-muted"
         >
           Years experience
         </p>
@@ -39,7 +39,7 @@ exports[`<Stats /> > should match the snapshot 1`] = `
         class="text-center"
       >
         <div
-          class="text-5xl md:text-7xl font-bold tracking-tighter text-alvaro-white"
+          class="text-5xl md:text-7xl font-bold tracking-tighter text-badwatt-white"
         >
           <span
             class="tabular-nums"
@@ -49,15 +49,15 @@ exports[`<Stats /> > should match the snapshot 1`] = `
           </span>
         </div>
         <div
-          class="mt-3 mx-auto w-16 h-1 bg-alvaro-border rounded-full overflow-hidden"
+          class="mt-3 mx-auto w-16 h-1 bg-badwatt-border rounded-full overflow-hidden"
         >
           <div
-            class="h-full rounded-full transition-all duration-1000 delay-500 bg-alvaro-muted/50"
+            class="h-full rounded-full transition-all duration-1000 delay-500 bg-badwatt-muted/50"
             style="width: 80%;"
           />
         </div>
         <p
-          class="mt-2 text-sm text-alvaro-muted"
+          class="mt-2 text-sm text-badwatt-muted"
         >
           Projects delivered
         </p>
@@ -66,7 +66,7 @@ exports[`<Stats /> > should match the snapshot 1`] = `
         class="text-center"
       >
         <div
-          class="text-5xl md:text-7xl font-bold tracking-tighter text-alvaro-white"
+          class="text-5xl md:text-7xl font-bold tracking-tighter text-badwatt-white"
         >
           <span
             class="tabular-nums"
@@ -75,15 +75,15 @@ exports[`<Stats /> > should match the snapshot 1`] = `
           </span>
         </div>
         <div
-          class="mt-3 mx-auto w-16 h-1 bg-alvaro-border rounded-full overflow-hidden"
+          class="mt-3 mx-auto w-16 h-1 bg-badwatt-border rounded-full overflow-hidden"
         >
           <div
-            class="h-full rounded-full transition-all duration-1000 delay-500 bg-alvaro-muted/50"
+            class="h-full rounded-full transition-all duration-1000 delay-500 bg-badwatt-muted/50"
             style="width: 50%;"
           />
         </div>
         <p
-          class="mt-2 text-sm text-alvaro-muted"
+          class="mt-2 text-sm text-badwatt-muted"
         >
           Technologies
         </p>
@@ -92,7 +92,7 @@ exports[`<Stats /> > should match the snapshot 1`] = `
         class="text-center"
       >
         <div
-          class="text-5xl md:text-7xl font-bold tracking-tighter text-alvaro-primary"
+          class="text-5xl md:text-7xl font-bold tracking-tighter text-badwatt-primary"
         >
           <span
             class="tabular-nums"
@@ -102,15 +102,15 @@ exports[`<Stats /> > should match the snapshot 1`] = `
           </span>
         </div>
         <div
-          class="mt-3 mx-auto w-16 h-1 bg-alvaro-border rounded-full overflow-hidden"
+          class="mt-3 mx-auto w-16 h-1 bg-badwatt-border rounded-full overflow-hidden"
         >
           <div
-            class="h-full rounded-full transition-all duration-1000 delay-500 bg-alvaro-primary"
+            class="h-full rounded-full transition-all duration-1000 delay-500 bg-badwatt-primary"
             style="width: 100%;"
           />
         </div>
         <p
-          class="mt-2 text-sm text-alvaro-muted"
+          class="mt-2 text-sm text-badwatt-muted"
         >
           Commitment
         </p>

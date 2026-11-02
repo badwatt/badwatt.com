@@ -20,7 +20,7 @@ export const Scrollup = () => {
     <button
       onClick={goToTop}
       aria-label="Scroll to top"
-      className="flex justify-center items-center fixed bottom-12 right-12 w-12 h-12 bg-alvaro-primary text-alvaro-dark rounded-full cursor-pointer hover:opacity-90 transition-all duration-300 active:scale-95 animate-[scaleIn_0.3s_ease-out] z-60"
+      className="flex justify-center items-center fixed bottom-12 right-12 w-12 h-12 bg-badwatt-primary text-badwatt-dark rounded-full cursor-pointer hover:opacity-90 transition-all duration-300 active:scale-95 animate-[scaleIn_0.3s_ease-out] z-60"
     >
       <ArrowUpIcon size={24} weight="bold" />
     </button>

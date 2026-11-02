@@ -1,28 +1,28 @@
 @import "tailwindcss";
 
 @theme {
-  --color-alvaro-base: #08080f;
-  --color-alvaro-surface: #12121d;
-  --color-alvaro-border: #202035;
-  --color-alvaro-muted: #9898b0;
-  --color-alvaro-white: #e8e8f2;
-  --color-alvaro-primary: #5b9bd5;
-  --color-alvaro-dark: #08080f;
-  --color-alvaro-accent: #e0556a;
+  --color-badwatt-base: #08080f;
+  --color-badwatt-surface: #12121d;
+  --color-badwatt-border: #202035;
+  --color-badwatt-muted: #9898b0;
+  --color-badwatt-white: #e8e8f2;
+  --color-badwatt-primary: #5b9bd5;
+  --color-badwatt-dark: #08080f;
+  --color-badwatt-accent: #e0556a;
   --font-sans: var(--font-outfit), sans-serif;
   --font-mono: var(--font-jetbrains), monospace;
 }
 
 /* Light theme */
 [data-theme="light"] {
-  --color-alvaro-base: #f4f6fa;
-  --color-alvaro-surface: #e8ecf2;
-  --color-alvaro-border: #cdd4de;
-  --color-alvaro-muted: #5a6377;
-  --color-alvaro-white: #0f1117;
-  --color-alvaro-primary: #3a7bd5;
-  --color-alvaro-dark: #08080f;
-  --color-alvaro-accent: #d64558;
+  --color-badwatt-base: #f4f6fa;
+  --color-badwatt-surface: #e8ecf2;
+  --color-badwatt-border: #cdd4de;
+  --color-badwatt-muted: #5a6377;
+  --color-badwatt-white: #0f1117;
+  --color-badwatt-primary: #3a7bd5;
+  --color-badwatt-dark: #08080f;
+  --color-badwatt-accent: #d64558;
 }
 
 @property --angle {
@@ -40,8 +40,8 @@
 
 body {
   box-sizing: border-box;
-  color: var(--color-alvaro-white);
-  background-color: var(--color-alvaro-base);
+  color: var(--color-badwatt-white);
+  background-color: var(--color-badwatt-base);
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.01em;
 }
@@ -74,16 +74,16 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: var(--color-alvaro-primary);
+  background-color: var(--color-badwatt-primary);
   border-radius: 1ex;
 }
 
 body::-webkit-scrollbar-thumb:active {
-  background-color: var(--color-alvaro-muted);
+  background-color: var(--color-badwatt-muted);
 }
 
 *:focus-visible {
-  outline: 2px solid var(--color-alvaro-primary);
+  outline: 2px solid var(--color-badwatt-primary);
   outline-offset: 2px;
 }
 
@@ -92,8 +92,8 @@ html {
 }
 
 ::selection {
-  background-color: var(--color-alvaro-primary);
-  color: var(--color-alvaro-base);
+  background-color: var(--color-badwatt-primary);
+  color: var(--color-badwatt-base);
 }
 
 /* === ANIMATIONS === */
@@ -170,8 +170,8 @@ html {
 .spotlight-card {
   position: relative;
   border-radius: 1.5rem;
-  background: var(--color-alvaro-surface);
-  border: 1px solid var(--color-alvaro-border);
+  background: var(--color-badwatt-surface);
+  border: 1px solid var(--color-badwatt-border);
   overflow: hidden;
   transition:
     border-color 0.4s ease,
@@ -207,11 +207,11 @@ html {
 .gradient-border {
   background: conic-gradient(
     from var(--angle, 0deg),
-    var(--color-alvaro-primary),
-    var(--color-alvaro-border),
-    var(--color-alvaro-primary),
-    var(--color-alvaro-border),
-    var(--color-alvaro-primary)
+    var(--color-badwatt-primary),
+    var(--color-badwatt-border),
+    var(--color-badwatt-primary),
+    var(--color-badwatt-border),
+    var(--color-badwatt-primary)
   );
   animation: border-rotate 8s linear infinite;
 }

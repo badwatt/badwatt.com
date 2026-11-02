@@ -35,7 +35,7 @@ describe("<Wobble />", () => {
   it("has hover color transition", () => {
     const { container } = render(<Wobble sentence="A" />);
     const span = container.querySelector("span[aria-label='wobble']");
-    expect(span?.className).toContain("hover:text-alvaro-primary");
+    expect(span?.className).toContain("hover:text-badwatt-primary");
   });
 
   it("plays rubberBand animation on mouseenter", () => {

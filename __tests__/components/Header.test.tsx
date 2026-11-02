@@ -28,7 +28,7 @@ describe("<Header />", () => {
       observer.callback([{ isIntersecting: true }]);
     });
     expect(container.querySelector("h1")!.className).toContain("opacity-100");
-    expect(container.querySelector(".bg-alvaro-primary")!.className).toContain("w-24");
+    expect(container.querySelector(".bg-badwatt-primary")!.className).toContain("w-24");
   });
 
   it("matches snapshot", () => {

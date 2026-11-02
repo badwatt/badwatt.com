@@ -12,7 +12,7 @@ exports[`<Nav /> > matches snapshot 1`] = `
         class="flex items-center justify-between h-16"
       >
         <button
-          class="text-lg font-bold tracking-[-0.03em] text-alvaro-white hover:text-alvaro-primary transition-colors duration-300 cursor-pointer"
+          class="text-lg font-bold tracking-[-0.03em] text-badwatt-white hover:text-badwatt-primary transition-colors duration-300 cursor-pointer"
           type="button"
         >
           AM
@@ -22,68 +22,68 @@ exports[`<Nav /> > matches snapshot 1`] = `
         >
           <button
             aria-label="Home-desktop"
-            class="group relative px-3.5 py-2 text-[13px] font-medium text-alvaro-muted rounded-lg cursor-pointer hover:text-alvaro-white transition-all duration-300 active:scale-[0.97]"
+            class="group relative px-3.5 py-2 text-[13px] font-medium text-badwatt-muted rounded-lg cursor-pointer hover:text-badwatt-white transition-all duration-300 active:scale-[0.97]"
             type="button"
           >
             Home
             <span
-              class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-alvaro-primary scale-0 group-hover:scale-100 transition-transform duration-300"
+              class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-badwatt-primary scale-0 group-hover:scale-100 transition-transform duration-300"
             />
           </button>
           <button
             aria-label="About-desktop"
-            class="group relative px-3.5 py-2 text-[13px] font-medium text-alvaro-muted rounded-lg cursor-pointer hover:text-alvaro-white transition-all duration-300 active:scale-[0.97]"
+            class="group relative px-3.5 py-2 text-[13px] font-medium text-badwatt-muted rounded-lg cursor-pointer hover:text-badwatt-white transition-all duration-300 active:scale-[0.97]"
             type="button"
           >
             About
             <span
-              class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-alvaro-primary scale-0 group-hover:scale-100 transition-transform duration-300"
+              class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-badwatt-primary scale-0 group-hover:scale-100 transition-transform duration-300"
             />
           </button>
           <button
             aria-label="Skills-desktop"
-            class="group relative px-3.5 py-2 text-[13px] font-medium text-alvaro-muted rounded-lg cursor-pointer hover:text-alvaro-white transition-all duration-300 active:scale-[0.97]"
+            class="group relative px-3.5 py-2 text-[13px] font-medium text-badwatt-muted rounded-lg cursor-pointer hover:text-badwatt-white transition-all duration-300 active:scale-[0.97]"
             type="button"
           >
             Skills
             <span
-              class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-alvaro-primary scale-0 group-hover:scale-100 transition-transform duration-300"
+              class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-badwatt-primary scale-0 group-hover:scale-100 transition-transform duration-300"
             />
           </button>
           <button
             aria-label="Experience-desktop"
-            class="group relative px-3.5 py-2 text-[13px] font-medium text-alvaro-muted rounded-lg cursor-pointer hover:text-alvaro-white transition-all duration-300 active:scale-[0.97]"
+            class="group relative px-3.5 py-2 text-[13px] font-medium text-badwatt-muted rounded-lg cursor-pointer hover:text-badwatt-white transition-all duration-300 active:scale-[0.97]"
             type="button"
           >
             Experience
             <span
-              class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-alvaro-primary scale-0 group-hover:scale-100 transition-transform duration-300"
+              class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-badwatt-primary scale-0 group-hover:scale-100 transition-transform duration-300"
             />
           </button>
           <button
             aria-label="Portfolio-desktop"
-            class="group relative px-3.5 py-2 text-[13px] font-medium text-alvaro-muted rounded-lg cursor-pointer hover:text-alvaro-white transition-all duration-300 active:scale-[0.97]"
+            class="group relative px-3.5 py-2 text-[13px] font-medium text-badwatt-muted rounded-lg cursor-pointer hover:text-badwatt-white transition-all duration-300 active:scale-[0.97]"
             type="button"
           >
             Portfolio
             <span
-              class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-alvaro-primary scale-0 group-hover:scale-100 transition-transform duration-300"
+              class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-badwatt-primary scale-0 group-hover:scale-100 transition-transform duration-300"
             />
           </button>
           <button
             aria-label="Contact-desktop"
-            class="group relative px-3.5 py-2 text-[13px] font-medium text-alvaro-muted rounded-lg cursor-pointer hover:text-alvaro-white transition-all duration-300 active:scale-[0.97]"
+            class="group relative px-3.5 py-2 text-[13px] font-medium text-badwatt-muted rounded-lg cursor-pointer hover:text-badwatt-white transition-all duration-300 active:scale-[0.97]"
             type="button"
           >
             Contact
             <span
-              class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-alvaro-primary scale-0 group-hover:scale-100 transition-transform duration-300"
+              class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-badwatt-primary scale-0 group-hover:scale-100 transition-transform duration-300"
             />
           </button>
         </div>
         <button
           aria-label="Toggle theme"
-          class="p-2 rounded-lg text-alvaro-muted hover:text-alvaro-primary transition-colors duration-200 cursor-pointer"
+          class="p-2 rounded-lg text-badwatt-muted hover:text-badwatt-primary transition-colors duration-200 cursor-pointer"
         >
           <svg
             fill="currentColor"
@@ -103,7 +103,7 @@ exports[`<Nav /> > matches snapshot 1`] = `
           <button
             aria-expanded="false"
             aria-label="menu-mobile"
-            class="p-2 rounded-lg text-alvaro-white hover:text-alvaro-primary transition-colors duration-200"
+            class="p-2 rounded-lg text-badwatt-white hover:text-badwatt-primary transition-colors duration-200"
             type="button"
           >
             <svg

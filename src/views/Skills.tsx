@@ -38,7 +38,7 @@ export const Skills = ({ skillsData }: SkillsProps) => {
               }`}
             />
             <h2
-              className={`font-medium text-alvaro-muted group-hover:text-alvaro-white transition-colors duration-200 ${
+              className={`font-medium text-badwatt-muted group-hover:text-badwatt-white transition-colors duration-200 ${
                 featured ? "text-base md:text-lg" : "text-sm"
               }`}
             >

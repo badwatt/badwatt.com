@@ -31,7 +31,7 @@ export const CursorGlow = () => {
       ref={glowRef}
       aria-hidden="true"
       aria-label="cursor-glow"
-      className="hidden md:block fixed w-[500px] h-[500px] rounded-full pointer-events-none z-20 blur-[120px] bg-alvaro-primary/10"
+      className="hidden md:block fixed w-[500px] h-[500px] rounded-full pointer-events-none z-20 blur-[120px] bg-badwatt-primary/10"
       style={{ top: 0, left: 0, willChange: "transform" }}
     />
   );

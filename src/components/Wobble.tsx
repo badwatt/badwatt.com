@@ -24,7 +24,7 @@ export const Wobble = ({ sentence }: Props) => {
             if (el) elementsRef.current.set(i, el);
           }}
           onMouseEnter={() => triggerRubberBand(i, elementsRef.current, playingRefs.current)}
-          className="inline-block cursor-default text-6xl md:text-8xl tracking-tighter leading-none font-bold text-alvaro-white transition-colors duration-200 hover:text-alvaro-primary"
+          className="inline-block cursor-default text-6xl md:text-8xl tracking-tighter leading-none font-bold text-badwatt-white transition-colors duration-200 hover:text-badwatt-primary"
           aria-label="wobble"
         >
           {letter === " " ? "\u00A0" : letter}

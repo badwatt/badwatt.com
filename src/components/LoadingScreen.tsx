@@ -5,7 +5,7 @@ export const LoadingScreen = () => {
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
-    const hasVisited = sessionStorage.getItem("ialvaro-visited");
+    const hasVisited = sessionStorage.getItem("badwatt-visited");
     if (hasVisited) {
       setIsVisible(false);
       return;
@@ -14,7 +14,7 @@ export const LoadingScreen = () => {
     const exitTimer = setTimeout(() => setIsExiting(true), 1800);
     const hideTimer = setTimeout(() => {
       setIsVisible(false);
-      sessionStorage.setItem("ialvaro-visited", "true");
+      sessionStorage.setItem("badwatt-visited", "true");
     }, 2400);
 
     return () => {
@@ -27,7 +27,7 @@ export const LoadingScreen = () => {
     setIsExiting(true);
     setTimeout(() => {
       setIsVisible(false);
-      sessionStorage.setItem("ialvaro-visited", "true");
+      sessionStorage.setItem("badwatt-visited", "true");
     }, 400);
   };
 
@@ -41,18 +41,18 @@ export const LoadingScreen = () => {
       onKeyDown={handleSkip}
       role="button"
       tabIndex={0}
-      className={`fixed inset-0 z-[100] bg-alvaro-base flex items-center justify-center cursor-pointer transition-all duration-500 ${
+      className={`fixed inset-0 z-[100] bg-badwatt-base flex items-center justify-center cursor-pointer transition-all duration-500 ${
         isExiting ? "opacity-0 scale-110" : "opacity-100 scale-100"
       }`}
     >
       <div className="relative">
         {/* Glow */}
-        <div className="absolute inset-0 w-32 h-32 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 bg-alvaro-primary/20 blur-[80px] rounded-full animate-[pulse-glow_2s_ease-in-out_infinite]" />
-        <h1 className="relative text-7xl md:text-8xl font-bold tracking-[-0.06em] text-alvaro-white animate-[scaleIn_0.6s_ease-out]">
+        <div className="absolute inset-0 w-32 h-32 -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 bg-badwatt-primary/20 blur-[80px] rounded-full animate-[pulse-glow_2s_ease-in-out_infinite]" />
+        <h1 className="relative text-7xl md:text-8xl font-bold tracking-[-0.06em] text-badwatt-white animate-[scaleIn_0.6s_ease-out]">
           AM
         </h1>
       </div>
-      <p className="absolute bottom-12 text-xs text-alvaro-muted/50 tracking-widest uppercase">
+      <p className="absolute bottom-12 text-xs text-badwatt-muted/50 tracking-widest uppercase">
         Click to skip
       </p>
     </div>

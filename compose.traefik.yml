@@ -1,6 +1,6 @@
 services:
-  ialvaro:
-    container_name: ialvaro
+  badwatt:
+    container_name: badwatt
     image: ghcr.io/pnpm/pnpm:latest
     restart: unless-stopped
     command: >
@@ -17,10 +17,10 @@ services:
     networks: [proxy]
     labels:
       traefik.enable: true
-      traefik.http.routers.ialvaro.entrypoints: https
-      traefik.http.routers.ialvaro.rule: Host(`ialvaro.com`) || Host(`azama.es`)
-      traefik.http.routers.ialvaro.service: ialvaro
-      traefik.http.services.ialvaro.loadbalancer.server.port: 4321
+      traefik.http.routers.badwatt.entrypoints: https
+      traefik.http.routers.badwatt.rule: Host(`badwatt.com`) || Host(`azama.es`)
+      traefik.http.routers.badwatt.service: badwatt
+      traefik.http.services.badwatt.loadbalancer.server.port: 4321
 
 networks:
   proxy:

@@ -37,9 +37,9 @@ export const testExperienceData = [
 
 export const testPortfolioData = [
   {
-    title: "ialvaro",
-    image: "../../assets/images/readme/ialvaro.png",
-    url: "https://github.com/badwatt/ialvaro",
+    title: "badwatt",
+    image: "../../assets/images/readme/badwatt.png",
+    url: "https://github.com/badwatt/badwatt.com",
     description: "A website done by using TypeScript, React.js, Astro.js, Tailwind & Framer Motion",
   },
   {

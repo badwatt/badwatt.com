@@ -22,8 +22,8 @@ export function About({ aboutData }: AboutProps) {
       <div id="about-nav" className="absolute top-0 left-0 scroll-mt-[4rem]" aria-hidden="true" />
       {/* Atmospheric layers */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 -right-1/3 w-[700px] h-[700px] rounded-full bg-alvaro-primary/3 blur-[150px]" />
-        <div className="absolute bottom-0 -left-1/3 w-[600px] h-[600px] rounded-full bg-alvaro-primary/2 blur-[130px]" />
+        <div className="absolute top-0 -right-1/3 w-[700px] h-[700px] rounded-full bg-badwatt-primary/3 blur-[150px]" />
+        <div className="absolute bottom-0 -left-1/3 w-[600px] h-[600px] rounded-full bg-badwatt-primary/2 blur-[130px]" />
       </div>
 
       <div
@@ -33,7 +33,7 @@ export function About({ aboutData }: AboutProps) {
         {/* Left: Profile with floating tags */}
         <div className="relative flex justify-center">
           <div className="relative">
-            <div className="absolute -inset-8 rounded-3xl bg-alvaro-primary/6 blur-3xl" />
+            <div className="absolute -inset-8 rounded-3xl bg-badwatt-primary/6 blur-3xl" />
             <div className="absolute -inset-[2px] rounded-3xl gradient-border -z-10 opacity-60" />
             <img
               src="/images/profile/profile_alt.png"
@@ -45,7 +45,7 @@ export function About({ aboutData }: AboutProps) {
               }`}
               style={{ border: "1px solid rgba(91,155,213,0.12)" }}
             />
-            <div className="absolute -top-2 -right-2 w-4 h-4 border-t-2 border-r-2 border-alvaro-primary/40 rounded-tr-lg" />
+            <div className="absolute -top-2 -right-2 w-4 h-4 border-t-2 border-r-2 border-badwatt-primary/40 rounded-tr-lg" />
           </div>
           <div className="md:block">
             <FloatingTags tags={profileTags} />
@@ -60,8 +60,8 @@ export function About({ aboutData }: AboutProps) {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            <div className="w-10 h-px bg-alvaro-primary/50" />
-            <span className="text-[11px] tracking-[0.25em] uppercase text-alvaro-primary/60 font-medium">
+            <div className="w-10 h-px bg-badwatt-primary/50" />
+            <span className="text-[11px] tracking-[0.25em] uppercase text-badwatt-primary/60 font-medium">
               About me
             </span>
           </div>
@@ -72,16 +72,16 @@ export function About({ aboutData }: AboutProps) {
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            <span className="text-alvaro-white">I build</span>
+            <span className="text-badwatt-white">I build</span>
             <br />
-            <span className="text-alvaro-muted">things for</span>
+            <span className="text-badwatt-muted">things for</span>
             <br />
-            <span className="text-alvaro-primary">the web.</span>
+            <span className="text-badwatt-primary">the web.</span>
           </h2>
 
           {/* Decorative rule */}
           <div
-            className={`w-16 h-px bg-alvaro-primary/30 transition-all duration-700 delay-200 ${
+            className={`w-16 h-px bg-badwatt-primary/30 transition-all duration-700 delay-200 ${
               isVisible ? "opacity-100 w-16" : "opacity-0 w-0"
             }`}
           />
@@ -95,7 +95,7 @@ export function About({ aboutData }: AboutProps) {
             {paragraphs.map((text) => (
               <p
                 key={text.slice(0, 20)}
-                className="text-alvaro-muted/80 leading-relaxed text-[15px] md:text-base max-w-[55ch]"
+                className="text-badwatt-muted/80 leading-relaxed text-[15px] md:text-base max-w-[55ch]"
               >
                 {text}
               </p>
@@ -110,17 +110,17 @@ export function About({ aboutData }: AboutProps) {
           >
             {entry.education && entry.education.length > 0 && (
               <div>
-                <span className="text-[11px] tracking-[0.2em] uppercase text-alvaro-primary/60 font-medium">
+                <span className="text-[11px] tracking-[0.2em] uppercase text-badwatt-primary/60 font-medium">
                   Education
                 </span>
                 <div className="space-y-2 mt-2">
                   {entry.education.map((edu) => (
                     <div key={edu.institution + edu.degree}>
-                      <p className="text-alvaro-white text-sm">{edu.degree}</p>
-                      <p className="text-alvaro-muted text-xs">
+                      <p className="text-badwatt-white text-sm">{edu.degree}</p>
+                      <p className="text-badwatt-muted text-xs">
                         {edu.institution}
                         {edu.year && (
-                          <span className="ml-1 text-alvaro-primary/50">· {edu.year}</span>
+                          <span className="ml-1 text-badwatt-primary/50">· {edu.year}</span>
                         )}
                       </p>
                     </div>
@@ -130,17 +130,17 @@ export function About({ aboutData }: AboutProps) {
             )}
             {entry.languages && entry.languages.length > 0 && (
               <div>
-                <span className="text-[11px] tracking-[0.2em] uppercase text-alvaro-primary/60 font-medium">
+                <span className="text-[11px] tracking-[0.2em] uppercase text-badwatt-primary/60 font-medium">
                   Languages
                 </span>
                 <div className="flex flex-wrap gap-2 mt-2">
                   {entry.languages.map((lang) => (
                     <span
                       key={lang.language}
-                      className="text-xs px-2.5 py-1 rounded-md bg-alvaro-surface border border-alvaro-border text-alvaro-muted"
+                      className="text-xs px-2.5 py-1 rounded-md bg-badwatt-surface border border-badwatt-border text-badwatt-muted"
                     >
                       {lang.language}
-                      <span className="text-alvaro-primary/60 ml-1.5">{lang.level}</span>
+                      <span className="text-badwatt-primary/60 ml-1.5">{lang.level}</span>
                     </span>
                   ))}
                 </div>

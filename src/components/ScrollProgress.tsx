@@ -18,7 +18,7 @@ export const ScrollProgress = () => {
     <div className="fixed top-0 left-0 right-0 z-[55] h-[2px]">
       <div
         aria-label="scroll-progress"
-        className="h-full bg-gradient-to-r from-alvaro-primary to-alvaro-primary/50 transition-[width] duration-100 ease-out"
+        className="h-full bg-gradient-to-r from-badwatt-primary to-badwatt-primary/50 transition-[width] duration-100 ease-out"
         style={{ width: `${progress}%` }}
       />
     </div>

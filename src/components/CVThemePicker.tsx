@@ -10,12 +10,12 @@ const STRIPE_KEYS = ["base", "surface", "border", "muted", "text", "primary", "a
 
 export function CVThemePicker({ selectedId, onSelect }: CVThemePickerProps) {
   return (
-    <div className="w-full p-8 md:p-12 rounded-3xl bg-alvaro-surface border border-alvaro-border">
+    <div className="w-full p-8 md:p-12 rounded-3xl bg-badwatt-surface border border-badwatt-border">
       <div className="mb-8 md:mb-10 max-w-2xl">
-        <h2 className="text-3xl md:text-4xl tracking-[-0.03em] font-bold text-alvaro-white">
+        <h2 className="text-3xl md:text-4xl tracking-[-0.03em] font-bold text-badwatt-white">
           Pick a palette
         </h2>
-        <p className="mt-3 text-sm md:text-base text-alvaro-muted leading-relaxed">
+        <p className="mt-3 text-sm md:text-base text-badwatt-muted leading-relaxed">
           Four handcrafted themes. Pick one to generate your CV with that palette.
         </p>
       </div>
@@ -54,25 +54,25 @@ function ThemeCard({ theme, selected, onClick }: ThemeCardProps) {
       className={[
         "group text-left p-5 md:p-6 rounded-2xl border transition-all duration-300 cursor-pointer",
         "flex flex-col gap-5 outline-none",
-        "focus-visible:ring-2 focus-visible:ring-alvaro-primary focus-visible:ring-offset-2 focus-visible:ring-offset-alvaro-surface",
+        "focus-visible:ring-2 focus-visible:ring-badwatt-primary focus-visible:ring-offset-2 focus-visible:ring-offset-badwatt-surface",
         selected
-          ? "border-alvaro-primary bg-alvaro-primary/5"
-          : "border-alvaro-border bg-alvaro-base/40 hover:border-alvaro-primary/40 hover:bg-alvaro-base/60",
+          ? "border-badwatt-primary bg-badwatt-primary/5"
+          : "border-badwatt-border bg-badwatt-base/40 hover:border-badwatt-primary/40 hover:bg-badwatt-base/60",
       ].join(" ")}
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <h3 className="text-base md:text-lg font-semibold tracking-tight text-alvaro-white truncate">
+          <h3 className="text-base md:text-lg font-semibold tracking-tight text-badwatt-white truncate">
             {name}
           </h3>
-          <p className="mt-1 text-xs text-alvaro-muted leading-relaxed">{description}</p>
+          <p className="mt-1 text-xs text-badwatt-muted leading-relaxed">{description}</p>
         </div>
         <span
           className={[
             "shrink-0 inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest transition-all duration-300",
             selected
-              ? "bg-alvaro-primary text-alvaro-base"
-              : "bg-alvaro-base/60 text-alvaro-muted opacity-0 group-hover:opacity-100",
+              ? "bg-badwatt-primary text-badwatt-base"
+              : "bg-badwatt-base/60 text-badwatt-muted opacity-0 group-hover:opacity-100",
           ].join(" ")}
           aria-hidden="true"
         >
@@ -82,7 +82,7 @@ function ThemeCard({ theme, selected, onClick }: ThemeCardProps) {
       </div>
 
       <div
-        className="flex h-3 w-full overflow-hidden rounded-full border border-alvaro-border"
+        className="flex h-3 w-full overflow-hidden rounded-full border border-badwatt-border"
         aria-hidden="true"
       >
         {STRIPE_KEYS.map((key) => (
@@ -90,11 +90,11 @@ function ThemeCard({ theme, selected, onClick }: ThemeCardProps) {
         ))}
       </div>
 
-      <div className="flex items-center justify-between gap-3 text-[11px] font-mono text-alvaro-muted">
+      <div className="flex items-center justify-between gap-3 text-[11px] font-mono text-badwatt-muted">
         <div className="flex items-center gap-2">
           <span
             data-testid="swatch-base"
-            className="inline-block h-3 w-3 rounded-full border border-alvaro-border"
+            className="inline-block h-3 w-3 rounded-full border border-badwatt-border"
             style={{ backgroundColor: rgbToCss(colors.base) }}
             aria-hidden="true"
           />
@@ -104,7 +104,7 @@ function ThemeCard({ theme, selected, onClick }: ThemeCardProps) {
           <span className="uppercase tracking-widest">Accent</span>
           <span
             data-testid="swatch-accent"
-            className="inline-block h-3 w-3 rounded-full border border-alvaro-border"
+            className="inline-block h-3 w-3 rounded-full border border-badwatt-border"
             style={{ backgroundColor: rgbToCss(colors.accent) }}
             aria-hidden="true"
           />

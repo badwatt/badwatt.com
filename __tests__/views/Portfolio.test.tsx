@@ -17,7 +17,7 @@ describe("<Portfolio />", () => {
 
   it("renders portfolio items from data", () => {
     render(<Portfolio portfolioData={testPortfolioData} />);
-    expect(screen.getByText("ialvaro")).toBeDefined();
+    expect(screen.getByText("badwatt")).toBeDefined();
     expect(screen.getByText("wrestic")).toBeDefined();
   });
 
@@ -37,16 +37,16 @@ describe("<Portfolio />", () => {
 
   it("renders images with correct src", () => {
     render(<Portfolio portfolioData={testPortfolioData} />);
-    const img1 = screen.getByAltText("ialvaro") as HTMLImageElement;
+    const img1 = screen.getByAltText("badwatt") as HTMLImageElement;
     const img2 = screen.getByAltText("wrestic") as HTMLImageElement;
-    expect(img1.getAttribute("src")).toBe("../../assets/images/readme/ialvaro.png");
+    expect(img1.getAttribute("src")).toBe("../../assets/images/readme/badwatt.png");
     expect(img2.getAttribute("src")).toBe("../../assets/portfolio/wrestic/wrestic_mockup.png");
   });
 
   it("renders external links with correct attributes", () => {
     render(<Portfolio portfolioData={testPortfolioData} />);
-    const githubLink = screen.getByLabelText("ialvaro");
-    expect(githubLink.getAttribute("href")).toBe("https://github.com/badwatt/ialvaro");
+    const githubLink = screen.getByLabelText("badwatt");
+    expect(githubLink.getAttribute("href")).toBe("https://github.com/badwatt/badwatt.com");
     expect(githubLink.getAttribute("target")).toBe("_blank");
 
     const wresticLink = screen.getByLabelText("wrestic");

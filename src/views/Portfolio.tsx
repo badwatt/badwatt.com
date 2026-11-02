@@ -18,7 +18,7 @@ export const Portfolio = ({ portfolioData }: PortfolioProps) => {
             className={`sticky grid md:grid-cols-[1fr_2fr] gap-8 p-6 md:p-10 group`}
           >
             <div
-              className="grid cursor-pointer place-items-center rounded-2xl overflow-hidden bg-alvaro-base/50"
+              className="grid cursor-pointer place-items-center rounded-2xl overflow-hidden bg-badwatt-base/50"
               style={{ zIndex: i + 1 }}
             >
               <a href={url} target="_blank" rel="noopener noreferrer" aria-label={title}>
@@ -32,15 +32,15 @@ export const Portfolio = ({ portfolioData }: PortfolioProps) => {
               </a>
             </div>
             <div className="flex flex-col justify-center">
-              <h2 className="mb-4 text-3xl md:text-4xl tracking-tighter leading-none font-bold text-alvaro-white">
+              <h2 className="mb-4 text-3xl md:text-4xl tracking-tighter leading-none font-bold text-badwatt-white">
                 {title}
               </h2>
-              <p className="text-alvaro-muted leading-relaxed max-w-[60ch]">{description}</p>
+              <p className="text-badwatt-muted leading-relaxed max-w-[60ch]">{description}</p>
               <a
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 mt-6 text-sm font-medium text-alvaro-primary hover:underline underline-offset-4"
+                className="inline-flex items-center gap-2 mt-6 text-sm font-medium text-badwatt-primary hover:underline underline-offset-4"
               >
                 View project
                 <span className="transition-transform duration-200 group-hover:translate-x-1">
