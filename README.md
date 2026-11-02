@@ -82,20 +82,22 @@ import in `src/` and fails when one of them is broken. `AGENTS.md` has the long 
 ```sh
 pnpm install
 cp .env.example .env    # fill in the credentials below
-vp dev                  # http://localhost:4321
+vp run dev              # http://localhost:4321
 ```
 
 > [!NOTE]
-> `vp <name>` runs a built-in command, `vp run <name>` runs a `package.json` script.
-> They are not interchangeable: `vp dev` starts Vite, `vp run dev` starts Astro.
+> `vp <name>` runs a built-in command and `vp run <name>` runs the `package.json` script
+> of the same name. They are not interchangeable: `vp dev` and `vp build` are Vite's own
+> commands, while this is an Astro project, so dev and build go through `vp run dev` and
+> `vp run build`.
 
 ### Commands
 
 | Command           | What it does                                      |
 | ----------------- | ------------------------------------------------- |
-| `vp dev`          | Astro dev server on port 4321                     |
-| `vp build`        | Production build into `dist/`                     |
-| `vp preview`      | Serve the built site                              |
+| `vp run dev`      | Astro dev server on port 4321                     |
+| `vp run build`    | Astro production build into `dist/`               |
+| `vp run preview`  | Serve the build Astro produced                    |
 | `vp test`         | Vitest suite                                      |
 | `vp run coverage` | Suite with Istanbul coverage, fails below 100%    |
 | `vp check`        | Format, lint and type check (also runs on commit) |
@@ -164,10 +166,10 @@ the content schema and generated Astro output.
 
 ## Deployment
 
-Both compose files install, build and run the standalone server on port 4321 with
-`node dist/server/entry.mjs`:
+`compose.yml` runs the site on the official Vite+ image, with the repository bind-mounted
+into the container: on start it installs, builds and serves the standalone entry on port
+4321 with `node dist/server/entry.mjs`.
 
-- `compose.yml` — Caddy labels
-- `compose.traefik.yml` — Traefik router for `badwatt.com` and `azama.es`
-
-`Dockerfile` builds and serves the site with Bun instead (`bun run preview`).
+Two things the container needs from the host: a writable checkout (add `user: "0:0"` if
+the bind mount is not writable by the image user) and `.node-version`, which pins the
+Node.js version `vp` provisions.
