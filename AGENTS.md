@@ -38,6 +38,66 @@ No code without a test. No exceptions.
 
 ---
 
+## Coverage — 100%, enforced
+
+`vp run coverage` must end at **100% statements, branches, functions and lines** over
+`src/**`. The thresholds in `vitest.config.ts` fail the run otherwise, so a line without a
+test breaks the build: write the test first.
+
+Excluded, and only for this reason: `src/env.d.ts` (types), `src/content.config.ts`
+(schema read by Astro's content layer) and the generated `.astro/` output. Excluding
+anything else needs a reason in the commit message.
+
+When a branch cannot be covered, the branch is wrong: delete the unreachable fallback or
+reshape the state so that the impossible case does not exist.
+
+---
+
+## Architecture — hexagonal
+
+Four layers. Dependencies point inward only:
+
+| Layer            | Path                                                                  | May import                            |
+| ---------------- | --------------------------------------------------------------------- | ------------------------------------- |
+| `domain`         | `src/domain/**`                                                       | nothing but itself                    |
+| `application`    | `src/application/**`                                                  | `domain`, its own ports               |
+| `infrastructure` | `src/infrastructure/**`                                               | `application`, `domain`, libraries    |
+| `ui`             | `src/views/**`, `src/components/**`, `src/pages/**`, `src/layouts/**` | `application`, `domain`, React, Astro |
+
+- `domain` holds the rules: the CV data model, date parsing, pagination maths. No React,
+  no Astro, no jsPDF, no `import.meta.env`, no `fetch`, no DOM.
+- `application` holds the use cases (`generateCv`, `verifyCapToken`) and declares the
+  ports they need next to them. A port is a small `type` with the two or three members
+  the use case actually calls, not a folder of empty interfaces.
+- `infrastructure` holds one adapter per port: `getCollection` for content, jsPDF for the
+  PDF, `fetch` for Cap, EmailJS for mail.
+- `ui` orchestrates and renders. It never parses markdown, never touches jsPDF and never
+  knows a provider's payload.
+- Side effects and configuration are injected as arguments (`now`, `fetchImpl`, endpoint,
+  secret). The core receives values; only the edge reads `import.meta.env`.
+- Routes under `src/pages/api/**` are adapters: parse the request, call a use case, build
+  the response. No logic beyond that.
+- No port without an adapter, no adapter with logic. A use case with one implementation
+  called from one place is a plain function; the structure exists to keep the core
+  testable, not to draw a diagram.
+
+---
+
+## Clean code
+
+- One reason to change per module. A file that mixes rules, rendering and I/O is split by
+  those three reasons, not by layer names.
+- Functions do one thing and read top to bottom. Extract a named function instead of
+  writing a comment.
+- No duplicated logic: two call sites that parse the same date or close the same viewer
+  are one function or one hook used twice.
+- No magic numbers: page sizes, zoom steps and thresholds live in a constants module.
+- No `any`, no `!` to silence the compiler, no `@ts-ignore`.
+- No dead code, no commented-out code, no speculative options nobody passes.
+- No `index.ts` barrels; import the module you mean.
+
+---
+
 ## Banned practices
 
 - Hardcoded values in components (use constants, props, or config)
