@@ -9,9 +9,11 @@ export interface PdfCanvas {
   setDrawColor(r: number, g: number, b: number): void;
   setFillColor(r: number, g: number, b: number): void;
   setLineWidth(width: number): void;
-  text(text: string, x: number, y: number): void;
+  text(text: string | string[], x: number, y: number, options?: { align?: string }): void;
+  textWithLink(text: string, x: number, y: number, options: { url: string }): void;
   line(x1: number, y1: number, x2: number, y2: number): void;
   rect(x: number, y: number, w: number, h: number, style?: string): void;
+  ellipse(x: number, y: number, rx: number, ry: number, style?: string): void;
   roundedRect(
     x: number,
     y: number,

@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from "vite-plus/test";
 import type { PdfCanvas } from "src/infrastructure/pdf/canvas";
 import { drawMarkdown } from "src/infrastructure/pdf/markdown";
-import { sectionTitle, startPage } from "src/infrastructure/pdf/sections";
+import { drawSidebar, sectionTitle, startPage } from "src/infrastructure/pdf/sections";
 import { buildColors, getThemeById } from "src/domain/cv/theme";
 
 const C = buildColors(getThemeById("default").colors);
@@ -30,6 +30,8 @@ function createFakeCanvas(): PdfCanvas & { texts: string[]; fills: number } {
     setFontSize: vi.fn(),
     setLineWidth: vi.fn(),
     setTextColor: vi.fn(),
+    textWithLink: vi.fn(),
+    ellipse: vi.fn(),
     splitTextToSize: (text: string) => text.split("\n"),
     text: (text: string) => {
       state.texts.push(text);
@@ -52,6 +54,30 @@ describe("PdfCanvas port", () => {
 
     expect(y).toBeGreaterThan(100);
     expect(canvas.texts).toContain("A heading");
+  });
+
+  it("draws the sidebar even when there is no about content", () => {
+    const canvas = createFakeCanvas();
+
+    const y = drawSidebar(
+      canvas,
+      C,
+      {
+        aboutData: [],
+        featuredSkills: ["zig"],
+        otherSkills: [],
+        profileImg: null,
+        githubIcon: null,
+        linkedinIcon: null,
+      },
+      36,
+      160,
+      100,
+    );
+
+    expect(y).toBeGreaterThan(100);
+    expect(canvas.texts).toContain("ABOUT");
+    expect(canvas.texts).toContain("SKILLS");
   });
 
   it("paints the page background and the top bar", () => {

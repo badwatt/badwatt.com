@@ -1,5 +1,7 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from "vite-plus/test";
-import { getBioText, generateCV, parseDescription } from "src/infrastructure/pdf/generateCv";
+import { generateCV } from "src/infrastructure/pdf/generateCv";
+import { getBioText } from "src/infrastructure/pdf/sections";
+import { tokenize } from "src/domain/markdown";
 import { drawJob } from "src/infrastructure/pdf/sections";
 import { drawMarkdown } from "src/infrastructure/pdf/markdown";
 import { measureMarkdown } from "src/domain/cv/measure";
@@ -612,9 +614,9 @@ describe("cvThemes", () => {
   });
 });
 
-describe("parseDescription", () => {
+describe("tokenize", () => {
   it("tokenises headings and paragraphs from markdown", () => {
-    const result = parseDescription("# A\n\ncontent\n\n# B\n\nmore");
+    const result = tokenize("# A\n\ncontent\n\n# B\n\nmore");
     const blocks = result.filter((t) => t.type !== "space");
     expect(blocks.map((t) => t.type)).toEqual(["heading", "paragraph", "heading", "paragraph"]);
     expect((blocks[0] as { text: string }).text).toBe("A");
@@ -624,7 +626,7 @@ describe("parseDescription", () => {
   });
 
   it("tokenises lines before the first heading as a paragraph", () => {
-    const result = parseDescription("intro\n# A\ncontent\n");
+    const result = tokenize("intro\n# A\ncontent\n");
     const blocks = result.filter((t) => t.type !== "space");
     expect(blocks[0].type).toBe("paragraph");
     expect((blocks[0] as { text: string }).text).toBe("intro");
@@ -632,7 +634,7 @@ describe("parseDescription", () => {
   });
 
   it("returns a single paragraph token for plain text", () => {
-    const result = parseDescription("just text");
+    const result = tokenize("just text");
     const blocks = result.filter((t) => t.type !== "space");
     expect(blocks).toHaveLength(1);
     expect(blocks[0].type).toBe("paragraph");
@@ -640,7 +642,7 @@ describe("parseDescription", () => {
   });
 
   it("tokenises bullet lists", () => {
-    const result = parseDescription("- one\n- two\n- three");
+    const result = tokenize("- one\n- two\n- three");
     const blocks = result.filter((t) => t.type !== "space");
     expect(blocks).toHaveLength(1);
     expect(blocks[0].type).toBe("list");
@@ -650,7 +652,7 @@ describe("parseDescription", () => {
   });
 
   it("tokenises blockquotes", () => {
-    const result = parseDescription("> quoted");
+    const result = tokenize("> quoted");
     const blocks = result.filter((t) => t.type !== "space");
     expect(blocks[0].type).toBe("blockquote");
   });
