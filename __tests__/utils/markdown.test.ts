@@ -5,7 +5,7 @@ import {
   parseExperienceSubgroups,
   extractPeriodTitle,
   stripExtractedTitleAndSubtitle,
-} from "src/utils/markdown";
+} from "src/domain/markdown";
 
 describe("tokenize", () => {
   it("returns an empty-ish array for empty input", () => {

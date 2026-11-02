@@ -2,7 +2,7 @@ import { act, renderHook } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import { useCV } from "src/hooks/useCV";
 import { createCvClient } from "src/infrastructure/cvClient";
-import { getThemeById } from "src/utils/cvThemes";
+import { getThemeById } from "src/domain/cv/theme";
 import { testAboutData, testExperienceData, testSkillsData } from "../fixtures";
 
 vi.mock("src/infrastructure/cvClient", () => ({ createCvClient: vi.fn() }));

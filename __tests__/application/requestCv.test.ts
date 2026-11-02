@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vite-plus/test";
 import { requestCv, type CvPorts } from "src/application/requestCv";
-import { getThemeById } from "src/utils/cvThemes";
+import { getThemeById } from "src/domain/cv/theme";
 
 const theme = getThemeById("default");
 

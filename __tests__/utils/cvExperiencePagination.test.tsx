@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from "vite-plus/test";
 import { cardHeight, drawJobCard, fitSubgroups, generateCV } from "src/utils/generateCV";
-import { getThemeById } from "src/utils/cvThemes";
+import { getThemeById } from "src/domain/cv/theme";
 
 // ── Recording jsPDF mock ──
 // Tracks which page every `text()` call landed on so the pagination

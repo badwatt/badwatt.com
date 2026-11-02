@@ -1,4 +1,4 @@
-import type { CVTheme } from "src/utils/cvThemes";
+import type { CVTheme } from "src/domain/cv/theme";
 
 /** Ports the CV request needs; both are implemented at the edge. */
 export interface CvPorts {

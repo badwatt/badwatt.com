@@ -1,5 +1,5 @@
 import { CheckIcon } from "@phosphor-icons/react";
-import { CV_THEMES, type CVTheme, rgbToCss } from "src/utils/cvThemes";
+import { CV_THEMES, type CVTheme, rgbToCss } from "src/domain/cv/theme";
 
 export interface CVThemePickerProps {
   selectedId: CVTheme["id"];

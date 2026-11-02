@@ -1,13 +1,13 @@
 import type { ExperienceEntry, AboutEntry, SkillEntry } from "src/domain/content";
 import { sortByMostRecent } from "src/domain/experience";
-import { pickAssetByLuminance, type CVTheme, type CVThemeColors } from "src/utils/cvThemes";
+import { pickAssetByLuminance, type CVTheme, type CVThemeColors } from "src/domain/cv/theme";
 import {
   tokenize,
   parseExperienceSubgroups,
   extractPeriodTitle,
   stripExtractedTitleAndSubtitle,
   type Token,
-} from "src/utils/markdown";
+} from "src/domain/markdown";
 import type { Tokens } from "marked";
 import type { jsPDF } from "jspdf";
 import { loadImage, loadImageToPng, toCircular } from "src/infrastructure/pdf/assets";

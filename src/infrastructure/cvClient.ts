@@ -1,6 +1,6 @@
 import type { CvPorts } from "src/application/requestCv";
 import type { AboutEntry, ExperienceEntry, SkillEntry } from "src/domain/content";
-import type { CVTheme } from "src/utils/cvThemes";
+import type { CVTheme } from "src/domain/cv/theme";
 
 export interface CvContent {
   experienceData: ExperienceEntry[];

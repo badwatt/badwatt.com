@@ -1,4 +1,4 @@
-import { tokenize, tokenizeInline, type Token } from "src/utils/markdown";
+import { tokenize, tokenizeInline, type Token } from "src/domain/markdown";
 import type { Tokens } from "marked";
 
 interface MarkdownProps {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { requestCv } from "src/application/requestCv";
 import { createCvClient, type CvContent } from "src/infrastructure/cvClient";
-import { getThemeById, type CVTheme } from "src/utils/cvThemes";
+import { getThemeById, type CVTheme } from "src/domain/cv/theme";
 
 export type CvStep = "idle" | "themes" | "captcha" | "loading";
 

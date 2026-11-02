@@ -3,7 +3,7 @@ import { ArrowLeftIcon, FileTextIcon, SpinnerIcon } from "@phosphor-icons/react"
 import { CapWidget } from "src/components/CapWidget";
 import { CVThemePicker } from "src/components/CVThemePicker";
 import { useCV, type CvStep } from "src/hooks/useCV";
-import type { CVTheme } from "src/utils/cvThemes";
+import type { CVTheme } from "src/domain/cv/theme";
 import { Toaster } from "react-hot-toast";
 import type { ExperienceEntry, AboutEntry, SkillEntry } from "src/domain/content";
 

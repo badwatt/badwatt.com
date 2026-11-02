@@ -13,7 +13,7 @@ import {
   getThemeById,
   pickAssetByLuminance,
   relativeLuminance,
-} from "src/utils/cvThemes";
+} from "src/domain/cv/theme";
 import { testExperienceData, testAboutData, testSkillsData } from "../fixtures";
 
 const TEST_THEME = getThemeById("default");
