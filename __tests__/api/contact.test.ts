@@ -8,8 +8,8 @@ function createMockRequest(body: unknown) {
 }
 
 function setEnv() {
-  vi.stubEnv("PUBLIC_CAP_URL", "https://cap.example.com");
-  vi.stubEnv("PUBLIC_CAP_SITE_KEY", "site123");
+  vi.stubEnv("CAP_URL", "https://cap.example.com");
+  vi.stubEnv("CAP_SITE_KEY", "site123");
   vi.stubEnv("CAP_SECRET", "secret123");
   vi.stubEnv("EMAILJS_SERVICE_ID", "service_1");
   vi.stubEnv("EMAILJS_TEMPLATE_ID", "template_1");
@@ -66,6 +66,8 @@ describe("POST /api/contact", () => {
   it("does not invent credentials when the environment is missing", async () => {
     setEnv();
     for (const key of [
+      "CAP_URL",
+      "CAP_SITE_KEY",
       "CAP_SECRET",
       "EMAILJS_SERVICE_ID",
       "EMAILJS_TEMPLATE_ID",

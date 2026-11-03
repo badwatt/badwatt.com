@@ -2,7 +2,7 @@ import { act, cleanup, render, screen, waitFor } from "@testing-library/react";
 import { Home } from "src/site/ui/sections/Home";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
 import { createObserverMock } from "../../../helpers/observerMock";
-import { testExperienceData, testAboutData, testSkillsData } from "../../../fixtures";
+import { testExperienceData, testAboutData, testSkillsData, testCap } from "../../../fixtures";
 import toast from "react-hot-toast";
 
 vi.mock("src/cv/infrastructure/pdf/generateCv", () => ({
@@ -50,6 +50,7 @@ describe("<Home />", () => {
   it("should render hero name with scramble wobble", () => {
     render(
       <Home
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -63,6 +64,7 @@ describe("<Home />", () => {
   it("should render CTAs", () => {
     render(
       <Home
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -75,6 +77,7 @@ describe("<Home />", () => {
   it("should render tagline", () => {
     render(
       <Home
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -87,6 +90,7 @@ describe("<Home />", () => {
   it("updates parallax on scroll", () => {
     render(
       <Home
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -104,6 +108,7 @@ describe("<Home />", () => {
   it("reveals tagline when visible", () => {
     render(
       <Home
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -120,6 +125,7 @@ describe("<Home />", () => {
   it("shows theme picker in a modal after clicking CV", () => {
     render(
       <Home
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -138,6 +144,7 @@ describe("<Home />", () => {
   it("closes the theme modal when backdrop is clicked", () => {
     render(
       <Home
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -158,6 +165,7 @@ describe("<Home />", () => {
   it("keeps the palette picker out of the hero section", () => {
     const { container } = render(
       <Home
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -174,6 +182,7 @@ describe("<Home />", () => {
   it("replaces the call to action with the captcha while the flow runs", () => {
     render(
       <Home
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -193,6 +202,7 @@ describe("<Home />", () => {
   it("picking a theme closes modal and shows captcha", () => {
     render(
       <Home
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -212,6 +222,7 @@ describe("<Home />", () => {
   it("'Change palette' reopens the theme modal with the chosen theme preselected", () => {
     render(
       <Home
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -234,6 +245,7 @@ describe("<Home />", () => {
     const { generateCV } = await import("src/cv/infrastructure/pdf/generateCv");
     render(
       <Home
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -264,6 +276,7 @@ describe("<Home />", () => {
     );
     render(
       <Home
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -293,6 +306,7 @@ describe("<Home />", () => {
     const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     render(
       <Home
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -318,6 +332,7 @@ describe("<Home />", () => {
     setupFetchMock(false);
     render(
       <Home
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -342,6 +357,7 @@ describe("<Home />", () => {
     const revokeSpy = vi.spyOn(URL, "revokeObjectURL").mockImplementation(() => {});
     render(
       <Home
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -378,6 +394,7 @@ describe("<Home />", () => {
     const revokeSpy = vi.spyOn(URL, "revokeObjectURL").mockImplementation(() => {});
     render(
       <Home
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -411,6 +428,7 @@ describe("<Home />", () => {
   it("matches snapshot", () => {
     const { container } = render(
       <Home
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}

@@ -113,10 +113,10 @@ vp run dev              # http://localhost:4321
 | `EMAILJS_SERVICE_ID`, `EMAILJS_TEMPLATE_ID` | `POST /api/contact`, at runtime    |
 | `EMAILJS_PUBLIC_KEY`, `EMAILJS_PRIVATE_KEY` | `POST /api/contact`, at runtime    |
 
-The first two are inlined by Vite at build time because the widget needs them in the
-browser; they are public by design. Everything else is read from the process when a
-request arrives, so rotating a key is a restart, not a rebuild — and nothing but those two
-ends up in the published image.
+All of them are read from the process when a request arrives, so rotating a key or
+pointing the site at another captcha server is a restart, not a rebuild. The image carries
+no configuration at all. The two Cap values do end up in the page — the widget needs them —
+but nothing is baked into the image.
 
 `.env.example` also declares `FQDN`, which nothing reads today.
 
@@ -176,16 +176,14 @@ The site ships as a container image, not as a checkout:
 
 1. `docker build` produces it from the `Dockerfile`: built on the official Vite+ image,
    run on `debian:bookworm-slim` with only the Node.js binary that `vp` resolved, `dist/`
-   and the production dependencies. The two `PUBLIC_CAP_*` values are build arguments
-   because the widget needs them inlined; the secrets are not, so the image carries no
-   credentials at all.
+   and the production dependencies. It takes no build arguments: every value, public or
+   secret, is read at runtime.
 2. The image is pushed to `ghcr.io/badwatt/badwatt.com:latest`.
 3. On the host, a Podman Quadlet pulls it, passes the secret through its `EnvironmentFile`
    and relies on `AutoUpdate=registry` to pick up new tags.
 
 ```sh
-docker build -t ghcr.io/badwatt/badwatt.com:latest \
-  --build-arg PUBLIC_CAP_URL=... --build-arg PUBLIC_CAP_SITE_KEY=... .
+docker build -t ghcr.io/badwatt/badwatt.com:latest .
 docker push ghcr.io/badwatt/badwatt.com:latest
 ```
 

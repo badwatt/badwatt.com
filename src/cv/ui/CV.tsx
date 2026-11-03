@@ -13,9 +13,10 @@ interface CVProps {
   experienceData: ExperienceEntry[];
   aboutData: AboutEntry[];
   skillsData: SkillEntry[];
+  cap: { url: string; siteKey: string };
 }
 
-export const CV = ({ experienceData, aboutData, skillsData }: CVProps) => {
+export const CV = ({ experienceData, aboutData, skillsData, cap }: CVProps) => {
   const cv = useCV({ experienceData, aboutData, skillsData });
 
   return (
@@ -31,6 +32,7 @@ export const CV = ({ experienceData, aboutData, skillsData }: CVProps) => {
         }}
       />
       {renderStep(cv.step, {
+        cap,
         onOpen: cv.openThemes,
         onPickTheme: cv.pickTheme,
         onBackToThemes: cv.backToThemes,
@@ -47,6 +49,7 @@ export const CV = ({ experienceData, aboutData, skillsData }: CVProps) => {
 };
 
 interface StepHandlers {
+  cap: { url: string; siteKey: string };
   onOpen: () => void;
   onPickTheme: (theme: CVTheme) => void;
   onBackToThemes: () => void;
@@ -62,7 +65,12 @@ function renderStep(step: CvStep, h: StepHandlers) {
       return <CVThemePicker selectedId={h.selectedTheme.id} onSelect={h.onPickTheme} />;
     case "captcha":
       return (
-        <CaptchaStep theme={h.selectedTheme} onBack={h.onBackToThemes} onVerified={h.onVerified} />
+        <CaptchaStep
+          cap={h.cap}
+          theme={h.selectedTheme}
+          onBack={h.onBackToThemes}
+          onVerified={h.onVerified}
+        />
       );
     case "loading":
       return <LoadingStep theme={h.selectedTheme} />;
@@ -95,10 +103,12 @@ function IdleStep({ onOpen }: { onOpen: () => void }) {
 }
 
 function CaptchaStep({
+  cap,
   theme,
   onBack,
   onVerified,
 }: {
+  cap: { url: string; siteKey: string };
   theme: CVTheme;
   onBack: () => void;
   onVerified: (token: string) => void;
@@ -117,7 +127,7 @@ function CaptchaStep({
         <SelectedThemeBadge theme={theme} />
       </div>
       <div className="grid place-items-center">
-        <CapWidget onVerified={onVerified} />
+        <CapWidget url={cap.url} siteKey={cap.siteKey} onVerified={onVerified} />
       </div>
       <div className="mt-6 flex justify-start">
         <button

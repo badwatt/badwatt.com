@@ -8,7 +8,7 @@ const MESSAGES = {
   mail: "Message failed to send. Please try again.",
 } as const;
 
-export const Contact = () => {
+export const Contact = ({ cap }: { cap: { url: string; siteKey: string } }) => {
   const [_isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showCaptcha, setShowCaptcha] = useState(false);
@@ -182,6 +182,8 @@ export const Contact = () => {
 
             {showCaptcha && (
               <CapWidget
+                url={cap.url}
+                siteKey={cap.siteKey}
                 onVerified={(token) => {
                   void doSubmit(token);
                 }}

@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 
-interface CapWidgetProps {
+export interface CapWidgetProps {
+  url: string;
+  siteKey: string;
   onVerified: (token: string) => void;
 }
 
 const SCRIPT_ID = "cap-widget-script";
 const SCRIPT_URL = "https://cdn.jsdelivr.net/npm/cap-widget";
 
-export const CapWidget = ({ onVerified }: CapWidgetProps) => {
+export const CapWidget = ({ url, siteKey, onVerified }: CapWidgetProps) => {
   const [widget, setWidget] = useState<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -31,7 +33,7 @@ export const CapWidget = ({ onVerified }: CapWidgetProps) => {
     return () => widget.removeEventListener("solve", handleSolve);
   }, [widget, onVerified]);
 
-  const endpoint = `${import.meta.env.PUBLIC_CAP_URL}/${import.meta.env.PUBLIC_CAP_SITE_KEY}/`;
+  const endpoint = `${url}/${siteKey}/`;
 
   return (
     <div>

@@ -12,8 +12,8 @@ export const POST: APIRoute = async ({ request }) => {
   const result = await sendContactMessage(token, message, {
     verifyCaptcha: async (candidate) => {
       const { ok } = await verifyCapToken(candidate, {
-        endpoint: import.meta.env.PUBLIC_CAP_URL,
-        siteKey: import.meta.env.PUBLIC_CAP_SITE_KEY,
+        endpoint: process.env.CAP_URL ?? "",
+        siteKey: process.env.CAP_SITE_KEY ?? "",
         secret: process.env.CAP_SECRET ?? "",
         fetchImpl: fetch,
       });

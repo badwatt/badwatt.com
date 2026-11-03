@@ -14,8 +14,8 @@ function createMockRequest(body: unknown) {
 
 describe("POST /api/cap/verify", () => {
   beforeEach(() => {
-    vi.stubEnv("PUBLIC_CAP_URL", "https://cap.example.com");
-    vi.stubEnv("PUBLIC_CAP_SITE_KEY", "site123");
+    vi.stubEnv("CAP_URL", "https://cap.example.com");
+    vi.stubEnv("CAP_SITE_KEY", "site123");
     vi.stubEnv("CAP_SECRET", "secret123");
   });
   afterEach(() => {
@@ -50,6 +50,8 @@ describe("POST /api/cap/verify", () => {
   it("sends an empty secret when the process has none", async () => {
     vi.stubEnv("CAP_SECRET", "unused");
     delete process.env.CAP_SECRET;
+    delete process.env.CAP_URL;
+    delete process.env.CAP_SITE_KEY;
     global.fetch = vi.fn().mockResolvedValue({
       json: () => Promise.resolve({ success: true }),
     });

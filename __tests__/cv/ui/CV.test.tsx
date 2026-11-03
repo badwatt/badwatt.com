@@ -1,7 +1,7 @@
 import { cleanup, render, screen, waitFor, act } from "@testing-library/react";
 import { CV } from "src/cv/ui/CV";
 import { afterEach, describe, expect, it, vi } from "vite-plus/test";
-import { testExperienceData, testAboutData, testSkillsData } from "../../fixtures";
+import { testExperienceData, testAboutData, testSkillsData, testCap } from "../../fixtures";
 import toast from "react-hot-toast";
 import { getThemeById } from "src/cv/domain/theme";
 
@@ -70,6 +70,7 @@ describe("<CV />", () => {
   it("renders heading", () => {
     render(
       <CV
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -81,6 +82,7 @@ describe("<CV />", () => {
   it("renders section with correct id", () => {
     const { container } = render(
       <CV
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -92,6 +94,7 @@ describe("<CV />", () => {
   it("renders open button", () => {
     render(
       <CV
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -105,6 +108,7 @@ describe("<CV />", () => {
   it("shows theme picker after clicking open", () => {
     render(
       <CV
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -122,6 +126,7 @@ describe("<CV />", () => {
   it("captcha is hidden while in the picker", () => {
     render(
       <CV
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -134,6 +139,7 @@ describe("<CV />", () => {
   it("selects a theme and advances to captcha", () => {
     render(
       <CV
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -148,6 +154,7 @@ describe("<CV />", () => {
   it("captcha step shows the chosen theme name", () => {
     render(
       <CV
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -161,6 +168,7 @@ describe("<CV />", () => {
   it("back-to-themes returns to the picker", () => {
     render(
       <CV
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -180,6 +188,7 @@ describe("<CV />", () => {
     );
     render(
       <CV
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -201,6 +210,7 @@ describe("<CV />", () => {
     const { generateCV } = await import("src/cv/infrastructure/pdf/generateCv");
     render(
       <CV
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -225,6 +235,7 @@ describe("<CV />", () => {
     const { generateCV } = await import("src/cv/infrastructure/pdf/generateCv");
     render(
       <CV
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -248,6 +259,7 @@ describe("<CV />", () => {
     const consoleSpy = vi.spyOn(console, "error").mockImplementation(() => {});
     render(
       <CV
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -268,6 +280,7 @@ describe("<CV />", () => {
     setupFetchMock(false);
     render(
       <CV
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -287,6 +300,7 @@ describe("<CV />", () => {
     const revokeSpy = vi.spyOn(URL, "revokeObjectURL").mockImplementation(() => {});
     render(
       <CV
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}
@@ -317,6 +331,7 @@ describe("<CV />", () => {
     const revokeSpy = vi.spyOn(URL, "revokeObjectURL").mockImplementation(() => {});
     render(
       <CV
+        cap={testCap}
         experienceData={testExperienceData}
         aboutData={testAboutData}
         skillsData={testSkillsData}

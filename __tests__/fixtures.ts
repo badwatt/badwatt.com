@@ -68,3 +68,5 @@ export const testAboutData = [
     bio: "I feel very fortunate to have found what I am passionate about and to make it my job.\nI have also worked managing, training and leading marketing teams at a national level.\nIf there is one thing that characterises me, it is that I am 100% involved in everything I do.\nI am hard-working, perfectionist and non-conformist.\nI have a direct and creative working style. And I put all the energy I get from working in what I am so enthusiastic about.",
   },
 ];
+
+export const testCap = { url: "https://cap.example.com", siteKey: "site123" };

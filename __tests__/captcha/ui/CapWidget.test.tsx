@@ -24,7 +24,9 @@ describe("<CapWidget />", () => {
   it("loads the widget script once and points it at the configured endpoint", () => {
     document.getElementById(SCRIPT_ID)?.remove();
 
-    const { container } = render(<CapWidget onVerified={vi.fn()} />);
+    const { container } = render(
+      <CapWidget url="https://cap.example.com" siteKey="site123" onVerified={vi.fn()} />,
+    );
 
     expect(document.querySelectorAll(`#${SCRIPT_ID}`)).toHaveLength(1);
     expect(document.getElementById(SCRIPT_ID)?.getAttribute("src")).toBe(
@@ -40,14 +42,16 @@ describe("<CapWidget />", () => {
     existing.id = SCRIPT_ID;
     document.body.appendChild(existing);
 
-    render(<CapWidget onVerified={vi.fn()} />);
+    render(<CapWidget url="https://cap.example.com" siteKey="site123" onVerified={vi.fn()} />);
 
     expect(document.querySelectorAll(`#${SCRIPT_ID}`)).toHaveLength(1);
   });
 
   it("forwards the solved token", () => {
     const onVerified = vi.fn();
-    const { container } = render(<CapWidget onVerified={onVerified} />);
+    const { container } = render(
+      <CapWidget url="https://cap.example.com" siteKey="site123" onVerified={onVerified} />,
+    );
 
     widgetIn(container)?.dispatchEvent(
       new CustomEvent("solve", { detail: { token: "cap-token" } }),
@@ -58,7 +62,9 @@ describe("<CapWidget />", () => {
 
   it("ignores a solve event without a token", () => {
     const onVerified = vi.fn();
-    const { container } = render(<CapWidget onVerified={onVerified} />);
+    const { container } = render(
+      <CapWidget url="https://cap.example.com" siteKey="site123" onVerified={onVerified} />,
+    );
 
     widgetIn(container)?.dispatchEvent(new CustomEvent("solve"));
 
@@ -67,7 +73,9 @@ describe("<CapWidget />", () => {
 
   it("releases the listener on unmount", () => {
     const onVerified = vi.fn();
-    const { container, unmount } = render(<CapWidget onVerified={onVerified} />);
+    const { container, unmount } = render(
+      <CapWidget url="https://cap.example.com" siteKey="site123" onVerified={onVerified} />,
+    );
     const widget = widgetIn(container);
 
     unmount();

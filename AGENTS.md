@@ -130,6 +130,8 @@ source and `src/cv/ui/useCV.ts` builds the CV client. Every other module talks t
 - No duplicated logic: two call sites that parse the same date or close the same viewer
   are one function or one hook used twice.
 - No magic numbers: page sizes, zoom steps and thresholds live in a constants module.
+- No comments: not in code, not in tests, not in config. A name or a small function replaces
+  the explanation; if a line still needs one, the line is wrong.
 - No `any`, no `!` to silence the compiler, no `@ts-ignore`.
 - No dead code, no commented-out code, no speculative options nobody passes.
 - No `index.ts` barrels; import the module you mean.

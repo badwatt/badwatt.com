@@ -55,20 +55,25 @@ const { experience: experienceData, portfolio: portfolioData, about: aboutData, 
   await loadSiteContent(contentSource);
 
 const techStack = skillsData.map((s) => s.title);
+
+const cap = {
+  url: process.env.CAP_URL ?? "",
+  siteKey: process.env.CAP_SITE_KEY ?? "",
+};
 ---
 
 <Layout>
   <LoadingScreen client:load />
   <ScrollProgress client:load />
   <CursorGlow client:load />
-  <Home client:load experienceData={experienceData} aboutData={aboutData} skillsData={skillsData} />
+  <Home client:load experienceData={experienceData} aboutData={aboutData} skillsData={skillsData} cap={cap} />
   <Marquee items={techStack} speed={35} />
   <About client:load aboutData={aboutData} />
-  <Stats client:load experienceData={experienceData} portfolioData={portfolioData} skillsData={skillsData} />
-  <Skills client:load skillsData={skillsData} />
+  <Stats client:load experienceData={experienceData} portfolioData={portfolioData} skillsData={skillsData} cap={cap} />
+  <Skills client:load skillsData={skillsData} cap={cap} />
   <Experience client:load experienceData={experienceData} />
   <Portfolio client:load portfolioData={portfolioData} />
-  <CV client:load experienceData={experienceData} aboutData={aboutData} skillsData={skillsData} />
-  <Contact client:load />
+  <CV client:load experienceData={experienceData} aboutData={aboutData} skillsData={skillsData} cap={cap} />
+  <Contact client:load cap={cap} />
   <Scrollup client:load />
 </Layout>

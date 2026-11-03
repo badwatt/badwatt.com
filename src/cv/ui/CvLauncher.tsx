@@ -11,10 +11,17 @@ interface CvLauncherProps {
   experienceData: ExperienceEntry[];
   aboutData: AboutEntry[];
   skillsData: SkillEntry[];
+  cap: { url: string; siteKey: string };
   idle: (start: () => void) => ReactNode;
 }
 
-export const CvLauncher = ({ experienceData, aboutData, skillsData, idle }: CvLauncherProps) => {
+export const CvLauncher = ({
+  experienceData,
+  aboutData,
+  skillsData,
+  cap,
+  idle,
+}: CvLauncherProps) => {
   const cv = useCV({ experienceData, aboutData, skillsData });
 
   return (
@@ -25,7 +32,7 @@ export const CvLauncher = ({ experienceData, aboutData, skillsData, idle }: CvLa
         </span>
       ) : cv.step === "captcha" ? (
         <div className="flex flex-col items-center gap-3">
-          <CapWidget onVerified={cv.verify} />
+          <CapWidget url={cap.url} siteKey={cap.siteKey} onVerified={cv.verify} />
           <button
             type="button"
             onClick={cv.openThemes}

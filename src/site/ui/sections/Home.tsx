@@ -9,9 +9,10 @@ interface HomeProps {
   experienceData: ExperienceEntry[];
   aboutData: AboutEntry[];
   skillsData: SkillEntry[];
+  cap: { url: string; siteKey: string };
 }
 
-export const Home = ({ experienceData, aboutData, skillsData }: HomeProps) => {
+export const Home = ({ experienceData, aboutData, skillsData, cap }: HomeProps) => {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
   const [parallax, setParallax] = useState(0);
 
@@ -81,6 +82,7 @@ export const Home = ({ experienceData, aboutData, skillsData }: HomeProps) => {
             experienceData={experienceData}
             aboutData={aboutData}
             skillsData={skillsData}
+            cap={cap}
             idle={(start) => (
               <>
                 <a

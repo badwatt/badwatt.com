@@ -1,6 +1,7 @@
 import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Contact } from "src/contact/ui/Contact";
 import toast from "react-hot-toast";
+import { testCap } from "../../fixtures";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vite-plus/test";
 
 vi.mock("src/captcha/ui/CapWidget", () => {
@@ -40,12 +41,12 @@ describe("<Contact />", () => {
   });
 
   it("renders heading and form", () => {
-    render(<Contact />);
+    render(<Contact cap={testCap} />);
     expect(screen.getByRole("heading", { name: /get in touch/i })).toBeDefined();
   });
 
   it("shows validation errors on empty send click", () => {
-    render(<Contact />);
+    render(<Contact cap={testCap} />);
     fireEvent.click(screen.getByLabelText("submit"));
     expect(screen.getByText("Name is required")).toBeDefined();
     expect(screen.getByText("Email is required")).toBeDefined();
@@ -53,7 +54,7 @@ describe("<Contact />", () => {
   });
 
   it("shows invalid email error", () => {
-    render(<Contact />);
+    render(<Contact cap={testCap} />);
     fireEvent.change(screen.getByLabelText(/email/i), {
       target: { name: "email", value: "not-an-email" },
     });
@@ -62,7 +63,7 @@ describe("<Contact />", () => {
   });
 
   it("clears error when field is corrected", () => {
-    render(<Contact />);
+    render(<Contact cap={testCap} />);
     fireEvent.click(screen.getByLabelText("submit"));
     expect(screen.getByText("Name is required")).toBeDefined();
     fireEvent.change(screen.getByLabelText(/name/i), { target: { name: "name", value: "Alvaro" } });
@@ -70,7 +71,7 @@ describe("<Contact />", () => {
   });
 
   it("shows captcha widget after clicking send", () => {
-    render(<Contact />);
+    render(<Contact cap={testCap} />);
     fireEvent.change(screen.getByLabelText(/name/i), { target: { name: "name", value: "Alvaro" } });
     fireEvent.change(screen.getByLabelText(/email/i), {
       target: { name: "email", value: "a@b.com" },
@@ -85,7 +86,7 @@ describe("<Contact />", () => {
 
   it("shows the failure message when the route refuses the mail", async () => {
     setupFetchMock({ ok: false, reason: "mail" });
-    render(<Contact />);
+    render(<Contact cap={testCap} />);
     fireEvent.change(screen.getByLabelText(/name/i), { target: { name: "name", value: "Alvaro" } });
     fireEvent.change(screen.getByLabelText(/email/i), {
       target: { name: "email", value: "a@b.com" },
@@ -103,7 +104,7 @@ describe("<Contact />", () => {
 
   it("shows the failure message when the request cannot be made", async () => {
     global.fetch = vi.fn().mockRejectedValue(new Error("offline"));
-    render(<Contact />);
+    render(<Contact cap={testCap} />);
     fireEvent.change(screen.getByLabelText(/name/i), { target: { name: "name", value: "Alvaro" } });
     fireEvent.change(screen.getByLabelText(/email/i), {
       target: { name: "email", value: "a@b.com" },
@@ -120,7 +121,7 @@ describe("<Contact />", () => {
   });
 
   it("shows the success panel when the route accepts the message", async () => {
-    render(<Contact />);
+    render(<Contact cap={testCap} />);
     fireEvent.change(screen.getByLabelText(/name/i), { target: { name: "name", value: "Alvaro" } });
     fireEvent.change(screen.getByLabelText(/email/i), {
       target: { name: "email", value: "a@b.com" },
@@ -137,7 +138,7 @@ describe("<Contact />", () => {
   });
 
   it("updates form data on input change", () => {
-    render(<Contact />);
+    render(<Contact cap={testCap} />);
     const nameInput = screen.getByLabelText(/name/i) as HTMLInputElement;
     fireEvent.change(nameInput, { target: { name: "name", value: "Alvaro" } });
     expect(nameInput.value).toBe("Alvaro");
@@ -145,7 +146,7 @@ describe("<Contact />", () => {
 
   it("blocks submit when captcha verification fails", async () => {
     setupFetchMock({ ok: false, reason: "captcha" });
-    render(<Contact />);
+    render(<Contact cap={testCap} />);
     fireEvent.change(screen.getByLabelText(/name/i), { target: { name: "name", value: "Alvaro" } });
     fireEvent.change(screen.getByLabelText(/email/i), {
       target: { name: "email", value: "a@b.com" },
@@ -162,7 +163,7 @@ describe("<Contact />", () => {
   });
 
   it("matches snapshot", () => {
-    const { container } = render(<Contact />);
+    const { container } = render(<Contact cap={testCap} />);
     expect(container).toMatchSnapshot();
   });
 });

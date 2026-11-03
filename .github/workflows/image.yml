@@ -51,9 +51,5 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          # The two values the browser needs; everything else is read at runtime.
-          build-args: |
-            PUBLIC_CAP_URL=${{ vars.PUBLIC_CAP_URL }}
-            PUBLIC_CAP_SITE_KEY=${{ vars.PUBLIC_CAP_SITE_KEY }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

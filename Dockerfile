@@ -7,12 +7,6 @@ WORKDIR /app
 # Vite inlines import.meta.env while building, and the captcha widget needs these
 # two in the browser. Everything else is read from the environment at runtime:
 # CAP_SECRET and the four EMAILJS_* values never reach the image or the visitor.
-ARG PUBLIC_CAP_URL=""
-ARG PUBLIC_CAP_SITE_KEY=""
-ENV PUBLIC_CAP_URL=$PUBLIC_CAP_URL \
-    PUBLIC_CAP_SITE_KEY=$PUBLIC_CAP_SITE_KEY
-
-# Dependencies first, so this layer survives source changes.
 COPY --chown=vp:vp package.json pnpm-lock.yaml pnpm-workspace.yaml .node-version* ./
 RUN vp install --frozen-lockfile
 
