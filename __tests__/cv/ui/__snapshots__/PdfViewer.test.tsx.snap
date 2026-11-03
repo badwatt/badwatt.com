@@ -12,7 +12,7 @@ exports[`PdfViewer > snapshot 1`] = `
     <div
       aria-label="CV preview"
       aria-modal="true"
-      class="relative z-[71] overflow-hidden bg-badwatt-surface outline-none h-full w-full rounded-none md:h-[85vh] md:w-[90vw] md:rounded-3xl md:border md:border-badwatt-border md:shadow-2xl md:shadow-badwatt-primary/10 "
+      class="relative z-[71] overflow-y-auto overscroll-contain bg-badwatt-surface outline-none h-full max-h-[100dvh] w-full rounded-none md:h-[85vh] md:w-[90vw] md:rounded-3xl md:border md:border-badwatt-border md:shadow-2xl md:shadow-badwatt-primary/10 "
       data-testid="modal-panel"
       role="dialog"
       tabindex="-1"

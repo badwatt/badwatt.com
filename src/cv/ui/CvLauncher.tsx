@@ -55,6 +55,7 @@ export const CvLauncher = ({
         isOpen={cv.step === "themes"}
         onClose={cv.closeThemes}
         ariaLabel="Choose CV palette"
+        closeLabel="Close palette picker"
         className="md:h-auto md:max-h-[85vh] md:max-w-3xl"
       >
         <CVThemePicker selectedId={cv.theme.id} onSelect={cv.pickTheme} />

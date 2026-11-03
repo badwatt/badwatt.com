@@ -11,7 +11,7 @@ const STRIPE_KEYS = ["base", "surface", "border", "muted", "text", "primary", "a
 export function CVThemePicker({ selectedId, onSelect }: CVThemePickerProps) {
   return (
     <div className="w-full p-8 md:p-12 rounded-3xl bg-badwatt-surface border border-badwatt-border">
-      <div className="mb-8 md:mb-10 max-w-2xl">
+      <div className="mb-8 md:mb-10 max-w-2xl pr-12 md:pr-0">
         <h2 className="text-3xl md:text-4xl tracking-[-0.03em] font-bold text-badwatt-white">
           Pick a palette
         </h2>

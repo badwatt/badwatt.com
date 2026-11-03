@@ -150,6 +150,29 @@ describe("Modal", () => {
     expect(onClose).toHaveBeenCalledTimes(0);
   });
 
+  it("offers a close button when asked", () => {
+    const onClose = vi.fn();
+    render(
+      <Modal isOpen onClose={onClose} closeLabel="Close palette">
+        <p>content</p>
+      </Modal>,
+    );
+
+    screen.getByLabelText("Close palette").click();
+
+    expect(onClose).toHaveBeenCalledOnce();
+  });
+
+  it("has no close button unless asked", () => {
+    render(
+      <Modal isOpen onClose={vi.fn()}>
+        <p>content</p>
+      </Modal>,
+    );
+
+    expect(screen.queryByLabelText("Close palette")).toBeNull();
+  });
+
   it("calls onClose when backdrop clicked", () => {
     const onClose = vi.fn();
     render(

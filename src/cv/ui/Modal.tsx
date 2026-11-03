@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "react";
+import { XIcon } from "@phosphor-icons/react";
 import { createPortal } from "react-dom";
 import type { ReactNode } from "react";
 
@@ -8,6 +9,7 @@ export interface ModalProps {
   children: ReactNode;
   className?: string;
   ariaLabel?: string;
+  closeLabel?: string;
 }
 
 export function lockBodyScroll() {
@@ -21,7 +23,14 @@ export function lockBodyScroll() {
   };
 }
 
-export function Modal({ isOpen, onClose, children, className = "", ariaLabel }: ModalProps) {
+export function Modal({
+  isOpen,
+  onClose,
+  children,
+  className = "",
+  ariaLabel,
+  closeLabel,
+}: ModalProps) {
   const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -67,12 +76,24 @@ export function Modal({ isOpen, onClose, children, className = "", ariaLabel }: 
         aria-label={ariaLabel}
         onClick={stopPropagation}
         className={[
-          "relative z-[71] overflow-hidden bg-badwatt-surface outline-none",
-          "h-full w-full rounded-none",
+          "relative z-[71] overflow-y-auto overscroll-contain bg-badwatt-surface outline-none",
+          "h-full max-h-[100dvh] w-full rounded-none",
           "md:h-[85vh] md:w-[90vw] md:rounded-3xl md:border md:border-badwatt-border md:shadow-2xl md:shadow-badwatt-primary/10",
           className,
         ].join(" ")}
       >
+        {closeLabel && (
+          <div className="pointer-events-none sticky top-0 z-[72] flex h-0 justify-end">
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label={closeLabel}
+              className="pointer-events-auto m-3 cursor-pointer rounded-full border border-badwatt-border bg-badwatt-surface p-2 text-badwatt-muted transition-all duration-300 hover:border-badwatt-primary/40 hover:text-badwatt-primary"
+            >
+              <XIcon size={20} weight="bold" />
+            </button>
+          </div>
+        )}
         {children}
       </div>
     </div>,
